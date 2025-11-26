@@ -39,5 +39,4 @@ Route::middleware('auth')->group(function () {
 
 // Webhook Handler (API endpoint for Git providers - No Auth Required)
 Route::post('webhook/{webhook}/{token}', [WebhookHandlerController::class, 'handle'])
-    ->name('webhook.handle')
-    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+    ->name('webhook.handle');
