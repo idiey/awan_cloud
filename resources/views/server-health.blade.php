@@ -8,44 +8,36 @@
     @if($latestMetric)
         <!-- System Monitoring Cards -->
         <div class="row mb-4">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="card-body pb-2">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>
-                                <p class="text-muted mb-1">CPU Cores</p>
-                                <h3 class="mb-0">{{ $cpuCores }}</h3>
-                                <small class="text-muted">Physical Cores</small>
+                                <p class="text-muted mb-1">CPU Usage</p>
+                                <h3 class="mb-0">{{ number_format($latestMetric->cpu_usage, 1) }}%</h3>
+                                <small class="text-muted">{{ $cpuCores }} Cores</small>
                             </div>
                             <div class="text-primary" style="font-size: 2.5rem;">
                                 <i class="bi bi-cpu"></i>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <p class="text-muted mb-1">CPU Usage</p>
-                                <h3 class="mb-0">{{ number_format($latestMetric->cpu_usage, 1) }}%</h3>
-                                <small class="text-muted">&nbsp;</small>
-                            </div>
-                            <div class="text-{{ $latestMetric->cpu_usage > 80 ? 'danger' : ($latestMetric->cpu_usage > 60 ? 'warning' : 'success') }}" style="font-size: 2.5rem;">
-                                <i class="bi bi-cpu-fill"></i>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-{{ $latestMetric->cpu_usage > 80 ? 'danger' : ($latestMetric->cpu_usage > 60 ? 'warning' : 'success') }}" 
+                                 role="progressbar" 
+                                 style="width: {{ min($latestMetric->cpu_usage, 100) }}%;" 
+                                 aria-valuenow="{{ $latestMetric->cpu_usage }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="card-body pb-2">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>
                                 <p class="text-muted mb-1">Memory Usage</p>
                                 <h3 class="mb-0">{{ number_format($latestMetric->memory_usage, 1) }}%</h3>
@@ -53,18 +45,27 @@
                                     <small class="text-muted">{{ $latestMetric->formatBytes($latestMetric->memory_used) }} / {{ $latestMetric->formatBytes($latestMetric->memory_total) }}</small>
                                 @endif
                             </div>
-                            <div class="text-{{ $latestMetric->memory_usage > 80 ? 'danger' : ($latestMetric->memory_usage > 60 ? 'warning' : 'success') }}" style="font-size: 2.5rem;">
+                            <div class="text-primary" style="font-size: 2.5rem;">
                                 <i class="bi bi-memory"></i>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-{{ $latestMetric->memory_usage > 80 ? 'danger' : ($latestMetric->memory_usage > 60 ? 'warning' : 'success') }}" 
+                                 role="progressbar" 
+                                 style="width: {{ min($latestMetric->memory_usage, 100) }}%;" 
+                                 aria-valuenow="{{ $latestMetric->memory_usage }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card stat-card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                    <div class="card-body pb-2">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
                             <div>
                                 <p class="text-muted mb-1">Disk Usage</p>
                                 <h3 class="mb-0">{{ number_format($latestMetric->disk_usage, 1) }}%</h3>
@@ -72,8 +73,17 @@
                                     <small class="text-muted">{{ $latestMetric->formatBytes($latestMetric->disk_used) }} / {{ $latestMetric->formatBytes($latestMetric->disk_total) }}</small>
                                 @endif
                             </div>
-                            <div class="text-{{ $latestMetric->disk_usage > 80 ? 'danger' : ($latestMetric->disk_usage > 60 ? 'warning' : 'success') }}" style="font-size: 2.5rem;">
+                            <div class="text-primary" style="font-size: 2.5rem;">
                                 <i class="bi bi-hdd"></i>
+                            </div>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-{{ $latestMetric->disk_usage > 80 ? 'danger' : ($latestMetric->disk_usage > 60 ? 'warning' : 'success') }}" 
+                                 role="progressbar" 
+                                 style="width: {{ min($latestMetric->disk_usage, 100) }}%;" 
+                                 aria-valuenow="{{ $latestMetric->disk_usage }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
                             </div>
                         </div>
                     </div>
