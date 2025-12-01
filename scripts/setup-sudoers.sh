@@ -124,6 +124,15 @@ $WEB_USER ALL=(ALL) NOPASSWD: /bin/rm -f /etc/pm2/[a-z]*
 $WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/pm2
 $WEB_USER ALL=(ALL) NOPASSWD: /usr/local/bin/pm2
 
+# Supervisor - Process Manager
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/cp /tmp/git-webhook-*.conf /etc/supervisor/conf.d/
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl reread
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl update
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl start *
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl stop *
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl restart *
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl status
+
 # Git - Allow all git commands
 $WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/git
 
@@ -167,6 +176,7 @@ echo "  • SSL certificate management (certbot)"
 echo "  • PHP-FPM pool management (versions 7.4, 8.0-8.4)"
 echo "  • Nginx configuration file management"
 echo "  • PM2 process management (Node.js)"
+echo "  • Supervisor process management (queue workers, scheduler)"
 echo "  • Git deployments"
 echo "  • Deployment script execution"
 echo ""

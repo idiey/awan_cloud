@@ -38,7 +38,8 @@ Configures passwordless sudo permissions for required commands.
 - SSL certificate management (certbot)
 - PHP-FPM pool management (all versions)
 - Nginx configuration file management
-- PM2 process management
+- PM2 process management (Node.js apps)
+- Supervisor process management (Laravel queue workers)
 - Git deployments
 
 **Usage:**
