@@ -160,11 +160,11 @@
     <!-- Tabs -->
     <div class="tabs-container">
         <a href="{{ route('websites.index', ['type' => 'php']) }}" 
-           class="tab-btn {{ $type === 'php' ? 'active' : '' }}">
+           class="tab-btn text-decoration-none {{ $type === 'php' ? 'active' : '' }}">
             <i class="bi bi-code-slash me-1"></i> PHP Projects
         </a>
         <a href="{{ route('websites.index', ['type' => 'node']) }}" 
-           class="tab-btn {{ $type === 'node' ? 'active' : '' }}">
+           class="tab-btn text-decoration-none {{ $type === 'node' ? 'active' : '' }}">
             <i class="bi bi-hexagon me-1"></i> Node Projects
         </a>
     </div>
@@ -196,10 +196,8 @@
                                 <div class="website-name">
                                     <span class="status-dot {{ $website->is_active ? 'active' : 'inactive' }}"></span>
                                     {{ $website->name }}
-                                    @if($website->project_type === 'php')
-                                        <span class="badge bg-light text-dark" style="font-size: 0.75rem; font-weight: 500;">PHP</span>
-                                    @else
-                                        <span class="badge" style="background: #10b981; font-size: 0.75rem;">SSL</span>
+                                    @if($website->ssl_status === 'active')
+                                        <span class="badge" style="background: #10b981; font-size: 0.75rem;"><i class="bi bi-lock-fill"></i> SSL</span>                                    
                                     @endif
                                 </div>
                                 <a href="http://{{ $website->domain }}" target="_blank" class="website-domain">
@@ -211,7 +209,7 @@
                         <div class="d-flex align-items-center gap-2">
                             <button type="button" class="deploy-btn" 
                                     onclick="event.stopPropagation(); redeployWebsite({{ $website->id }})">
-                                Deploy
+                                <i class="bi bi-rocket-takeoff-fill me-2"></i> Deploy
                             </button>
                             <div class="dropdown" onclick="event.stopPropagation();">
                                 <button class="btn btn-link text-dark p-0" type="button" 
@@ -220,7 +218,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="{{ route('websites.show', $website) }}">
-                                        <i class="bi bi-eye me-2"></i>View Details
+                                        <i class="bi bi-search me-2"></i>View Details
                                     </a></li>
                                     <li><a class="dropdown-item" href="{{ route('websites.edit', $website) }}">
                                         <i class="bi bi-pencil me-2"></i>Edit
