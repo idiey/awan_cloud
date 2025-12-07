@@ -91,12 +91,30 @@
             </div>
         </div>
 
+        <!-- Time Filter Buttons -->
+        <div class="d-flex justify-content-end mb-3">
+            <div class="btn-group" role="group">
+                <a href="{{ route('server-health', ['hours' => 1]) }}" class="btn btn-sm {{ $chartHours == 1 ? 'btn-primary' : 'btn-outline-primary' }}">
+                    1h
+                </a>
+                <a href="{{ route('server-health', ['hours' => 3]) }}" class="btn btn-sm {{ $chartHours == 3 ? 'btn-primary' : 'btn-outline-primary' }}">
+                    3h
+                </a>
+                <a href="{{ route('server-health', ['hours' => 6]) }}" class="btn btn-sm {{ $chartHours == 6 ? 'btn-primary' : 'btn-outline-primary' }}">
+                    6h
+                </a>
+                <a href="{{ route('server-health', ['hours' => 12]) }}" class="btn btn-sm {{ $chartHours == 12 ? 'btn-primary' : 'btn-outline-primary' }}">
+                    12h
+                </a>
+            </div>
+        </div>
+
         <!-- System Monitoring Charts -->
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">System Performance (Last {{ config('monitoring.chart_hours', 6) }} Hours)</h5>
+                        <h5 class="mb-0">System Performance (Last {{ $chartHours }} Hours)</h5>
                     </div>
                     <div class="card-body">
                         <canvas id="systemMetricsChart" height="80"></canvas>
@@ -110,7 +128,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">Database Connections & Processes (Last {{ config('monitoring.chart_hours', 6) }} Hours)</h5>
+                        <h5 class="mb-0">Database Connections & Processes (Last {{ $chartHours }} Hours)</h5>
                     </div>
                     <div class="card-body">
                         <canvas id="dbConnectionsChart" height="80"></canvas>
@@ -124,7 +142,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0">I/O Performance (Last {{ config('monitoring.chart_hours', 6) }} Hours)</h5>
+                        <h5 class="mb-0">I/O Performance (Last {{ $chartHours }} Hours)</h5>
                     </div>
                     <div class="card-body">
                         <canvas id="ioMetricsChart" height="80"></canvas>
