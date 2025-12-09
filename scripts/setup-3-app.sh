@@ -276,6 +276,7 @@ cat > /tmp/webhook-manager-queue.conf << 'EOF'
 [program:webhook-manager-queue]
 process_name=%(program_name)s_%(process_num)02d
 command=php APPDIR/artisan queue:work --sleep=3 --tries=3 --max-time=3600
+directory=APPDIR
 autostart=true
 autorestart=true
 stopasgroup=true
@@ -292,6 +293,7 @@ cat > /tmp/webhook-manager-scheduler.conf << 'EOF'
 [program:webhook-manager-scheduler]
 process_name=%(program_name)s
 command=php APPDIR/artisan schedule:work
+directory=APPDIR
 autostart=true
 autorestart=true
 stopasgroup=true
