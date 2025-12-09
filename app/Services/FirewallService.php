@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Process;
 use Exception;
 
 class FirewallService
@@ -12,7 +13,8 @@ class FirewallService
     public function getUfwStatus(): array
     {
         try {
-            $output = shell_exec('sudo ufw status verbose 2>&1');
+            $result = Process::run('sudo ufw status verbose');
+            $output = $result->output();
             
             if (strpos($output, 'Status: active') !== false) {
                 return [
@@ -40,12 +42,12 @@ class FirewallService
     {
         try {
             // Enable UFW with --force to skip prompts
-            $output = shell_exec('sudo ufw --force enable 2>&1');
+            $result = Process::run('sudo ufw --force enable');
             
             return [
                 'success' => true,
                 'message' => 'Firewall enabled successfully',
-                'output' => $output
+                'output' => $result->output()
             ];
         } catch (Exception $e) {
             return [
@@ -61,12 +63,12 @@ class FirewallService
     public function disableUfw(): array
     {
         try {
-            $output = shell_exec('sudo ufw disable 2>&1');
+            $result = Process::run('sudo ufw disable');
             
             return [
                 'success' => true,
                 'message' => 'Firewall disabled successfully',
-                'output' => $output
+                'output' => $result->output()
             ];
         } catch (Exception $e) {
             return [
@@ -100,15 +102,15 @@ class FirewallService
                 $command .= " from {$fromIp}";
             }
             
-            $output = shell_exec($command . ' 2>&1');
+            $result = Process::run($command);
             
             // Reload UFW to apply changes
-            shell_exec('sudo ufw reload 2>&1');
+            Process::run('sudo ufw reload');
             
             return [
                 'success' => true,
                 'message' => 'Rule added successfully',
-                'output' => $output
+                'output' => $result->output()
             ];
         } catch (Exception $e) {
             return [
@@ -124,12 +126,12 @@ class FirewallService
     public function deleteRule($ruleNumber): array
     {
         try {
-            $output = shell_exec("sudo ufw --force delete {$ruleNumber} 2>&1");
+            $result = Process::run("sudo ufw --force delete {$ruleNumber}");
             
             return [
                 'success' => true,
                 'message' => 'Rule deleted successfully',
-                'output' => $output
+                'output' => $result->output()
             ];
         } catch (Exception $e) {
             return [
@@ -145,12 +147,12 @@ class FirewallService
     public function resetUfw(): array
     {
         try {
-            $output = shell_exec('sudo ufw --force reset 2>&1');
+            $result = Process::run('sudo ufw --force reset');
             
             return [
                 'success' => true,
                 'message' => 'Firewall reset successfully',
-                'output' => $output
+                'output' => $result->output()
             ];
         } catch (Exception $e) {
             return [

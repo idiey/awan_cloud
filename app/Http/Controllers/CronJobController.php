@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CronJob;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Process;
 
 class CronJobController extends Controller
 {
@@ -124,7 +125,7 @@ class CronJobController extends Controller
 
         // Install crontab for the user
         $user = $activeCronJobs->first()->user ?? 'www-data';
-        shell_exec("sudo crontab -u {$user} {$tempFile} 2>&1");
+        Process::run("sudo crontab -u {$user} {$tempFile}");
 
         // Clean up
         unlink($tempFile);

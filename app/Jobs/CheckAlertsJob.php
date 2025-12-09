@@ -10,6 +10,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Process;
 
 class CheckAlertsJob implements ShouldQueue
 {
@@ -91,8 +92,8 @@ class CheckAlertsJob implements ShouldQueue
         }
 
         try {
-            $output = shell_exec("systemctl is-active {$serviceName} 2>&1");
-            return trim($output) === 'active' ? 1.0 : 0.0;
+            $result = Process::run("systemctl is-active {$serviceName}");
+            return trim($result->output()) === 'active' ? 1.0 : 0.0;
         } catch (\Exception $e) {
             Log::error("Failed to check service status: {$serviceName}", [
                 'error' => $e->getMessage()

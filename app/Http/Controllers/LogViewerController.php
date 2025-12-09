@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
 
 class LogViewerController extends Controller
 {
@@ -38,9 +39,10 @@ class LogViewerController extends Controller
 
         if ($logFile && file_exists($logFile)) {
             // Read last 1000 lines
-            $content = shell_exec("tail -n 1000 {$logFile}");
+            $result = Process::run("tail -n 1000 {$logFile}");
             
-            if ($content) {
+            if ($result->successful()) {
+                $content = $result->output();
                 $lines = explode("\n", $content);
                 $lines = array_reverse($lines); // Latest first
 

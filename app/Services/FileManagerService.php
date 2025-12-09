@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
 use Exception;
 
 class FileManagerService
@@ -34,18 +35,19 @@ class FileManagerService
 
         try {
             // Get directory listing with details
-            $command = "ls -lAh " . escapeshellarg($path) . " 2>&1";
-            $output = shell_exec($command);
+            $result = Process::run("ls -lAh {$path}");
 
-            if (str_contains($output, 'No such file or directory')) {
-                throw new Exception("Directory not found: {$path}");
+            if ($result->failed()) {
+                if (str_contains($result->errorOutput(), 'No such file or directory')) {
+                    throw new Exception("Directory not found: {$path}");
+                }
+                if (str_contains($result->errorOutput(), 'Permission denied')) {
+                    throw new Exception("Permission denied: {$path}");
+                }
+                throw new Exception("Failed to list directory: " . $result->errorOutput());
             }
 
-            if (str_contains($output, 'Permission denied')) {
-                throw new Exception("Permission denied: {$path}");
-            }
-
-            return $this->parseDirectoryListing($output, $path);
+            return $this->parseDirectoryListing($result->output(), $path);
 
         } catch (Exception $e) {
             throw new Exception("Failed to list directory: " . $e->getMessage());
@@ -62,17 +64,20 @@ class FileManagerService
 
         try {
             // Check if file exists
-            $checkCommand = "sudo test -f " . escapeshellarg($path) . " && echo 'ok' || echo 'error'";
-            $check = trim(shell_exec($checkCommand));
+            $checkResult = Process::run("sudo test -f {$path}");
 
-            if ($check !== 'ok') {
+            if ($checkResult->failed()) {
                 throw new Exception("File not found or not readable");
             }
 
             // Read file content with sudo (limit to 10MB for safety)
-            $content = shell_exec("sudo head -c 10485760 " . escapeshellarg($path));
+            $result = Process::run("sudo head -c 10485760 {$path}");
 
-            return $content;
+            if ($result->failed()) {
+                throw new Exception("Failed to read file: " . $result->errorOutput());
+            }
+
+            return $result->output();
 
         } catch (Exception $e) {
             throw new Exception("Failed to read file: " . $e->getMessage());
@@ -93,13 +98,21 @@ class FileManagerService
             
             // Write content to temp file (escape content properly)
             $escapedContent = base64_encode($content);
-            shell_exec("echo '{$escapedContent}' | base64 -d > {$tempFile}");
+            $writeResult = Process::run("echo '{$escapedContent}' | base64 -d > {$tempFile}");
+
+            if ($writeResult->failed()) {
+                throw new Exception("Failed to create temp file");
+            }
 
             // Move temp file to target with sudo
-            shell_exec("sudo mv " . escapeshellarg($tempFile) . " " . escapeshellarg($path));
+            $moveResult = Process::run("sudo mv {$tempFile} {$path}");
+            
+            if ($moveResult->failed()) {
+                throw new Exception("Failed to move file: " . $moveResult->errorOutput());
+            }
             
             // Set readable permissions for created files
-            shell_exec("sudo chmod 644 " . escapeshellarg($path));
+            Process::run("sudo chmod 644 {$path}");
 
             return true;
 
@@ -117,8 +130,12 @@ class FileManagerService
         $this->validatePath($path);
 
         try {
-            $command = $recursive ? "sudo rm -rf " . escapeshellarg($path) : "sudo rm " . escapeshellarg($path);
-            shell_exec($command);
+            $command = $recursive ? "sudo rm -rf {$path}" : "sudo rm {$path}";
+            $result = Process::run($command);
+
+            if ($result->failed()) {
+                throw new Exception("Failed to delete: " . $result->errorOutput());
+            }
 
             return true;
 
@@ -137,15 +154,15 @@ class FileManagerService
 
         try {
             // Create directory with sudo
-            $output = shell_exec("sudo mkdir -p " . escapeshellarg($path) . " 2>&1 && echo 'success' || echo 'failed'");
+            $result = Process::run("sudo mkdir -p {$path}");
             
-            if (!str_contains($output, 'success')) {
-                throw new Exception("Failed to create directory: {$output}");
+            if ($result->failed()) {
+                throw new Exception("Failed to create directory: " . $result->errorOutput());
             }
 
             // Verify directory exists
-            $check = trim(shell_exec("sudo test -d " . escapeshellarg($path) . " && echo 'ok' || echo 'error'"));
-            if ($check !== 'ok') {
+            $checkResult = Process::run("sudo test -d {$path}");
+            if ($checkResult->failed()) {
                 throw new Exception("Directory was not created successfully");
             }
 
@@ -167,7 +184,11 @@ class FileManagerService
         $this->validatePath($newPath);
 
         try {
-            shell_exec("sudo mv " . escapeshellarg($oldPath) . " " . escapeshellarg($newPath));
+            $result = Process::run("sudo mv {$oldPath} {$newPath}");
+
+            if ($result->failed()) {
+                throw new Exception("Failed to rename: " . $result->errorOutput());
+            }
 
             return true;
 
@@ -190,7 +211,11 @@ class FileManagerService
         }
 
         try {
-            shell_exec("sudo chmod " . escapeshellarg($permissions) . " " . escapeshellarg($path));
+            $result = Process::run("sudo chmod {$permissions} {$path}");
+
+            if ($result->failed()) {
+                throw new Exception("Failed to change permissions: " . $result->errorOutput());
+            }
 
             return true;
 
@@ -207,13 +232,13 @@ class FileManagerService
         $path = $this->sanitizePath($path);
 
         try {
-            $stat = shell_exec("stat -c '%s|%a|%U|%G|%y' " . escapeshellarg($path) . " 2>&1");
+            $result = Process::run("stat -c '%s|%a|%U|%G|%y' {$path}");
             
-            if (str_contains($stat, 'No such file')) {
+            if ($result->failed()) {
                 throw new Exception("File not found");
             }
 
-            list($size, $perms, $owner, $group, $modified) = explode('|', trim($stat));
+            list($size, $perms, $owner, $group, $modified) = explode('|', trim($result->output()));
 
             return [
                 'path' => $path,
