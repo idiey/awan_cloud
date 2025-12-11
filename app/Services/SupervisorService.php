@@ -52,6 +52,14 @@ class SupervisorService
     public function deploy(SupervisorProgram $program): array
     {
         try {
+            // Check if supervisor is available
+            if (!$this->isSupervisorAvailable()) {
+                return [
+                    'success' => false,
+                    'error' => 'Supervisor is not installed or not available on this system. This feature requires a Linux environment with supervisor installed.'
+                ];
+            }
+
             $config = $this->generateConfig($program);
             $configPath = $program->getConfigFilePath();
             $tempFile = '/tmp/webhook-manager-' . $program->getConfigFileName();
@@ -102,10 +110,36 @@ class SupervisorService
     }
 
     /**
+     * Check if supervisor is available on the system
+     */
+    protected function isSupervisorAvailable(): bool
+    {
+        // Check if supervisorctl exists
+        $result = Process::run(['which', 'supervisorctl']);
+        if ($result->failed()) {
+            return false;
+        }
+        
+        // Check if supervisor config directory exists
+        if (!file_exists('/etc/supervisor/conf.d')) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
      * Remove supervisor config from system
      */
     public function remove(SupervisorProgram $program): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'error' => 'Supervisor is not installed or not available on this system.'
+            ];
+        }
+        
         try {
             $configPath = $program->getConfigFilePath();
             
@@ -152,25 +186,40 @@ class SupervisorService
      */
     public function reloadSupervisor(): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'message' => 'Supervisor is not installed or not available on this system.'
+            ];
+        }
+        
         try {
             // Run supervisorctl reread
             $rereadResult = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'reread']);
             if ($rereadResult->failed()) {
-                throw new Exception("supervisorctl reread failed: " . $rereadResult->errorOutput());
+                $error = $rereadResult->errorOutput() ?: $rereadResult->output();
+                throw new Exception("supervisorctl reread failed. Exit code: " . $rereadResult->exitCode() . ". Error: " . $error);
             }
             
             // Run supervisorctl update
             $updateResult = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'update']);
             if ($updateResult->failed()) {
-                throw new Exception("supervisorctl update failed: " . $updateResult->errorOutput());
+                $error = $updateResult->errorOutput() ?: $updateResult->output();
+                throw new Exception("supervisorctl update failed. Exit code: " . $updateResult->exitCode() . ". Error: " . $error);
             }
             
             return [
                 'success' => true,
-                'message' => 'Supervisor reloaded successfully'
+                'message' => 'Supervisor reloaded successfully',
+                'reread_output' => $rereadResult->output(),
+                'update_output' => $updateResult->output()
             ];
             
         } catch (Exception $e) {
+            Log::error("Supervisor reload failed", [
+                'error' => $e->getMessage()
+            ]);
+            
             return [
                 'success' => false,
                 'message' => $e->getMessage()
@@ -183,6 +232,13 @@ class SupervisorService
      */
     public function startProgram(string $programName): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'message' => 'Supervisor is not installed or not available on this system.'
+            ];
+        }
+        
         try {
             $result = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'start', $programName . ':*']);
             
@@ -209,6 +265,13 @@ class SupervisorService
      */
     public function stopProgram(string $programName): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'message' => 'Supervisor is not installed or not available on this system.'
+            ];
+        }
+        
         try {
             $result = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'stop', $programName . ':*']);
             
@@ -235,6 +298,13 @@ class SupervisorService
      */
     public function restartProgram(string $programName): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'message' => 'Supervisor is not installed or not available on this system.'
+            ];
+        }
+        
         try {
             $result = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'restart', $programName . ':*']);
             
@@ -261,6 +331,14 @@ class SupervisorService
      */
     public function getProgramStatus(string $programName): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'message' => 'Supervisor is not installed or not available on this system.',
+                'processes' => []
+            ];
+        }
+        
         try {
             $result = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'status', $programName . ':*']);
             
@@ -301,6 +379,14 @@ class SupervisorService
      */
     public function getAllPrograms(): array
     {
+        if (!$this->isSupervisorAvailable()) {
+            return [
+                'success' => false,
+                'message' => 'Supervisor is not installed or not available on this system.',
+                'programs' => []
+            ];
+        }
+        
         try {
             $result = Process::run(['/usr/bin/sudo', '/usr/bin/supervisorctl', 'status']);
             
@@ -351,6 +437,10 @@ class SupervisorService
      */
     public function getProgramLogs(SupervisorProgram $program, int $lines = 100): string
     {
+        if (!$this->isSupervisorAvailable()) {
+            return 'Supervisor is not installed or not available on this system.';
+        }
+        
         try {
             $logFile = $program->getLogFilePath();
             
