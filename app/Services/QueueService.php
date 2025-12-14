@@ -282,17 +282,26 @@ class QueueService
                 return false;
             }
 
-            // Push job back to queue
-            $payload = json_decode($failedJob->payload, true);
+            $driver = config('queue.default');
             
-            DB::table('jobs')->insert([
-                'queue' => $failedJob->queue,
-                'payload' => $failedJob->payload,
-                'attempts' => 0,
-                'reserved_at' => null,
-                'available_at' => time(),
-                'created_at' => time(),
-            ]);
+            if ($driver === 'redis') {
+                // Push job back to Redis queue
+                $connection = config('queue.connections.redis.connection', 'default');
+                $redis = Redis::connection($connection);
+                $queueKey = 'queues:' . $failedJob->queue;
+                
+                $redis->rpush($queueKey, $failedJob->payload);
+            } else {
+                // Push job back to database queue
+                DB::table('jobs')->insert([
+                    'queue' => $failedJob->queue,
+                    'payload' => $failedJob->payload,
+                    'attempts' => 0,
+                    'reserved_at' => null,
+                    'available_at' => time(),
+                    'created_at' => time(),
+                ]);
+            }
 
             // Delete from failed jobs
             DB::table('failed_jobs')->where('uuid', $uuid)->delete();

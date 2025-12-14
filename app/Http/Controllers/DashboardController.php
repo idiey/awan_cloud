@@ -7,6 +7,7 @@ use App\Models\Deployment;
 use App\Models\Webhook;
 use App\Models\Website;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class DashboardController extends Controller
 {
@@ -46,7 +47,16 @@ class DashboardController extends Controller
 
         // Pending queue jobs
         try {
-            $pendingQueues = DB::table('jobs')->count();
+            $queueDriver = config('queue.default');
+            
+            if ($queueDriver === 'redis') {
+                $queueName = config('queue.connections.redis.queue', 'default');
+                $pendingQueues = Redis::llen('queues:' . $queueName);
+            } elseif ($queueDriver === 'database') {
+                $pendingQueues = DB::table('jobs')->count();
+            } else {
+                $pendingQueues = 0;
+            }
         } catch (\Exception $e) {
             $pendingQueues = 0;
         }
