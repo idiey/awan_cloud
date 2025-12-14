@@ -92,7 +92,23 @@
 
             <div class="mb-3">
                 <label class="form-label">Slack Webhook URL</label>
-                <input type="url" name="slack_webhook" class="form-control @error('slack_webhook') is-invalid @enderror" value="{{ old('slack_webhook', $alertRule->slack_webhook) }}">
+                <input type="url" name="slack_webhook" class="form-control @error('slack_webhook') is-invalid @enderror" value="{{ old('slack_webhook', $alertRule->slack_webhook) }}" placeholder="https://hooks.slack.com/services/...">
+                <div class="form-text">
+                    <a class="text-decoration-none" data-bs-toggle="collapse" href="#slackHelp" role="button" aria-expanded="false">
+                        <i class="bi bi-question-circle"></i> How to get Slack Webhook URL?
+                    </a>
+                    <div class="collapse mt-2" id="slackHelp">
+                        <div class="card card-body bg-light small">
+                            <ol class="mb-0 ps-3">
+                                <li>Go to <a href="https://api.slack.com/apps" target="_blank">api.slack.com/apps</a></li>
+                                <li>Create New App → From scratch</li>
+                                <li>Go to <strong>Incoming Webhooks</strong> → Activate</li>
+                                <li>Click <strong>Add New Webhook to Workspace</strong></li>
+                                <li>Select channel and copy the Webhook URL</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
                 @error('slack_webhook')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
