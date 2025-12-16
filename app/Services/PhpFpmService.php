@@ -271,15 +271,15 @@ POOL;
                 // Production mode: Use sudo
                 // Create log directory if not exists
                 $logDir = "/var/log/php{$website->php_version}-fpm";
-                Process::run("sudo mkdir -p {$logDir}");
-                Process::run("sudo chown www-data:www-data {$logDir}");
+                Process::run("sudo /bin/mkdir -p {$logDir}");
+                Process::run("sudo /bin/chown www-data:www-data {$logDir}");
 
                 // Write to temporary file first
                 $tempFile = tempnam(sys_get_temp_dir(), 'phpfpm_');
                 File::put($tempFile, $config);
 
                 // Move to PHP-FPM pool directory with sudo
-                $result = Process::run("sudo cp {$tempFile} {$filepath}");
+                $result = Process::run("sudo /bin/cp {$tempFile} {$filepath}");
                 
                 // Clean up temp file
                 @unlink($tempFile);
@@ -289,7 +289,7 @@ POOL;
                 }
 
                 // Set proper permissions
-                Process::run("sudo chmod 644 {$filepath}");
+                Process::run("sudo /bin/chmod 644 {$filepath}");
                 
                 $socketPath = "/var/run/php/php{$website->php_version}-fpm-{$poolName}.sock";
             }
@@ -344,7 +344,7 @@ POOL;
                 Log::info('[LOCAL] PHP-FPM pool config deleted', ['filepath' => $filepath]);
             } else {
                 // Production mode: Use sudo
-                $result = Process::run("sudo rm -f {$filepath}");
+                $result = Process::run("sudo /bin/rm -f {$filepath}");
                 
                 if ($result->failed()) {
                     throw new \Exception("Failed to delete pool config: " . $result->errorOutput());

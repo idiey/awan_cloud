@@ -388,18 +388,18 @@ class WordPressInstallerService
     protected function setWordPressPermissions(string $path): void
     {
         // Directories: 755
-        Process::run("sudo find {$path} -type d -exec chmod 755 {} \\;");
+        Process::run("sudo /usr/bin/find {$path} -type d -exec /bin/chmod 755 {} \\;");
         
         // Files: 644
-        Process::run("sudo find {$path} -type f -exec chmod 644 {} \\;");
+        Process::run("sudo /usr/bin/find {$path} -type f -exec /bin/chmod 644 {} \\;");
         
         // wp-config.php: 600 (more secure)
         if (file_exists("{$path}/wp-config.php")) {
-            Process::run("sudo chmod 600 {$path}/wp-config.php");
+            Process::run("sudo /bin/chmod 600 {$path}/wp-config.php");
         }
         
         // Set owner
-        Process::run("sudo chown -R www-data:www-data {$path}");
+        Process::run("sudo /bin/chown -R www-data:www-data {$path}");
     }
 
     /**
@@ -409,9 +409,9 @@ class WordPressInstallerService
     {
         $cacheDir = "/var/cache/nginx/wordpress-{$domain}";
         
-        Process::run("sudo mkdir -p {$cacheDir}");
-        Process::run("sudo chown -R www-data:www-data {$cacheDir}");
-        Process::run("sudo chmod -R 755 {$cacheDir}");
+        Process::run("sudo /bin/mkdir -p {$cacheDir}");
+        Process::run("sudo /bin/chown -R www-data:www-data {$cacheDir}");
+        Process::run("sudo /bin/chmod -R 755 {$cacheDir}");
     }
 
     /**

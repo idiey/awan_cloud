@@ -145,12 +145,12 @@ JS;
 
                 // Create PM2 config directory if not exists
                 if (!File::exists($this->pm2ConfigPath)) {
-                    Process::run("sudo mkdir -p {$this->pm2ConfigPath}");
-                    Process::run("sudo chmod 755 {$this->pm2ConfigPath}");
+                    Process::run("sudo /bin/mkdir -p {$this->pm2ConfigPath}");
+                    Process::run("sudo /bin/chmod 755 {$this->pm2ConfigPath}");
                 }
 
                 // Move to PM2 directory with sudo
-                $result = Process::run("sudo cp {$tempFile} {$filepath}");
+                $result = Process::run("sudo /bin/cp {$tempFile} {$filepath}");
                 
                 // Clean up temp file
                 @unlink($tempFile);
@@ -160,7 +160,7 @@ JS;
                 }
 
                 // Set proper permissions
-                Process::run("sudo chmod 644 {$filepath}");
+                Process::run("sudo /bin/chmod 644 {$filepath}");
                 
                 Log::info('[PRODUCTION] PM2 ecosystem config created', [
                     'filepath' => $filepath,
@@ -201,7 +201,7 @@ JS;
                     File::delete($filepath);
                 }
             } else {
-                Process::run("sudo rm -f {$filepath}");
+                Process::run("sudo /bin/rm -f {$filepath}");
             }
 
             return [

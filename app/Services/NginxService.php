@@ -470,7 +470,7 @@ HTML;
                 File::put($tempFile, $config);
 
                 // Move to nginx directory with sudo
-                $result = Process::run("sudo cp {$tempFile} {$filepath}");
+                $result = Process::run("sudo /bin/cp {$tempFile} {$filepath}");
                 
                 // Clean up temp file
                 @unlink($tempFile);
@@ -480,7 +480,7 @@ HTML;
                 }
 
                 // Set proper permissions
-                Process::run("sudo chmod 644 {$filepath}");
+                Process::run("sudo /bin/chmod 644 {$filepath}");
                 
                 // Create webroot directory in production
                 $workingDir = $website->working_directory ?? '/';
@@ -489,13 +489,13 @@ HTML;
                 
                 if (!File::exists($documentRoot)) {
                     // Create directory with sudo
-                    $mkdirResult = Process::run("sudo mkdir -p {$documentRoot}");
+                    $mkdirResult = Process::run("sudo /bin/mkdir -p {$documentRoot}");
                     
                     if ($mkdirResult->successful()) {
                         // Set ownership to www-data for root path (parent directory)
                         $rootPath = rtrim($website->root_path, '/');
-                        Process::run("sudo chown -R www-data:www-data {$rootPath}");
-                        Process::run("sudo chmod -R 755 {$rootPath}");
+                        Process::run("sudo /bin/chown -R www-data:www-data {$rootPath}");
+                        Process::run("sudo /bin/chmod -R 755 {$rootPath}");
 
                         // Create sample index file for testing
                         $indexFile = $documentRoot . '/index.html';
@@ -543,9 +543,9 @@ HTML;
                             // Create temp file and move with sudo to preserve permissions
                             $tempFile = sys_get_temp_dir() . '/index_' . uniqid() . '.html';
                             File::put($tempFile, $sampleContent);
-                            Process::run("sudo mv {$tempFile} {$indexFile}");
-                            Process::run("sudo chown www-data:www-data {$indexFile}");
-                            Process::run("sudo chmod 644 {$indexFile}");
+                            Process::run("sudo /bin/mv {$tempFile} {$indexFile}");
+                            Process::run("sudo /bin/chown www-data:www-data {$indexFile}");
+                            Process::run("sudo /bin/chmod 644 {$indexFile}");
 
                             Log::info('[PRODUCTION] Sample index.html created', [
                                 'file' => $indexFile,
@@ -644,7 +644,7 @@ HTML;
                 Log::info('[LOCAL] Nginx site disabled', ['target' => $target]);
             } else {
                 // Production mode: Use sudo
-                $result = Process::run("sudo rm -f {$target}");
+                $result = Process::run("sudo /bin/rm -f {$target}");
                 
                 if ($result->failed()) {
                     throw new \Exception("Failed to remove symlink: " . $result->errorOutput());
@@ -720,7 +720,7 @@ HTML;
                 Log::info('[LOCAL] Nginx config deleted', ['filepath' => $filepath]);
             } else {
                 // Production mode: Use sudo
-                $result = Process::run("sudo rm -f {$filepath}");
+                $result = Process::run("sudo /bin/rm -f {$filepath}");
                 
                 if ($result->failed()) {
                     throw new \Exception("Failed to delete config file: " . $result->errorOutput());

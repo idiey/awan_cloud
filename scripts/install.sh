@@ -262,8 +262,21 @@ $WEB_USER ALL=(ALL) NOPASSWD: /bin/rm -f /etc/nginx/sites-enabled/[a-zA-Z0-9._-]
 $WEB_USER ALL=(ALL) NOPASSWD: /bin/mkdir -p /var/www/[a-zA-Z0-9._-]*
 $WEB_USER ALL=(ALL) NOPASSWD: /bin/mkdir -p /var/www/[a-zA-Z0-9._-]*/[a-zA-Z0-9._-]*
 $WEB_USER ALL=(ALL) NOPASSWD: /bin/chown -R [a-zA-Z0-9_-]*?[a-zA-Z0-9_-]* /var/www/[a-zA-Z0-9._-]*
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/chown [a-zA-Z0-9_-]*?[a-zA-Z0-9_-]* /var/www/[a-zA-Z0-9._-]*/*
 $WEB_USER ALL=(ALL) NOPASSWD: /bin/chmod -R [0-9]* /var/www/[a-zA-Z0-9._-]*
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/chmod [0-9]* /var/www/[a-zA-Z0-9._-]*/*
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/mv /tmp/* /var/www/[a-zA-Z0-9._-]*/*
 $WEB_USER ALL=(ALL) NOPASSWD: /bin/rm -rf /var/www/[a-zA-Z0-9._-]*
+$WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/find /var/www/[a-zA-Z0-9._-]* *
+
+# Nginx Cache Directory
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/mkdir -p /var/cache/nginx/*
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/chown -R [a-zA-Z0-9_-]*?[a-zA-Z0-9_-]* /var/cache/nginx/*
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/chmod -R [0-9]* /var/cache/nginx/*
+
+# PHP-FPM Log Directory
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/mkdir -p /var/log/php*-fpm
+$WEB_USER ALL=(ALL) NOPASSWD: /bin/chown [a-zA-Z0-9_-]*?[a-zA-Z0-9_-]* /var/log/php*-fpm
 
 # PM2 Process Control
 $WEB_USER ALL=(ALL) NOPASSWD: /usr/bin/pm2
