@@ -42,15 +42,29 @@ check_root() {
 }
 
 # Enable fail2ban jail
-enable_jail() {
-    local jail="$1"
-    local file="/etc/fail2ban/jail.d/${jail}.local"
+ensure_jail() {
+    local order="$1"   # 00, 10, 20, 21
+    local jail="$2"    # sshd, nginx-botsearch, etc
+    local extra="$3"   # optional extra config
 
+    local dir="/etc/fail2ban/jail.d"
+    local file="${dir}/${order}-${jail}.local"
+
+    mkdir -p "$dir"
+
+    # Check fail2ban installed
+    command -v fail2ban-client >/dev/null 2>&1 || return 0
+
+    # Check jail exists
     fail2ban-client status 2>/dev/null | grep -q "$jail" || return 0
+
+    # Idempotent: do nothing if file already exists
+    [ -f "$file" ] && return 0
 
     cat > "$file" <<EOF
 [$jail]
 enabled = true
+${extra}
 EOF
 }
 
@@ -195,20 +209,21 @@ install_prerequisites() {
     if apt-get install -y fail2ban > /dev/null 2>&1; then
         print_info "Configuring fail2ban defaults..."
         if [ -f /etc/fail2ban/jail.conf ]; then
-            mkdir -p /etc/fail2ban/jail.d
-
-            cat > /etc/fail2ban/jail.d/00-defaults.local << 'EOF'
-[DEFAULT]
+            # Global defaults
+            ensure_jail 00 DEFAULT "
 bantime  = 1h
 findtime = 10m
 maxretry = 5
 backend  = systemd
 ignoreip = 127.0.0.1/8 ::1
-EOF
+"
 
-            enable_jail sshd
-            enable_jail nginx-botsearch
-            enable_jail nginx-http-auth
+            # SSH
+            ensure_jail 10 sshd
+
+            # Nginx
+            ensure_jail 20 nginx-botsearch
+            ensure_jail 21 nginx-http-auth
         fi
         systemctl enable fail2ban > /dev/null 2>&1
         systemctl restart fail2ban > /dev/null 2>&1
