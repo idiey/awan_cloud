@@ -7,7 +7,7 @@ Manage {{ $firewallType === 'firewalld' ? 'firewalld' : 'UFW' }} firewall rules 
 @endsection
 
 @section('page-actions')
-    @if($firewallStatus['enabled'] ?? false)
+    @if($firewallStatus['active'] ?? false)
         <form action="{{ route('firewall.disable') }}" method="POST" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-warning">
@@ -48,8 +48,8 @@ Manage {{ $firewallType === 'firewalld' ? 'firewalld' : 'UFW' }} firewall rules 
 <div class="card mb-4">
     <div class="card-body">
         <h5>{{ $firewallType === 'firewalld' ? 'Firewalld' : 'UFW' }} Status</h5>
-        <div class="alert alert-{{ $firewallStatus['enabled'] ?? false ? 'success' : 'warning' }}">
-            Status: <strong>{{ $firewallStatus['enabled'] ?? false ? 'Active' : 'Inactive' }}</strong>
+        <div class="alert alert-{{ $firewallStatus['active'] ?? false ? 'success' : 'warning' }}">
+            Status: <strong>{{ $firewallStatus['active'] ?? false ? 'Active' : 'Inactive' }}</strong>
         </div>
     </div>
 </div>
