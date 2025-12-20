@@ -19,15 +19,26 @@ class FirewallService
      */
     protected function detectFirewallType(): string
     {
-        // Check for firewalld first (RHEL-based)
-        $result = Process::run('which firewall-cmd 2>/dev/null');
-        if ($result->successful() && !empty(trim($result->output()))) {
+        // Check OS first - RHEL-based uses firewalld
+        if (file_exists('/etc/redhat-release')) {
+            return 'firewalld';
+        }
+        
+        // Check /etc/os-release for RHEL-like distros
+        if (file_exists('/etc/os-release')) {
+            $content = file_get_contents('/etc/os-release');
+            if (preg_match('/ID_LIKE=.*rhel|ID_LIKE=.*fedora|ID=.*rocky|ID=.*alma|ID=.*centos/i', $content)) {
+                return 'firewalld';
+            }
+        }
+
+        // Check for firewalld binary
+        if (file_exists('/usr/bin/firewall-cmd') || file_exists('/bin/firewall-cmd')) {
             return 'firewalld';
         }
 
-        // Check for ufw (Debian-based)
-        $result = Process::run('which ufw 2>/dev/null');
-        if ($result->successful() && !empty(trim($result->output()))) {
+        // Check for ufw binary (Debian-based)
+        if (file_exists('/usr/sbin/ufw') || file_exists('/sbin/ufw')) {
             return 'ufw';
         }
 
