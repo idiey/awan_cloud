@@ -166,4 +166,23 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
             'error' => $result->errorOutput(),
         ];
     }
+
+    /**
+     * Get service logs using journalctl
+     */
+    public function getServiceLogs(string $serviceKey, int $lines = 100): string
+    {
+        if (!isset($this->supportedServices[$serviceKey])) {
+            return "Service not supported: {$serviceKey}";
+        }
+
+        $serviceName = $this->supportedServices[$serviceKey]['service'];
+        $result = Process::run("sudo /bin/journalctl -u {$serviceName} -n {$lines} --no-pager");
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+
+        return "Failed to get logs: " . $result->errorOutput();
+    }
 }

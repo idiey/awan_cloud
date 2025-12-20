@@ -43,4 +43,9 @@ interface ServiceManagerInterface
      * Reload a service
      */
     public function reloadService(string $serviceKey): array;
+
+    /**
+     * Get service logs
+     */
+    public function getServiceLogs(string $serviceKey, int $lines = 100): string;
 }
