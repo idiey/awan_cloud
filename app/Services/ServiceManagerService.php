@@ -150,10 +150,17 @@ class ServiceManagerService
             try {
                 $serviceName = $info['service'];
                 
-                // Check if service exists
-                $result = Process::run("systemctl list-unit-files {$serviceName}.service 2>&1");
+                // Check if service exists using systemctl status (works on both Debian and RHEL)
+                // Exit code 4 means unit not found, other codes mean it exists
+                $result = Process::run("systemctl status {$serviceName} 2>&1");
+                $output = $result->output();
                 
-                if (str_contains($result->output(), $serviceName)) {
+                // Service exists if output doesn't contain "could not be found" or "not-found"
+                $notFound = str_contains($output, 'could not be found') || 
+                           str_contains($output, 'not-found') ||
+                           str_contains($output, 'Unit ' . $serviceName . '.service could not be found');
+                
+                if (!$notFound) {
                     $status = $this->getServiceStatus($key);
                     $services[$key] = array_merge($info, $status);
                 }
