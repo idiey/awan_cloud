@@ -9,6 +9,11 @@ class CronJob extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'command',
@@ -20,6 +25,11 @@ class CronJob extends Model
         'last_status',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'is_active' => 'boolean',
         'last_run_at' => 'datetime',

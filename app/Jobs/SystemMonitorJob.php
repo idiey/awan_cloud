@@ -14,6 +14,9 @@ class SystemMonitorJob implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param SystemMonitorService $monitorService The system monitor service
+     * @return void
      */
     public function handle(SystemMonitorService $monitorService): void
     {

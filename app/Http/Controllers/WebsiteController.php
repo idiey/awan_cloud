@@ -15,6 +15,9 @@ class WebsiteController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -29,6 +32,9 @@ class WebsiteController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -45,6 +51,9 @@ class WebsiteController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -95,6 +104,9 @@ class WebsiteController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param Website $website The website model
+     * @return \Illuminate\View\View
      */
     public function show(Website $website)
     {
@@ -103,6 +115,9 @@ class WebsiteController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param Website $website The website model
+     * @return \Illuminate\View\View
      */
     public function edit(Website $website)
     {
@@ -117,6 +132,10 @@ class WebsiteController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request The HTTP request
+     * @param Website $website The website model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Website $website)
     {
@@ -185,6 +204,9 @@ class WebsiteController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param Website $website The website model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Website $website)
     {
@@ -219,6 +241,9 @@ class WebsiteController extends Controller
 
     /**
      * Toggle SSL for a website.
+     *
+     * @param Website $website The website model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function toggleSsl(Website $website)
     {
@@ -245,6 +270,9 @@ class WebsiteController extends Controller
 
     /**
      * Redeploy configurations for a website.
+     *
+     * @param Website $website The website model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function redeploy(Website $website)
     {
@@ -268,6 +296,10 @@ class WebsiteController extends Controller
 
     /**
      * Start PM2 application.
+     *
+     * @param Website $website The website model
+     * @param Pm2Service $pm2Service The PM2 service
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function pm2Start(Website $website, Pm2Service $pm2Service)
     {
@@ -292,6 +324,10 @@ class WebsiteController extends Controller
 
     /**
      * Stop PM2 application.
+     *
+     * @param Website $website The website model
+     * @param Pm2Service $pm2Service The PM2 service
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function pm2Stop(Website $website, Pm2Service $pm2Service)
     {
@@ -316,6 +352,10 @@ class WebsiteController extends Controller
 
     /**
      * Restart PM2 application.
+     *
+     * @param Website $website The website model
+     * @param Pm2Service $pm2Service The PM2 service
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function pm2Restart(Website $website, Pm2Service $pm2Service)
     {
@@ -340,6 +380,9 @@ class WebsiteController extends Controller
 
     /**
      * Generate root path from domain name.
+     *
+     * @param string $domain The domain name
+     * @return string The generated root path
      */
     protected function generateRootPath(string $domain): string
     {
@@ -355,6 +398,9 @@ class WebsiteController extends Controller
 
     /**
      * Create DNS record for website.
+     *
+     * @param Website $website The website model
+     * @return void
      */
     protected function createDnsRecord(Website $website): void
     {
@@ -440,6 +486,9 @@ class WebsiteController extends Controller
 
     /**
      * Delete DNS record for website.
+     *
+     * @param Website $website The website model
+     * @return void
      */
     protected function deleteDnsRecord(Website $website): void
     {

@@ -19,6 +19,8 @@ class DeployNginxConfig implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @param Website $website The website to deploy config for
      */
     public function __construct(
         public Website $website
@@ -26,6 +28,11 @@ class DeployNginxConfig implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param NginxInterface $nginxService The Nginx service
+     * @param PhpFpmInterface $phpFpmService The PHP-FPM service
+     * @param Pm2Service $pm2Service The PM2 service
+     * @return void
      */
     public function handle(NginxInterface $nginxService, PhpFpmInterface $phpFpmService, Pm2Service $pm2Service): void
     {
@@ -120,6 +127,9 @@ class DeployNginxConfig implements ShouldQueue
 
     /**
      * Handle a job failure.
+     *
+     * @param \Throwable $exception The exception that caused the failure
+     * @return void
      */
     public function failed(\Throwable $exception): void
     {

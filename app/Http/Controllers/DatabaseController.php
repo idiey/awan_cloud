@@ -17,6 +17,8 @@ class DatabaseController extends Controller
 
     /**
      * Clear permission cache and recheck.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function recheckPermissions()
     {
@@ -29,6 +31,8 @@ class DatabaseController extends Controller
 
     /**
      * Display a listing of the databases.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -54,6 +58,8 @@ class DatabaseController extends Controller
 
     /**
      * Show the form for creating a new database.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function create()
     {
@@ -73,6 +79,9 @@ class DatabaseController extends Controller
 
     /**
      * Store a newly created database in storage.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -130,6 +139,9 @@ class DatabaseController extends Controller
 
     /**
      * Display the specified database.
+     *
+     * @param Database $database The database model
+     * @return \Illuminate\View\View
      */
     public function show(Database $database)
     {
@@ -144,6 +156,9 @@ class DatabaseController extends Controller
 
     /**
      * Show the form for editing the specified database.
+     *
+     * @param Database $database The database model
+     * @return \Illuminate\View\View
      */
     public function edit(Database $database)
     {
@@ -152,6 +167,10 @@ class DatabaseController extends Controller
 
     /**
      * Update the specified database in storage (metadata only).
+     *
+     * @param Request $request The HTTP request
+     * @param Database $database The database model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Database $database)
     {
@@ -168,6 +187,9 @@ class DatabaseController extends Controller
 
     /**
      * Show form to change user password.
+     *
+     * @param Database $database The database model
+     * @return \Illuminate\View\View
      */
     public function showChangePasswordForm(Database $database)
     {
@@ -176,6 +198,10 @@ class DatabaseController extends Controller
 
     /**
      * Change password for database user.
+     *
+     * @param Request $request The HTTP request
+     * @param Database $database The database model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function changePassword(Request $request, Database $database)
     {
@@ -201,6 +227,9 @@ class DatabaseController extends Controller
 
     /**
      * Remove the specified database from storage.
+     *
+     * @param Database $database The database model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Database $database)
     {

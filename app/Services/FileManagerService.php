@@ -24,7 +24,11 @@ class FileManagerService
     ];
 
     /**
-     * List directory contents
+     * List directory contents.
+     *
+     * @param string $path The directory path
+     * @return array<int, array> List of directory items
+     * @throws Exception If directory cannot be listed
      */
     public function listDirectory(string $path = '/var/www'): array
     {
@@ -88,7 +92,11 @@ class FileManagerService
     }
 
     /**
-     * Read file contents
+     * Read file contents.
+     *
+     * @param string $path The file path
+     * @return string The file contents
+     * @throws Exception If file cannot be read
      */
     public function readFile(string $path): string
     {
@@ -122,7 +130,12 @@ class FileManagerService
     }
 
     /**
-     * Write file contents
+     * Write file contents.
+     *
+     * @param string $path The file path
+     * @param string $content The content to write
+     * @return bool True on success
+     * @throws Exception If file cannot be written
      */
     public function writeFile(string $path, string $content): bool
     {
@@ -155,7 +168,12 @@ class FileManagerService
     }
 
     /**
-     * Delete file or directory
+     * Delete file or directory.
+     *
+     * @param string $path The path to delete
+     * @param bool $recursive Whether to delete recursively
+     * @return bool True on success
+     * @throws Exception If deletion fails
      */
     public function delete(string $path, bool $recursive = false): bool
     {
@@ -181,7 +199,11 @@ class FileManagerService
     }
 
     /**
-     * Create directory
+     * Create directory.
+     *
+     * @param string $path The directory path to create
+     * @return bool True on success
+     * @throws Exception If creation fails
      */
     public function createDirectory(string $path): bool
     {
@@ -203,7 +225,12 @@ class FileManagerService
     }
 
     /**
-     * Rename/move file or directory
+     * Rename/move file or directory.
+     *
+     * @param string $oldPath The source path
+     * @param string $newPath The destination path
+     * @return bool True on success
+     * @throws Exception If rename fails
      */
     public function rename(string $oldPath, string $newPath): bool
     {
@@ -231,7 +258,12 @@ class FileManagerService
     }
 
     /**
-     * Change file permissions
+     * Change file permissions.
+     *
+     * @param string $path The file path
+     * @param string $permissions The permissions in octal format (e.g., '0755')
+     * @return bool True on success
+     * @throws Exception If chmod fails
      */
     public function chmod(string $path, string $permissions): bool
     {
@@ -261,7 +293,11 @@ class FileManagerService
     }
 
     /**
-     * Get file info
+     * Get file info.
+     *
+     * @param string $path The file path
+     * @return array{path: string, size: int, permissions: string, owner: string|int, group: string|int, modified: string}
+     * @throws Exception If file info cannot be retrieved
      */
     public function getFileInfo(string $path): array
     {
@@ -293,7 +329,11 @@ class FileManagerService
     }
 
     /**
-     * Upload file content
+     * Upload file content.
+     *
+     * @param string $targetPath The target file path
+     * @param string $content The content to upload
+     * @return bool True on success
      */
     public function uploadFile(string $targetPath, string $content): bool
     {
@@ -301,7 +341,10 @@ class FileManagerService
     }
 
     /**
-     * Download file
+     * Download file.
+     *
+     * @param string $path The file path
+     * @return string The file contents
      */
     public function downloadFile(string $path): string
     {
@@ -309,7 +352,10 @@ class FileManagerService
     }
 
     /**
-     * Sanitize path
+     * Sanitize path.
+     *
+     * @param string $path The path to sanitize
+     * @return string The sanitized path
      */
     protected function sanitizePath(string $path): string
     {
@@ -325,7 +371,11 @@ class FileManagerService
     }
 
     /**
-     * Validate path is in allowed locations
+     * Validate path is in allowed locations.
+     *
+     * @param string $path The path to validate
+     * @return void
+     * @throws Exception If path is not allowed
      */
     protected function validatePath(string $path): void
     {
@@ -351,7 +401,11 @@ class FileManagerService
     }
 
     /**
-     * Format bytes to human readable format
+     * Format bytes to human readable format.
+     *
+     * @param int $bytes The bytes to format
+     * @param int $precision The decimal precision
+     * @return string The formatted string
      */
     protected function formatBytes(int $bytes, int $precision = 2): string
     {

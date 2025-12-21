@@ -18,6 +18,8 @@ class CheckAlertsJob implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @return void
      */
     public function handle(): void
     {
@@ -39,7 +41,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Check a single alert rule
+     * Check a single alert rule.
+     *
+     * @param AlertRule $rule The alert rule to check
+     * @param SystemMetric $metric The current system metric
+     * @return void
      */
     protected function checkRule(AlertRule $rule, SystemMetric $metric): void
     {
@@ -69,7 +75,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Get current metric value based on rule
+     * Get current metric value based on rule.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param SystemMetric $metric The system metric
+     * @return float|null The metric value or null
      */
     protected function getMetricValue(AlertRule $rule, SystemMetric $metric): ?float
     {
@@ -83,7 +93,10 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Check if service is running
+     * Check if service is running.
+     *
+     * @param string|null $serviceName The service name
+     * @return float|null 1.0 if running, 0.0 if not, null on error
      */
     protected function checkServiceStatus(?string $serviceName): ?float
     {
@@ -103,7 +116,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Check if condition is met
+     * Check if condition is met.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param float $value The current value
+     * @return bool True if condition is met
      */
     protected function conditionMet(AlertRule $rule, float $value): bool
     {
@@ -117,7 +134,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Trigger an alert
+     * Trigger an alert.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param float $value The current value
+     * @return void
      */
     protected function triggerAlert(AlertRule $rule, float $value): void
     {
@@ -138,7 +159,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Format alert message
+     * Format alert message.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param float $value The current value
+     * @return string The formatted message
      */
     protected function formatMessage(AlertRule $rule, float $value): string
     {
@@ -152,7 +177,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Determine alert severity
+     * Determine alert severity.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param float $value The current value
+     * @return string The severity level
      */
     protected function determineSeverity(AlertRule $rule, float $value): string
     {
@@ -172,7 +201,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Send notifications via configured channels
+     * Send notifications via configured channels.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param Alert $alert The alert model
+     * @return void
      */
     protected function sendNotifications(AlertRule $rule, Alert $alert): void
     {
@@ -197,7 +230,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Send email notification
+     * Send email notification.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param Alert $alert The alert model
+     * @return void
      */
     protected function sendEmail(AlertRule $rule, Alert $alert): void
     {
@@ -226,7 +263,11 @@ class CheckAlertsJob implements ShouldQueue
     }
 
     /**
-     * Send Slack notification
+     * Send Slack notification.
+     *
+     * @param AlertRule $rule The alert rule
+     * @param Alert $alert The alert model
+     * @return void
      */
     protected function sendSlack(AlertRule $rule, Alert $alert): void
     {

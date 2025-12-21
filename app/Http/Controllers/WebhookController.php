@@ -17,6 +17,8 @@ class WebhookController extends Controller
 
     /**
      * Display a listing of the webhooks.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -30,6 +32,8 @@ class WebhookController extends Controller
 
     /**
      * Show the form for creating a new webhook.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -38,6 +42,9 @@ class WebhookController extends Controller
 
     /**
      * Store a newly created webhook in storage.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -72,6 +79,9 @@ class WebhookController extends Controller
 
     /**
      * Display the specified webhook.
+     *
+     * @param Webhook $webhook The webhook model
+     * @return \Illuminate\View\View
      */
     public function show(Webhook $webhook)
     {
@@ -84,6 +94,9 @@ class WebhookController extends Controller
 
     /**
      * Show the form for editing the specified webhook.
+     *
+     * @param Webhook $webhook The webhook model
+     * @return \Illuminate\View\View
      */
     public function edit(Webhook $webhook)
     {
@@ -92,6 +105,10 @@ class WebhookController extends Controller
 
     /**
      * Update the specified webhook in storage.
+     *
+     * @param Request $request The HTTP request
+     * @param Webhook $webhook The webhook model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Webhook $webhook)
     {
@@ -119,6 +136,9 @@ class WebhookController extends Controller
 
     /**
      * Remove the specified webhook from storage.
+     *
+     * @param Webhook $webhook The webhook model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Webhook $webhook)
     {
@@ -131,6 +151,9 @@ class WebhookController extends Controller
 
     /**
      * Generate or regenerate SSH key for webhook.
+     *
+     * @param Webhook $webhook The webhook model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function generateSshKey(Webhook $webhook)
     {
@@ -143,6 +166,9 @@ class WebhookController extends Controller
 
     /**
      * Toggle webhook active status.
+     *
+     * @param Webhook $webhook The webhook model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function toggle(Webhook $webhook)
     {

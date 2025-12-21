@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Process;
 class SslService
 {
     /**
-     * Request SSL certificate using certbot
+     * Request SSL certificate using certbot.
+     *
+     * @param Website $website The website to request certificate for
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function requestCertificate(Website $website): array
     {
@@ -52,7 +55,10 @@ class SslService
     }
 
     /**
-     * Delete SSL certificate
+     * Delete SSL certificate.
+     *
+     * @param Website $website The website whose certificate to delete
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function deleteCertificate(Website $website): array
     {
@@ -75,7 +81,9 @@ class SslService
     }
 
     /**
-     * Renew SSL certificates
+     * Renew all SSL certificates.
+     *
+     * @return array{success: bool, output?: string, error?: string}
      */
     public function renewCertificates(): array
     {

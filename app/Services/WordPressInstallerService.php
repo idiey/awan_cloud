@@ -19,7 +19,21 @@ class WordPressInstallerService
     }
 
     /**
-     * Install WordPress with optimized configuration
+     * Install WordPress with optimized configuration.
+     *
+     * @param Website $website The website to install WordPress on
+     * @param string $dbName Database name
+     * @param string $dbUser Database username
+     * @param string $dbPassword Database password
+     * @param string $dbHost Database host
+     * @param string $dbPrefix Table prefix
+     * @param string $adminUser WordPress admin username
+     * @param string $adminPassword WordPress admin password
+     * @param string $adminEmail WordPress admin email
+     * @param string $siteTitle Site title
+     * @param bool $enableCache Enable FastCGI cache
+     * @param bool $installPlugins Install recommended plugins
+     * @return array{success: bool, message: string, admin_url?: string, admin_user?: string, steps: array}
      */
     public function install(
         Website $website,
@@ -169,7 +183,9 @@ class WordPressInstallerService
     }
 
     /**
-     * Check if WP-CLI is installed
+     * Check if WP-CLI is installed.
+     *
+     * @return bool True if WP-CLI is available
      */
     protected function checkWpCli(): bool
     {
@@ -178,7 +194,13 @@ class WordPressInstallerService
     }
 
     /**
-     * Create database and user
+     * Create database and user.
+     *
+     * @param string $dbName Database name
+     * @param string $dbUser Database username
+     * @param string $dbPassword Database password
+     * @param string $dbHost Database host
+     * @return array{success: bool, message?: string}
      */
     protected function createDatabase(string $dbName, string $dbUser, string $dbPassword, string $dbHost): array
     {
@@ -211,7 +233,10 @@ class WordPressInstallerService
     }
 
     /**
-     * Download WordPress using WP-CLI
+     * Download WordPress using WP-CLI.
+     *
+     * @param string $path The installation path
+     * @return array{success: bool, output: string}
      */
     protected function downloadWordPress(string $path): array
     {
@@ -224,7 +249,15 @@ class WordPressInstallerService
     }
 
     /**
-     * Configure wp-config.php
+     * Configure wp-config.php.
+     *
+     * @param string $path The installation path
+     * @param string $dbName Database name
+     * @param string $dbUser Database username
+     * @param string $dbPassword Database password
+     * @param string $dbHost Database host
+     * @param string $dbPrefix Table prefix
+     * @return array{success: bool, output: string}
      */
     protected function configureWordPress(
         string $path,
@@ -251,7 +284,15 @@ class WordPressInstallerService
     }
 
     /**
-     * Install WordPress core
+     * Install WordPress core.
+     *
+     * @param string $path The installation path
+     * @param string $domain The domain name
+     * @param string $title Site title
+     * @param string $adminUser Admin username
+     * @param string $adminPassword Admin password
+     * @param string $adminEmail Admin email
+     * @return array{success: bool, output: string}
      */
     protected function installWordPressCore(
         string $path,
@@ -280,7 +321,11 @@ class WordPressInstallerService
     }
 
     /**
-     * Install recommended plugins
+     * Install recommended plugins.
+     *
+     * @param string $path The installation path
+     * @param bool $enableCache Whether cache is enabled
+     * @return void
      */
     protected function installRecommendedPlugins(string $path, bool $enableCache): void
     {
@@ -325,7 +370,11 @@ class WordPressInstallerService
     }
 
     /**
-     * Generate optimized Nginx configuration for WordPress
+     * Generate optimized Nginx configuration for WordPress.
+     *
+     * @param Website $website The website
+     * @param bool $enableCache Whether cache is enabled
+     * @return array{success: bool, config?: string, message?: string}
      */
     protected function generateOptimizedNginxConfig(Website $website, bool $enableCache): array
     {
@@ -346,7 +395,10 @@ class WordPressInstallerService
     }
 
     /**
-     * Generate optimized PHP-FPM pool for WordPress
+     * Generate optimized PHP-FPM pool for WordPress.
+     *
+     * @param Website $website The website
+     * @return array{success: bool, message?: string}
      */
     protected function generateOptimizedPhpFpmPool(Website $website): array
     {
@@ -383,7 +435,10 @@ class WordPressInstallerService
     }
 
     /**
-     * Set WordPress file permissions
+     * Set WordPress file permissions.
+     *
+     * @param string $path The installation path
+     * @return void
      */
     protected function setWordPressPermissions(string $path): void
     {
@@ -403,7 +458,10 @@ class WordPressInstallerService
     }
 
     /**
-     * Setup FastCGI cache directory
+     * Setup FastCGI cache directory.
+     *
+     * @param string $domain The domain name
+     * @return void
      */
     protected function setupFastCgiCache(string $domain): void
     {
@@ -415,7 +473,10 @@ class WordPressInstallerService
     }
 
     /**
-     * Check if WordPress is installed
+     * Check if WordPress is installed.
+     *
+     * @param Website $website The website to check
+     * @return array{installed: bool, message: string, admin_url?: string}
      */
     public function checkInstallation(Website $website): array
     {

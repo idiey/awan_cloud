@@ -11,7 +11,10 @@ class DatabaseService
 {
     /**
      * Check if current MySQL user has permission to create databases and users.
+     *
      * Results are cached for 10 minutes to avoid repeated tests.
+     *
+     * @return array{can_create: bool, has_create_db: bool, has_create_user: bool, has_grant_option: bool, current_user: string|null, grants: array, missing_privileges: array, message: string}
      */
     public function canCreateDatabase(): array
     {
@@ -41,6 +44,9 @@ class DatabaseService
 
     /**
      * Actually test database permissions by creating temporary database/user.
+     *
+     * @param string $currentUser The current MySQL user
+     * @return array{can_create: bool, has_create_db: bool, has_create_user: bool, has_grant_option: bool, current_user: string, grants: array, missing_privileges: array, message: string, cached: bool}
      */
     protected function testDatabasePermissions(string $currentUser): array
     {
@@ -137,6 +143,8 @@ class DatabaseService
 
     /**
      * Clear cached permission check to force retest.
+     *
+     * @return void
      */
     public function clearPermissionCache(): void
     {
@@ -151,6 +159,8 @@ class DatabaseService
 
     /**
      * Get list of all MySQL databases (excluding system databases).
+     *
+     * @return array<int, string> List of database names
      */
     public function listDatabases(): array
     {
@@ -170,6 +180,13 @@ class DatabaseService
 
     /**
      * Create a new database and user with privileges.
+     *
+     * @param string $dbName The database name
+     * @param string $username The username to create
+     * @param string $password The user password
+     * @param string $host The host for the user
+     * @return void
+     * @throws Exception If creation fails
      */
     public function createDatabase(string $dbName, string $username, string $password, string $host = 'localhost'): void
     {
@@ -192,6 +209,12 @@ class DatabaseService
 
     /**
      * Change password for a database user.
+     *
+     * @param string $username The username
+     * @param string $newPassword The new password
+     * @param string $host The host for the user
+     * @return void
+     * @throws Exception If password change fails
      */
     public function changeUserPassword(string $username, string $newPassword, string $host = 'localhost'): void
     {
@@ -205,6 +228,10 @@ class DatabaseService
 
     /**
      * Delete a database.
+     *
+     * @param string $dbName The database name to delete
+     * @return void
+     * @throws Exception If deletion fails
      */
     public function deleteDatabase(string $dbName): void
     {
@@ -217,6 +244,11 @@ class DatabaseService
 
     /**
      * Delete a database user.
+     *
+     * @param string $username The username to delete
+     * @param string $host The host for the user
+     * @return void
+     * @throws Exception If deletion fails
      */
     public function deleteUser(string $username, string $host = 'localhost'): void
     {
@@ -230,6 +262,9 @@ class DatabaseService
 
     /**
      * Check if a database exists.
+     *
+     * @param string $dbName The database name
+     * @return bool True if database exists
      */
     public function databaseExists(string $dbName): bool
     {
@@ -239,6 +274,10 @@ class DatabaseService
 
     /**
      * Check if a user exists.
+     *
+     * @param string $username The username
+     * @param string $host The host for the user
+     * @return bool True if user exists
      */
     public function userExists(string $username, string $host = 'localhost'): bool
     {
@@ -248,6 +287,9 @@ class DatabaseService
 
     /**
      * Get database size in MB.
+     *
+     * @param string $dbName The database name
+     * @return float Size in megabytes
      */
     public function getDatabaseSize(string $dbName): float
     {
@@ -264,6 +306,9 @@ class DatabaseService
 
     /**
      * Get table count for a database.
+     *
+     * @param string $dbName The database name
+     * @return int Number of tables
      */
     public function getTableCount(string $dbName): int
     {

@@ -41,6 +41,8 @@ class Deployment extends Model
 
     /**
      * Get the webhook that owns the deployment.
+     *
+     * @return BelongsTo
      */
     public function webhook(): BelongsTo
     {
@@ -49,6 +51,8 @@ class Deployment extends Model
 
     /**
      * Get the status badge class.
+     *
+     * @return string The badge color class
      */
     public function getStatusBadgeAttribute(): string
     {
@@ -63,6 +67,8 @@ class Deployment extends Model
 
     /**
      * Get the status icon.
+     *
+     * @return string The icon class
      */
     public function getStatusIconAttribute(): string
     {
@@ -77,6 +83,8 @@ class Deployment extends Model
 
     /**
      * Get the duration of deployment in seconds.
+     *
+     * @return int|null Duration in seconds or null
      */
     public function getDurationAttribute(): ?int
     {
@@ -89,6 +97,8 @@ class Deployment extends Model
 
     /**
      * Get the short commit hash.
+     *
+     * @return string The short commit hash
      */
     public function getShortCommitHashAttribute(): string
     {
@@ -97,6 +107,9 @@ class Deployment extends Model
 
     /**
      * Scope a query to only include completed deployments.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeCompleted($query)
     {
@@ -105,6 +118,9 @@ class Deployment extends Model
 
     /**
      * Scope a query to only include failed deployments.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeFailed($query)
     {
@@ -113,6 +129,9 @@ class Deployment extends Model
     
     /**
      * Scope a query to only include pending deployments.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopePending($query)
     {
@@ -121,6 +140,9 @@ class Deployment extends Model
     
     /**
      * Scope a query to only include processing deployments.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeProcessing($query)
     {

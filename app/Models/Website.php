@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Website extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'domain',
@@ -40,6 +45,11 @@ class Website extends Model
         'notes',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'ssl_enabled' => 'boolean',
         'is_active' => 'boolean',
@@ -52,7 +62,9 @@ class Website extends Model
     ];
 
     /**
-     * Get the badge color for project type
+     * Get the badge color for project type.
+     *
+     * @return string The badge color class
      */
     public function getProjectTypeBadgeAttribute(): string
     {
@@ -64,7 +76,9 @@ class Website extends Model
     }
 
     /**
-     * Get the version display text
+     * Get the version display text.
+     *
+     * @return string The version display text
      */
     public function getVersionDisplayAttribute(): string
     {
@@ -74,7 +88,9 @@ class Website extends Model
     }
 
     /**
-     * Get the status badge color
+     * Get the status badge color.
+     *
+     * @return string The badge color class
      */
     public function getStatusBadgeAttribute(): string
     {
@@ -82,7 +98,9 @@ class Website extends Model
     }
 
     /**
-     * Get the Nginx status badge color
+     * Get the Nginx status badge color.
+     *
+     * @return string The badge color class
      */
     public function getNginxStatusBadgeAttribute(): string
     {
@@ -96,7 +114,9 @@ class Website extends Model
     }
 
     /**
-     * Get the SSL status badge color
+     * Get the SSL status badge color.
+     *
+     * @return string The badge color class
      */
     public function getSslStatusBadgeAttribute(): string
     {
@@ -110,7 +130,9 @@ class Website extends Model
     }
 
     /**
-     * Get the PM2 status badge color
+     * Get the PM2 status badge color.
+     *
+     * @return string The badge color class
      */
     public function getPm2StatusBadgeAttribute(): string
     {
@@ -124,7 +146,11 @@ class Website extends Model
     }
 
     /**
-     * Scope to filter by project type or framework
+     * Scope to filter by project type or framework.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @param string $type The project type
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOfType($query, string $type)
     {
@@ -143,7 +169,10 @@ class Website extends Model
     }
 
     /**
-     * Scope to get only active websites
+     * Scope to get only active websites.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
     {
@@ -151,7 +180,9 @@ class Website extends Model
     }
 
     /**
-     * Get days until SSL certificate expires
+     * Get days until SSL certificate expires.
+     *
+     * @return int|null Days until expiry or null
      */
     public function getSslDaysUntilExpiryAttribute(): ?int
     {
@@ -163,7 +194,9 @@ class Website extends Model
     }
 
     /**
-     * Check if SSL certificate is expiring soon (within 30 days)
+     * Check if SSL certificate is expiring soon (within 30 days).
+     *
+     * @return bool True if expiring soon
      */
     public function getSslExpiringSoonAttribute(): bool
     {
@@ -173,7 +206,9 @@ class Website extends Model
     }
 
     /**
-     * Check if SSL certificate is expired
+     * Check if SSL certificate is expired.
+     *
+     * @return bool True if expired
      */
     public function getSslExpiredAttribute(): bool
     {
@@ -183,7 +218,9 @@ class Website extends Model
     }
 
     /**
-     * Get SSL expiry status badge color
+     * Get SSL expiry status badge color.
+     *
+     * @return string The badge color class
      */
     public function getSslExpiryBadgeAttribute(): string
     {
@@ -199,7 +236,9 @@ class Website extends Model
     }
 
     /**
-     * Get the DNS status badge color
+     * Get the DNS status badge color.
+     *
+     * @return string The badge color class
      */
     public function getDnsStatusBadgeAttribute(): string
     {
@@ -213,7 +252,9 @@ class Website extends Model
     }
 
     /**
-     * Check if DNS is configured
+     * Check if DNS is configured.
+     *
+     * @return bool True if DNS is configured
      */
     public function hasDnsConfigured(): bool
     {

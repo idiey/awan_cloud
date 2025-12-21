@@ -9,6 +9,11 @@ class FirewallRule extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'action',
@@ -21,6 +26,11 @@ class FirewallRule extends Model
         'is_system',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'is_active' => 'boolean',
         'is_system' => 'boolean',

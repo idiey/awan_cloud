@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SystemMetric extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'cpu_usage',
         'memory_usage',
@@ -23,6 +28,11 @@ class SystemMetric extends Model
         'recorded_at',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'cpu_usage' => 'float',
         'memory_usage' => 'float',
@@ -42,6 +52,9 @@ class SystemMetric extends Model
 
     /**
      * Get metrics for the last N hours.
+     *
+     * @param int $hours Number of hours to look back
+     * @return \Illuminate\Support\Collection
      */
     public static function getRecentMetrics(int $hours = 24): \Illuminate\Support\Collection
     {
@@ -52,6 +65,8 @@ class SystemMetric extends Model
 
     /**
      * Get the latest metric.
+     *
+     * @return self|null The latest metric or null
      */
     public static function getLatest(): ?self
     {
@@ -60,6 +75,9 @@ class SystemMetric extends Model
 
     /**
      * Delete old metrics beyond retention period.
+     *
+     * @param int $hours Retention period in hours
+     * @return int Number of deleted records
      */
     public static function deleteOldMetrics(int $hours = 24): int
     {
@@ -68,6 +86,9 @@ class SystemMetric extends Model
 
     /**
      * Format bytes to human readable format.
+     *
+     * @param int $bytes The bytes to format
+     * @return string The formatted string
      */
     public function formatBytes(int $bytes): string
     {

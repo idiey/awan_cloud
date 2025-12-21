@@ -13,7 +13,9 @@ class ServiceManagerController extends Controller
     ) {}
 
     /**
-     * Service manager index
+     * Service manager index.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -28,7 +30,10 @@ class ServiceManagerController extends Controller
     }
 
     /**
-     * Get service status (AJAX)
+     * Get service status (AJAX).
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function status(Request $request)
     {
@@ -49,7 +54,10 @@ class ServiceManagerController extends Controller
     }
 
     /**
-     * Start service
+     * Start service.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function start(Request $request)
     {
@@ -74,7 +82,10 @@ class ServiceManagerController extends Controller
     }
 
     /**
-     * Stop service
+     * Stop service.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function stop(Request $request)
     {
@@ -99,7 +110,10 @@ class ServiceManagerController extends Controller
     }
 
     /**
-     * Restart service
+     * Restart service.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function restart(Request $request)
     {
@@ -124,7 +138,10 @@ class ServiceManagerController extends Controller
     }
 
     /**
-     * Reload service
+     * Reload service.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reload(Request $request)
     {
@@ -149,7 +166,10 @@ class ServiceManagerController extends Controller
     }
 
     /**
-     * View service logs
+     * View service logs.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function logs(Request $request)
     {

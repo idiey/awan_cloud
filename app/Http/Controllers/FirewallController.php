@@ -13,7 +13,9 @@ class FirewallController extends Controller
     ) {}
 
     /**
-     * Display firewall rules
+     * Display firewall rules.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -28,7 +30,10 @@ class FirewallController extends Controller
     }
 
     /**
-     * Store a new firewall rule
+     * Store a new firewall rule.
+     *
+     * @param Request $request The HTTP request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -61,7 +66,10 @@ class FirewallController extends Controller
     }
 
     /**
-     * Delete a firewall rule
+     * Delete a firewall rule.
+     *
+     * @param FirewallRule $firewallRule The firewall rule model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(FirewallRule $firewallRule)
     {
@@ -77,7 +85,9 @@ class FirewallController extends Controller
     }
 
     /**
-     * Enable Firewall
+     * Enable Firewall.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function enable()
     {
@@ -91,7 +101,9 @@ class FirewallController extends Controller
     }
 
     /**
-     * Disable Firewall
+     * Disable Firewall.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function disable()
     {
@@ -105,7 +117,9 @@ class FirewallController extends Controller
     }
 
     /**
-     * Reset Firewall (delete all rules)
+     * Reset Firewall (delete all rules).
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reset()
     {
@@ -122,7 +136,10 @@ class FirewallController extends Controller
     }
 
     /**
-     * Toggle rule active status
+     * Toggle rule active status.
+     *
+     * @param FirewallRule $firewallRule The firewall rule model
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function toggle(FirewallRule $firewallRule)
     {

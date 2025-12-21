@@ -2,13 +2,24 @@
 
 namespace App\Services\Firewall;
 
+/**
+ * UFW Firewall Service for Debian/Ubuntu systems.
+ *
+ * Provides firewall management using UFW (Uncomplicated Firewall).
+ */
 class UfwService extends AbstractFirewallService
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getType(): string
     {
         return 'ufw';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getStatus(): array
     {
         $result = $this->runCommand('sudo /usr/sbin/ufw status verbose');
@@ -31,6 +42,9 @@ class UfwService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enable(): array
     {
         $result = $this->runCommand('sudo /usr/sbin/ufw --force enable');
@@ -43,6 +57,9 @@ class UfwService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function disable(): array
     {
         $result = $this->runCommand('sudo /usr/sbin/ufw disable');
@@ -55,6 +72,9 @@ class UfwService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addRule(string $port, string $protocol = 'tcp'): array
     {
         $rule = "{$port}/{$protocol}";
@@ -68,6 +88,9 @@ class UfwService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deleteRule(string $port, string $protocol = 'tcp'): array
     {
         $rule = "{$port}/{$protocol}";
@@ -81,6 +104,9 @@ class UfwService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reset(): array
     {
         $result = $this->runCommand('sudo /usr/sbin/ufw --force reset');
@@ -93,6 +119,9 @@ class UfwService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRules(): array
     {
         $result = $this->runCommand('sudo /usr/sbin/ufw status numbered');

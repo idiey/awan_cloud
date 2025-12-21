@@ -17,6 +17,10 @@ class DeploymentService
 
     /**
      * Execute deployment for a webhook.
+     *
+     * @param Webhook $webhook The webhook to deploy
+     * @param array $payload Optional payload data from webhook
+     * @return Deployment The deployment record
      */
     public function deploy(Webhook $webhook, array $payload = []): Deployment
     {
@@ -57,6 +61,10 @@ class DeploymentService
 
     /**
      * Prepare command to run as specific user if configured.
+     *
+     * @param array $command The command array
+     * @param string|null $deployUser The user to run command as
+     * @return array The prepared command array
      */
     protected function prepareCommandAsUser(array $command, ?string $deployUser = null): array
     {
@@ -71,6 +79,10 @@ class DeploymentService
 
     /**
      * Execute the deployment process.
+     *
+     * @param Webhook $webhook The webhook to deploy
+     * @return string The deployment output
+     * @throws \Exception If deployment fails
      */
     protected function executeDeployment(Webhook $webhook): string
     {
@@ -233,6 +245,9 @@ class DeploymentService
 
     /**
      * Parse GitHub webhook payload.
+     *
+     * @param array $payload The GitHub webhook payload
+     * @return array{commit_hash: string|null, commit_message: string|null, author: string|null}
      */
     public function parseGithubPayload(array $payload): array
     {
@@ -245,6 +260,9 @@ class DeploymentService
 
     /**
      * Parse GitLab webhook payload.
+     *
+     * @param array $payload The GitLab webhook payload
+     * @return array{commit_hash: string|null, commit_message: string|null, author: string|null}
      */
     public function parseGitlabPayload(array $payload): array
     {

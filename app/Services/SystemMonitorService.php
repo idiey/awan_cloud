@@ -9,6 +9,8 @@ class SystemMonitorService
 {
     /**
      * Collect current system metrics.
+     *
+     * @return array<string, mixed> The collected metrics
      */
     public function collectMetrics(): array
     {
@@ -32,6 +34,8 @@ class SystemMonitorService
 
     /**
      * Collect and store metrics to database.
+     *
+     * @return SystemMetric The created metric record
      */
     public function record(): SystemMetric
     {
@@ -42,6 +46,8 @@ class SystemMonitorService
 
     /**
      * Get CPU core count.
+     *
+     * @return int Number of CPU cores
      */
     public function getCpuCores(): int
     {
@@ -68,6 +74,8 @@ class SystemMonitorService
 
     /**
      * Get CPU usage percentage.
+     *
+     * @return float CPU usage percentage
      */
     protected function getCpuUsage(): float
     {
@@ -104,6 +112,8 @@ class SystemMonitorService
 
     /**
      * Get memory usage percentage.
+     *
+     * @return float Memory usage percentage
      */
     protected function getMemoryUsage(): float
     {
@@ -123,6 +133,8 @@ class SystemMonitorService
 
     /**
      * Get disk usage percentage.
+     *
+     * @return float Disk usage percentage
      */
     protected function getDiskUsage(): float
     {
@@ -142,6 +154,8 @@ class SystemMonitorService
 
     /**
      * Get total memory in bytes.
+     *
+     * @return int Total memory in bytes
      */
     protected function getMemoryTotal(): int
     {
@@ -170,6 +184,8 @@ class SystemMonitorService
 
     /**
      * Get used memory in bytes.
+     *
+     * @return int Used memory in bytes
      */
     protected function getMemoryUsed(): int
     {
@@ -219,6 +235,8 @@ class SystemMonitorService
 
     /**
      * Get total disk space in bytes.
+     *
+     * @return int Total disk space in bytes
      */
     protected function getDiskTotal(): int
     {
@@ -236,6 +254,8 @@ class SystemMonitorService
 
     /**
      * Get used disk space in bytes.
+     *
+     * @return int Used disk space in bytes
      */
     protected function getDiskUsed(): int
     {
@@ -256,6 +276,8 @@ class SystemMonitorService
 
     /**
      * Get cumulative disk read bytes.
+     *
+     * @return int Cumulative disk read bytes
      */
     protected function getDiskReadBytes(): int
     {
@@ -301,6 +323,8 @@ class SystemMonitorService
 
     /**
      * Get cumulative disk write bytes.
+     *
+     * @return int Cumulative disk write bytes
      */
     protected function getDiskWriteBytes(): int
     {
@@ -348,6 +372,8 @@ class SystemMonitorService
 
     /**
      * Get cumulative network received bytes.
+     *
+     * @return int Cumulative network received bytes
      */
     protected function getNetworkRxBytes(): int
     {
@@ -393,6 +419,8 @@ class SystemMonitorService
 
     /**
      * Get cumulative network transmitted bytes.
+     *
+     * @return int Cumulative network transmitted bytes
      */
     protected function getNetworkTxBytes(): int
     {
@@ -440,6 +468,8 @@ class SystemMonitorService
 
     /**
      * Get database connection count.
+     *
+     * @return int Number of database connections
      */
     protected function getDbConnections(): int
     {
@@ -473,6 +503,8 @@ class SystemMonitorService
 
     /**
      * Get database running processes count.
+     *
+     * @return int Number of database processes
      */
     protected function getDbProcesses(): int
     {

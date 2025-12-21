@@ -43,6 +43,8 @@ class SshKey extends Model
 
     /**
      * Get the webhook that owns the SSH key.
+     *
+     * @return BelongsTo
      */
     public function webhook(): BelongsTo
     {
@@ -51,6 +53,8 @@ class SshKey extends Model
 
     /**
      * Get the fingerprint in a formatted way.
+     *
+     * @return string The formatted fingerprint
      */
     public function getFormattedFingerprintAttribute(): string
     {

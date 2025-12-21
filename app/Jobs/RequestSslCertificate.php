@@ -17,6 +17,8 @@ class RequestSslCertificate implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @param Website $website The website to request SSL for
      */
     public function __construct(
         public Website $website
@@ -24,6 +26,9 @@ class RequestSslCertificate implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param SslService $sslService The SSL service
+     * @return void
      */
     public function handle(SslService $sslService): void
     {
@@ -77,6 +82,9 @@ class RequestSslCertificate implements ShouldQueue
 
     /**
      * Handle a job failure.
+     *
+     * @param \Throwable $exception The exception that caused the failure
+     * @return void
      */
     public function failed(\Throwable $exception): void
     {

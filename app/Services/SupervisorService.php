@@ -11,7 +11,10 @@ use Exception;
 class SupervisorService
 {
     /**
-     * Generate supervisor config from program model
+     * Generate supervisor config from program model.
+     *
+     * @param SupervisorProgram $program The supervisor program model
+     * @return string The generated configuration content
      */
     public function generateConfig(SupervisorProgram $program): string
     {
@@ -56,6 +59,13 @@ class SupervisorService
         return $config;
     }
 
+    /**
+     * Convert value to supervisor boolean string.
+     *
+     * @param mixed $value The value to convert
+     * @param bool $default The default value if null/empty
+     * @return string 'true' or 'false'
+     */
     protected function toSupervisorBool(mixed $value, bool $default): string
     {
         if ($value === null) {
@@ -88,7 +98,10 @@ class SupervisorService
     }
 
     /**
-     * Deploy supervisor config to system
+     * Deploy supervisor config to system.
+     *
+     * @param SupervisorProgram $program The supervisor program to deploy
+     * @return array{success: bool, message?: string, error?: string, config_path?: string}
      */
     public function deploy(SupervisorProgram $program): array
     {
@@ -151,7 +164,9 @@ class SupervisorService
     }
 
     /**
-     * Check if supervisor is available on the system
+     * Check if supervisor is available on the system.
+     *
+     * @return bool True if supervisor is available
      */
     protected function isSupervisorAvailable(): bool
     {
@@ -170,7 +185,10 @@ class SupervisorService
     }
 
     /**
-     * Remove supervisor config from system
+     * Remove supervisor config from system.
+     *
+     * @param SupervisorProgram $program The supervisor program to remove
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function remove(SupervisorProgram $program): array
     {
@@ -223,7 +241,9 @@ class SupervisorService
     }
 
     /**
-     * Reload supervisor configuration
+     * Reload supervisor configuration.
+     *
+     * @return array{success: bool, message: string, reread_output?: string, update_output?: string}
      */
     public function reloadSupervisor(): array
     {
@@ -269,7 +289,10 @@ class SupervisorService
     }
 
     /**
-     * Start a supervisor program
+     * Start a supervisor program.
+     *
+     * @param string $programName The program name to start
+     * @return array{success: bool, message: string, output?: string}
      */
     public function startProgram(string $programName): array
     {
@@ -302,7 +325,10 @@ class SupervisorService
     }
 
     /**
-     * Stop a supervisor program
+     * Stop a supervisor program.
+     *
+     * @param string $programName The program name to stop
+     * @return array{success: bool, message: string, output?: string}
      */
     public function stopProgram(string $programName): array
     {
@@ -335,7 +361,10 @@ class SupervisorService
     }
 
     /**
-     * Restart a supervisor program
+     * Restart a supervisor program.
+     *
+     * @param string $programName The program name to restart
+     * @return array{success: bool, message: string, output?: string}
      */
     public function restartProgram(string $programName): array
     {
@@ -368,7 +397,10 @@ class SupervisorService
     }
 
     /**
-     * Get supervisor program status
+     * Get supervisor program status.
+     *
+     * @param string $programName The program name to check
+     * @return array{success: bool, message?: string, processes: array}
      */
     public function getProgramStatus(string $programName): array
     {
@@ -416,7 +448,9 @@ class SupervisorService
     }
 
     /**
-     * Get all supervisor programs
+     * Get all supervisor programs.
+     *
+     * @return array{success: bool, message?: string, programs: array}
      */
     public function getAllPrograms(): array
     {
@@ -474,7 +508,11 @@ class SupervisorService
     }
 
     /**
-     * Get program logs
+     * Get program logs.
+     *
+     * @param SupervisorProgram $program The supervisor program
+     * @param int $lines Number of log lines to retrieve
+     * @return string The log content
      */
     public function getProgramLogs(SupervisorProgram $program, int $lines = 100): string
     {

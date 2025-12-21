@@ -16,7 +16,10 @@ class CloudflareService
     }
 
     /**
-     * Get Cloudflare zone ID by domain name
+     * Get Cloudflare zone ID by domain name.
+     *
+     * @param string $domain The domain name
+     * @return string|null The zone ID or null if not found
      */
     public function getZoneId(string $domain): ?string
     {
@@ -56,7 +59,13 @@ class CloudflareService
     }
 
     /**
-     * Create DNS A record
+     * Create DNS A record.
+     *
+     * @param string $zoneId The Cloudflare zone ID
+     * @param string $domain The domain name
+     * @param string $ipAddress The IP address
+     * @param bool $proxied Whether to proxy through Cloudflare
+     * @return array{success: bool, record_id?: string, data?: array, error?: string}
      */
     public function createDnsRecord(string $zoneId, string $domain, string $ipAddress, bool $proxied = false): array
     {
@@ -113,7 +122,14 @@ class CloudflareService
     }
 
     /**
-     * Update DNS A record
+     * Update DNS A record.
+     *
+     * @param string $zoneId The Cloudflare zone ID
+     * @param string $recordId The DNS record ID
+     * @param string $domain The domain name
+     * @param string $ipAddress The IP address
+     * @param bool $proxied Whether to proxy through Cloudflare
+     * @return array{success: bool, data?: array, error?: string}
      */
     public function updateDnsRecord(string $zoneId, string $recordId, string $domain, string $ipAddress, bool $proxied = false): array
     {
@@ -168,7 +184,11 @@ class CloudflareService
     }
 
     /**
-     * Delete DNS record
+     * Delete DNS record.
+     *
+     * @param string $zoneId The Cloudflare zone ID
+     * @param string $recordId The DNS record ID
+     * @return array{success: bool, error?: string}
      */
     public function deleteDnsRecord(string $zoneId, string $recordId): array
     {
@@ -212,7 +232,11 @@ class CloudflareService
     }
 
     /**
-     * Get DNS record details
+     * Get DNS record details.
+     *
+     * @param string $zoneId The Cloudflare zone ID
+     * @param string $recordId The DNS record ID
+     * @return array{success: bool, data?: array, error?: string}
      */
     public function getDnsRecord(string $zoneId, string $recordId): array
     {
@@ -240,7 +264,11 @@ class CloudflareService
     }
 
     /**
-     * List DNS records for a zone
+     * List DNS records for a zone.
+     *
+     * @param string $zoneId The Cloudflare zone ID
+     * @param array $filters Optional filters for the query
+     * @return array{success: bool, data?: array, error?: string}
      */
     public function listDnsRecords(string $zoneId, array $filters = []): array
     {
@@ -268,7 +296,9 @@ class CloudflareService
     }
 
     /**
-     * Get server's public IP address
+     * Get server's public IP address.
+     *
+     * @return string|null The server's public IP or null if detection failed
      */
     public function getServerIp(): ?string
     {
@@ -307,7 +337,9 @@ class CloudflareService
     }
 
     /**
-     * Check if Cloudflare is configured
+     * Check if Cloudflare is configured.
+     *
+     * @return bool True if API token is set
      */
     public function isConfigured(): bool
     {
@@ -315,7 +347,9 @@ class CloudflareService
     }
 
     /**
-     * Verify API token
+     * Verify API token.
+     *
+     * @return array{success: bool, data?: array, error?: string}
      */
     public function verifyToken(): array
     {
@@ -343,7 +377,10 @@ class CloudflareService
     }
 
     /**
-     * Extract root domain from subdomain
+     * Extract root domain from subdomain.
+     *
+     * @param string $domain The full domain name
+     * @return string The root domain
      */
     private function extractRootDomain(string $domain): string
     {
@@ -366,7 +403,10 @@ class CloudflareService
     }
 
     /**
-     * Format Cloudflare API errors
+     * Format Cloudflare API errors.
+     *
+     * @param array $errors The error array from Cloudflare API
+     * @return string Formatted error message
      */
     private function formatErrors(array $errors): string
     {

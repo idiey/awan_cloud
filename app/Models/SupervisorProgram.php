@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SupervisorProgram extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'name',
         'description',
@@ -27,6 +32,11 @@ class SupervisorProgram extends Model
         'is_active',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'autostart' => 'boolean',
         'autorestart' => 'boolean',
@@ -42,7 +52,9 @@ class SupervisorProgram extends Model
     ];
 
     /**
-     * Get the supervisor config file name
+     * Get the supervisor config file name.
+     *
+     * @return string The config file name
      */
     public function getConfigFileName(): string
     {
@@ -50,7 +62,9 @@ class SupervisorProgram extends Model
     }
 
     /**
-     * Get the supervisor config file path
+     * Get the supervisor config file path.
+     *
+     * @return string The config file path
      */
     public function getConfigFilePath(): string
     {
@@ -58,7 +72,9 @@ class SupervisorProgram extends Model
     }
 
     /**
-     * Get the log file path
+     * Get the log file path.
+     *
+     * @return string The log file path
      */
     public function getLogFilePath(): string
     {

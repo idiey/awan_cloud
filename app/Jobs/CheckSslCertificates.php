@@ -17,11 +17,12 @@ class CheckSslCertificates implements ShouldQueue
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Execute the job.
+     *
+     * @return void
      */
     public function handle(): void
     {
@@ -39,7 +40,10 @@ class CheckSslCertificates implements ShouldQueue
     }
 
     /**
-     * Check SSL certificate for a website
+     * Check SSL certificate for a website.
+     *
+     * @param Website $website The website to check
+     * @return void
      */
     protected function checkCertificate(Website $website): void
     {
@@ -79,7 +83,10 @@ class CheckSslCertificates implements ShouldQueue
     }
 
     /**
-     * Parse certificate information from openssl output
+     * Parse certificate information from openssl output.
+     *
+     * @param string $output The openssl output
+     * @return array|null The parsed certificate info or null
      */
     protected function parseCertificateInfo(string $output): ?array
     {

@@ -12,6 +12,9 @@ class SshKeyService
 {
     /**
      * Generate SSH key pair for a webhook.
+     *
+     * @param Webhook $webhook The webhook to generate key pair for
+     * @return SshKey The created SSH key model
      */
     public function generateKeyPair(Webhook $webhook): SshKey
     {
@@ -60,6 +63,9 @@ class SshKeyService
 
     /**
      * Extract fingerprint from ssh-keygen output.
+     *
+     * @param string $output The ssh-keygen output
+     * @return string|null The extracted fingerprint or null
      */
     protected function extractFingerprint(string $output): ?string
     {
@@ -72,6 +78,9 @@ class SshKeyService
 
     /**
      * Save private key to temporary file for git operations.
+     *
+     * @param SshKey $sshKey The SSH key model
+     * @return string The path to the temporary key file
      */
     public function saveTempPrivateKey(SshKey $sshKey): string
     {
@@ -87,6 +96,9 @@ class SshKeyService
 
     /**
      * Delete temporary private key file.
+     *
+     * @param string $keyPath The path to the temporary key file
+     * @return void
      */
     public function deleteTempPrivateKey(string $keyPath): void
     {

@@ -25,7 +25,11 @@ class Pm2Service
     }
 
     /**
-     * Generate PM2 ecosystem configuration
+     * Generate PM2 ecosystem configuration.
+     *
+     * @param Website $website The website to generate config for
+     * @return string The generated ecosystem configuration
+     * @throws \InvalidArgumentException If website is not a Node.js project
      */
     public function generateEcosystemConfig(Website $website): string
     {
@@ -102,7 +106,10 @@ JS;
     }
 
     /**
-     * Write PM2 ecosystem configuration file
+     * Write PM2 ecosystem configuration file.
+     *
+     * @param Website $website The website to write config for
+     * @return array{success: bool, filepath?: string, message?: string, error?: string}
      */
     public function writeEcosystemConfig(Website $website): array
     {
@@ -187,7 +194,10 @@ JS;
     }
 
     /**
-     * Delete PM2 ecosystem configuration
+     * Delete PM2 ecosystem configuration.
+     *
+     * @param Website $website The website to delete config for
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function deleteEcosystemConfig(Website $website): array
     {
@@ -222,7 +232,10 @@ JS;
     }
 
     /**
-     * Start PM2 application
+     * Start PM2 application.
+     *
+     * @param Website $website The website to start
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function startApp(Website $website): array
     {
@@ -281,7 +294,10 @@ JS;
     }
 
     /**
-     * Stop PM2 application
+     * Stop PM2 application.
+     *
+     * @param Website $website The website to stop
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function stopApp(Website $website): array
     {
@@ -337,7 +353,10 @@ JS;
     }
 
     /**
-     * Restart PM2 application
+     * Restart PM2 application.
+     *
+     * @param Website $website The website to restart
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function restartApp(Website $website): array
     {
@@ -395,7 +414,10 @@ JS;
     }
 
     /**
-     * Get PM2 app status
+     * Get PM2 app status.
+     *
+     * @param Website $website The website to check status for
+     * @return array{success: bool, status?: string, message?: string, error?: string, pid?: int|null, uptime?: int|null, restarts?: int, memory?: int, cpu?: int}
      */
     public function getAppStatus(Website $website): array
     {

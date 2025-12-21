@@ -45,6 +45,8 @@ class Webhook extends Model
 
     /**
      * Get the SSH key associated with the webhook.
+     *
+     * @return HasOne
      */
     public function sshKey(): HasOne
     {
@@ -53,6 +55,8 @@ class Webhook extends Model
 
     /**
      * Get the deployments for the webhook.
+     *
+     * @return HasMany
      */
     public function deployments(): HasMany
     {
@@ -61,6 +65,8 @@ class Webhook extends Model
 
     /**
      * Get the latest deployment.
+     *
+     * @return HasOne
      */
     public function latestDeployment(): HasOne
     {
@@ -69,6 +75,9 @@ class Webhook extends Model
 
     /**
      * Scope a query to only include active webhooks.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The query builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
     {
@@ -77,6 +86,8 @@ class Webhook extends Model
 
     /**
      * Get the webhook endpoint URL.
+     *
+     * @return string The webhook URL
      */
     public function getWebhookUrlAttribute(): string
     {
@@ -85,6 +96,8 @@ class Webhook extends Model
 
     /**
      * Get the provider icon class.
+     *
+     * @return string The icon class
      */
     public function getProviderIconAttribute(): string
     {
@@ -97,6 +110,8 @@ class Webhook extends Model
 
     /**
      * Get the status badge class.
+     *
+     * @return string The badge color class
      */
     public function getStatusBadgeAttribute(): string
     {

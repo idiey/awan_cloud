@@ -11,6 +11,9 @@ class QueueService
 {
     /**
      * Get pending jobs (supports both Redis and Database).
+     *
+     * @param int $limit Maximum number of jobs to retrieve
+     * @return array<int, array> List of pending jobs
      */
     public function getPendingJobs(int $limit = 50): array
     {
@@ -25,6 +28,9 @@ class QueueService
 
     /**
      * Get pending jobs from Redis queue.
+     *
+     * @param int $limit Maximum number of jobs to retrieve
+     * @return array<int, array> List of pending jobs
      */
     protected function getRedisJobs(int $limit = 50): array
     {
@@ -71,6 +77,9 @@ class QueueService
 
     /**
      * Get pending jobs from database queue.
+     *
+     * @param int $limit Maximum number of jobs to retrieve
+     * @return array<int, array> List of pending jobs
      */
     protected function getDatabaseJobs(int $limit = 50): array
     {
@@ -101,6 +110,9 @@ class QueueService
 
     /**
      * Get failed jobs (supports both Redis and Database).
+     *
+     * @param int $limit Maximum number of jobs to retrieve
+     * @return array<int, array> List of failed jobs
      */
     public function getFailedJobs(int $limit = 50): array
     {
@@ -132,6 +144,8 @@ class QueueService
 
     /**
      * Get queue statistics.
+     *
+     * @return array{pending_jobs: int, failed_jobs: int, recent_failed: int, jobs_by_queue: array}
      */
     public function getStatistics(): array
     {
@@ -155,6 +169,8 @@ class QueueService
 
     /**
      * Get statistics from Redis.
+     *
+     * @return array{pending_jobs: int, failed_jobs: int, recent_failed: int, jobs_by_queue: array}
      */
     protected function getRedisStatistics(): array
     {
@@ -198,6 +214,8 @@ class QueueService
 
     /**
      * Get statistics from database.
+     *
+     * @return array{pending_jobs: int, failed_jobs: int, recent_failed: int, jobs_by_queue: array}
      */
     protected function getDatabaseStatistics(): array
     {
@@ -236,8 +254,12 @@ class QueueService
 
     /**
      * Delete a job from queue.
-     * Database: Delete by numeric ID
-     * Redis: Not supported (jobs in lists, complex to delete by hash)
+     *
+     * Database: Delete by numeric ID.
+     * Redis: Not supported (jobs in lists, complex to delete by hash).
+     *
+     * @param string $jobId The job ID to delete
+     * @return bool True if job was deleted
      */
     public function deleteJob(string $jobId): bool
     {
@@ -260,6 +282,9 @@ class QueueService
 
     /**
      * Delete a failed job.
+     *
+     * @param string $uuid The failed job UUID
+     * @return bool True if job was deleted
      */
     public function deleteFailedJob(string $uuid): bool
     {
@@ -272,6 +297,9 @@ class QueueService
 
     /**
      * Retry a failed job.
+     *
+     * @param string $uuid The failed job UUID
+     * @return bool True if job was retried successfully
      */
     public function retryFailedJob(string $uuid): bool
     {
@@ -314,6 +342,8 @@ class QueueService
 
     /**
      * Retry all failed jobs.
+     *
+     * @return int Number of jobs retried
      */
     public function retryAllFailedJobs(): int
     {
@@ -335,6 +365,8 @@ class QueueService
 
     /**
      * Clear all failed jobs.
+     *
+     * @return int Number of jobs deleted
      */
     public function clearFailedJobs(): int
     {
@@ -347,6 +379,9 @@ class QueueService
 
     /**
      * Extract job display name from payload.
+     *
+     * @param string $payload The job payload JSON
+     * @return string The display name
      */
     protected function getJobDisplayName(string $payload): string
     {
@@ -373,6 +408,9 @@ class QueueService
 
     /**
      * Get job details by ID (supports both database int ID and Redis string hash).
+     *
+     * @param string $jobId The job ID
+     * @return array|null The job details or null if not found
      */
     public function getJobDetails(string $jobId): ?array
     {
@@ -434,6 +472,9 @@ class QueueService
 
     /**
      * Get failed job details by UUID.
+     *
+     * @param string $uuid The failed job UUID
+     * @return array|null The job details or null if not found
      */
     public function getFailedJobDetails(string $uuid): ?array
     {
@@ -461,6 +502,8 @@ class QueueService
 
     /**
      * Get all Redis queue names from keys.
+     *
+     * @return array<int, string> List of queue names
      */
     protected function getRedisQueueNames(): array
     {

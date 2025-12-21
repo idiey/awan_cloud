@@ -33,6 +33,9 @@ class ProcessDeployment implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @param Webhook $webhook The webhook to process
+     * @param array $payload The webhook payload data
      */
     public function __construct(
         public Webhook $webhook,
@@ -42,6 +45,9 @@ class ProcessDeployment implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @param DeploymentService $deploymentService The deployment service
+     * @return void
      */
     public function handle(DeploymentService $deploymentService): void
     {

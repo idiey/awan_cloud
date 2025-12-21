@@ -2,13 +2,24 @@
 
 namespace App\Services\Firewall;
 
+/**
+ * Firewalld Service for RHEL/Rocky/Alma systems.
+ *
+ * Provides firewall management using firewalld.
+ */
 class FirewalldService extends AbstractFirewallService
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getType(): string
     {
         return 'firewalld';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getStatus(): array
     {
         $result = $this->runCommand('sudo /usr/bin/firewall-cmd --state');
@@ -22,6 +33,9 @@ class FirewalldService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function enable(): array
     {
         // Start and enable firewalld (RHEL uses /usr/bin/systemctl)
@@ -36,6 +50,9 @@ class FirewalldService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function disable(): array
     {
         $this->runCommand('sudo /usr/bin/systemctl stop firewalld');
@@ -49,6 +66,9 @@ class FirewalldService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addRule(string $port, string $protocol = 'tcp'): array
     {
         $rule = "{$port}/{$protocol}";
@@ -67,6 +87,9 @@ class FirewalldService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deleteRule(string $port, string $protocol = 'tcp'): array
     {
         $rule = "{$port}/{$protocol}";
@@ -85,6 +108,9 @@ class FirewalldService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reset(): array
     {
         // Reload to default configuration
@@ -98,6 +124,9 @@ class FirewalldService extends AbstractFirewallService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRules(): array
     {
         $result = $this->runCommand('sudo /usr/bin/firewall-cmd --list-ports');
