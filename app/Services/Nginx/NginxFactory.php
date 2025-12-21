@@ -7,7 +7,9 @@ use App\Contracts\NginxInterface;
 class NginxFactory
 {
     /**
-     * Create nginx service based on OS
+     * Create nginx service based on OS.
+     *
+     * @return NginxInterface The appropriate Nginx service
      */
     public static function create(): NginxInterface
     {
@@ -26,7 +28,9 @@ class NginxFactory
     }
 
     /**
-     * Detect OS family
+     * Detect OS family.
+     *
+     * @return string The OS family (rhel or debian)
      */
     protected static function detectOsFamily(): string
     {

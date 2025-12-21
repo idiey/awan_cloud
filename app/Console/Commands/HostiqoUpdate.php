@@ -8,13 +8,28 @@ use Illuminate\Support\Facades\Process;
 
 class HostiqoUpdate extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'hostiqo:update 
                             {--force : Force update without confirmation}
                             {--no-backup : Skip database backup}
                             {--sudoers : Refresh sudoers configuration after update (requires sudo/root)}';
 
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Update Hostiqo to the latest version';
 
+    /**
+     * Execute the console command.
+     *
+     * @return int Exit code (0 for success, 1 for failure)
+     */
     public function handle(): int
     {
         $this->info('');

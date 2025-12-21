@@ -7,7 +7,9 @@ use App\Contracts\PhpFpmInterface;
 class PhpFpmFactory
 {
     /**
-     * Create PHP-FPM service based on OS
+     * Create PHP-FPM service based on OS.
+     *
+     * @return PhpFpmInterface The appropriate PHP-FPM service
      */
     public static function create(): PhpFpmInterface
     {
@@ -26,7 +28,9 @@ class PhpFpmFactory
     }
 
     /**
-     * Detect OS family
+     * Detect OS family.
+     *
+     * @return string The OS family (rhel or debian)
      */
     protected static function detectOsFamily(): string
     {

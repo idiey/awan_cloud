@@ -9,53 +9,83 @@ use Illuminate\Support\Facades\Process;
 
 class RhelPhpFpmService extends AbstractPhpFpmService
 {
+    /**
+     * Create a new RhelPhpFpmService instance.
+     */
     public function __construct()
     {
         $this->webServerUser = 'nginx';
         $this->webServerGroup = 'nginx';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'rhel';
     }
 
     /**
-     * Convert PHP version to RHEL format (8.4 -> 84)
+     * Convert PHP version to RHEL format (8.4 -> 84).
+     *
+     * @param string $version The PHP version
+     * @return string The RHEL format version
      */
     protected function phpVersionToRhel(string $version): string
     {
         return str_replace('.', '', $version);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPoolDirectoryPath(string $phpVersion): string
     {
         $phpVer = $this->phpVersionToRhel($phpVersion);
         return "/etc/opt/remi/php{$phpVer}/php-fpm.d";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getSocketPath(string $phpVersion, string $poolName): string
     {
         $phpVer = $this->phpVersionToRhel($phpVersion);
         return "/var/opt/remi/php{$phpVer}/run/php-fpm/{$poolName}.sock";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLogPath(string $phpVersion): string
     {
         $phpVer = $this->phpVersionToRhel($phpVersion);
         return "/var/opt/remi/php{$phpVer}/log/php-fpm";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getWebServerUser(): string
     {
         return $this->webServerUser;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getWebServerGroup(): string
     {
         return $this->webServerGroup;
     }
 
+    /**
+     * Write PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, filepath?: string, pool_name?: string, socket_path?: string, message?: string, error?: string}
+     */
     public function writePoolConfig(Website $website): array
     {
         try {
@@ -116,6 +146,12 @@ class RhelPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * Delete PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message?: string, error?: string}
+     */
     public function deletePoolConfig(Website $website): array
     {
         try {
@@ -152,6 +188,9 @@ class RhelPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function testConfig(string $phpVersion, ?string $poolConfigPath = null): array
     {
         $phpVer = $this->phpVersionToRhel($phpVersion);
@@ -163,6 +202,9 @@ class RhelPhpFpmService extends AbstractPhpFpmService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function restart(string $phpVersion): array
     {
         $phpVer = $this->phpVersionToRhel($phpVersion);
@@ -176,6 +218,9 @@ class RhelPhpFpmService extends AbstractPhpFpmService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reload(string $phpVersion): array
     {
         $phpVer = $this->phpVersionToRhel($phpVersion);

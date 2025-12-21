@@ -9,42 +9,69 @@ use Illuminate\Support\Facades\Process;
 
 class DebianPhpFpmService extends AbstractPhpFpmService
 {
+    /**
+     * Create a new DebianPhpFpmService instance.
+     */
     public function __construct()
     {
         $this->webServerUser = 'www-data';
         $this->webServerGroup = 'www-data';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'debian';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPoolDirectoryPath(string $phpVersion): string
     {
         return "/etc/php/{$phpVersion}/fpm/pool.d";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getSocketPath(string $phpVersion, string $poolName): string
     {
         return "/var/run/php/php{$phpVersion}-fpm-{$poolName}.sock";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLogPath(string $phpVersion): string
     {
         return "/var/log/php{$phpVersion}-fpm";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getWebServerUser(): string
     {
         return $this->webServerUser;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getWebServerGroup(): string
     {
         return $this->webServerGroup;
     }
 
+    /**
+     * Write PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, filepath?: string, pool_name?: string, socket_path?: string, message?: string, error?: string}
+     */
     public function writePoolConfig(Website $website): array
     {
         try {
@@ -105,6 +132,12 @@ class DebianPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * Delete PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message?: string, error?: string}
+     */
     public function deletePoolConfig(Website $website): array
     {
         try {
@@ -141,6 +174,9 @@ class DebianPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function testConfig(string $phpVersion, ?string $poolConfigPath = null): array
     {
         $service = "php{$phpVersion}-fpm";
@@ -152,6 +188,9 @@ class DebianPhpFpmService extends AbstractPhpFpmService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function restart(string $phpVersion): array
     {
         $service = "php{$phpVersion}-fpm";
@@ -164,6 +203,9 @@ class DebianPhpFpmService extends AbstractPhpFpmService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reload(string $phpVersion): array
     {
         $service = "php{$phpVersion}-fpm";

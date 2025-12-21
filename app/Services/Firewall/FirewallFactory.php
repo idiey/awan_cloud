@@ -7,7 +7,9 @@ use App\Contracts\FirewallInterface;
 class FirewallFactory
 {
     /**
-     * Create firewall service based on OS
+     * Create firewall service based on OS.
+     *
+     * @return FirewallInterface The appropriate firewall service
      */
     public static function create(): FirewallInterface
     {
@@ -21,7 +23,9 @@ class FirewallFactory
     }
 
     /**
-     * Detect OS family
+     * Detect OS family.
+     *
+     * @return string The OS family (rhel or debian)
      */
     protected static function detectOsFamily(): string
     {

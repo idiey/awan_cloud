@@ -4,6 +4,9 @@ namespace App\Services\Nginx;
 
 class RhelNginxService extends AbstractNginxService
 {
+    /**
+     * Create a new RhelNginxService instance.
+     */
     public function __construct()
     {
         $this->sitesAvailable = '/etc/nginx/conf.d';
@@ -12,11 +15,17 @@ class RhelNginxService extends AbstractNginxService
         $this->reloadCmd = 'sudo /bin/systemctl reload nginx';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'rhel';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPhpFpmSocketPath(string $phpVersion, string $poolName, ?string $customPool = null): string
     {
         $phpVer = str_replace('.', '', $phpVersion); // 8.4 -> 84
@@ -27,6 +36,9 @@ class RhelNginxService extends AbstractNginxService
         return "/var/opt/remi/php{$phpVer}/run/php-fpm/www.sock";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFastcgiConfig(): string
     {
         // RHEL doesn't have snippets/fastcgi-php.conf, use inline config

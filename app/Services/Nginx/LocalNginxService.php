@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Log;
 
 class LocalNginxService extends AbstractNginxService
 {
+    /**
+     * Create a new LocalNginxService instance.
+     */
     public function __construct()
     {
         $storageRoot = storage_path('server');
@@ -19,11 +22,17 @@ class LocalNginxService extends AbstractNginxService
         $this->ensureDirectories();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'local';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPhpFpmSocketPath(string $phpVersion, string $poolName, ?string $customPool = null): string
     {
         if ($customPool) {
@@ -32,13 +41,18 @@ class LocalNginxService extends AbstractNginxService
         return storage_path("server/php/php{$phpVersion}-fpm.sock");
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFastcgiConfig(): string
     {
         return '        include snippets/fastcgi-php.conf;';
     }
 
     /**
-     * Ensure local storage directories exist
+     * Ensure local storage directories exist.
+     *
+     * @return void
      */
     protected function ensureDirectories(): void
     {
@@ -56,7 +70,10 @@ class LocalNginxService extends AbstractNginxService
     }
 
     /**
-     * Write Nginx configuration file (local mode - direct file operations)
+     * Write Nginx configuration file (local mode - direct file operations).
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, filepath?: string, message?: string, error?: string}
      */
     public function writeConfig(Website $website): array
     {
@@ -91,7 +108,10 @@ class LocalNginxService extends AbstractNginxService
     }
 
     /**
-     * Delete Nginx configuration file (local mode)
+     * Delete Nginx configuration file (local mode).
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function deleteConfig(Website $website): array
     {
@@ -121,7 +141,10 @@ class LocalNginxService extends AbstractNginxService
     }
 
     /**
-     * Enable a site (local mode - copy file)
+     * Enable a site (local mode - copy file).
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message: string}
      */
     public function enableSite(Website $website): array
     {
@@ -137,7 +160,10 @@ class LocalNginxService extends AbstractNginxService
     }
 
     /**
-     * Disable a site (local mode)
+     * Disable a site (local mode).
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message: string}
      */
     public function disableSite(Website $website): array
     {

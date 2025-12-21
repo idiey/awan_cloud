@@ -12,13 +12,20 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     abstract public function getOsFamily(): string;
     abstract protected function buildServiceList(): array;
 
+    /**
+     * Get supported services.
+     *
+     * @return array<string, array> List of supported services
+     */
     public function getSupportedServices(): array
     {
         return $this->supportedServices;
     }
 
     /**
-     * Get available services (installed on system)
+     * Get available services (installed on system).
+     *
+     * @return array<string, array> List of available services with status
      */
     public function getAvailableServices(): array
     {
@@ -44,7 +51,10 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     }
 
     /**
-     * Get status of a specific service
+     * Get status of a specific service.
+     *
+     * @param string $serviceKey The service key
+     * @return array{running: bool, enabled: bool, status: string, error?: string}
      */
     public function getServiceStatus(string $serviceKey): array
     {
@@ -91,7 +101,10 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     }
 
     /**
-     * Start a service
+     * Start a service.
+     *
+     * @param string $serviceKey The service key
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function startService(string $serviceKey): array
     {
@@ -110,7 +123,10 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     }
 
     /**
-     * Stop a service
+     * Stop a service.
+     *
+     * @param string $serviceKey The service key
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function stopService(string $serviceKey): array
     {
@@ -129,7 +145,10 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     }
 
     /**
-     * Restart a service
+     * Restart a service.
+     *
+     * @param string $serviceKey The service key
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function restartService(string $serviceKey): array
     {
@@ -148,7 +167,10 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     }
 
     /**
-     * Reload a service
+     * Reload a service.
+     *
+     * @param string $serviceKey The service key
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function reloadService(string $serviceKey): array
     {
@@ -173,7 +195,11 @@ abstract class AbstractServiceManagerService implements ServiceManagerInterface
     }
 
     /**
-     * Get service logs using journalctl
+     * Get service logs using journalctl.
+     *
+     * @param string $serviceKey The service key
+     * @param int $lines Number of log lines to retrieve
+     * @return string The log content
      */
     public function getServiceLogs(string $serviceKey, int $lines = 100): string
     {

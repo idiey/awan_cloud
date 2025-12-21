@@ -20,7 +20,10 @@ abstract class AbstractNginxService implements NginxInterface
     abstract protected function getFastcgiConfig(): string;
 
     /**
-     * Generate Nginx configuration for a website
+     * Generate Nginx configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return string The generated Nginx configuration
      */
     public function generateConfig(Website $website): string
     {
@@ -32,7 +35,10 @@ abstract class AbstractNginxService implements NginxInterface
     }
 
     /**
-     * Generate PHP site configuration
+     * Generate PHP site configuration.
+     *
+     * @param Website $website The website model
+     * @return string The PHP site configuration
      */
     protected function generatePhpConfig(Website $website): string
     {
@@ -115,7 +121,10 @@ NGINX;
     }
 
     /**
-     * Generate static site configuration
+     * Generate static site configuration.
+     *
+     * @param Website $website The website model
+     * @return string The static site configuration
      */
     protected function generateStaticConfig(Website $website): string
     {
@@ -164,7 +173,10 @@ NGINX;
     }
 
     /**
-     * Write Nginx configuration file
+     * Write Nginx configuration file.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, filepath?: string, message?: string, error?: string}
      */
     public function writeConfig(Website $website): array
     {
@@ -206,7 +218,10 @@ NGINX;
     }
 
     /**
-     * Delete Nginx configuration file
+     * Delete Nginx configuration file.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function deleteConfig(Website $website): array
     {
@@ -233,7 +248,10 @@ NGINX;
     }
 
     /**
-     * Enable a site
+     * Enable a site.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message: string, error?: string}
      */
     public function enableSite(Website $website): array
     {
@@ -256,7 +274,10 @@ NGINX;
     }
 
     /**
-     * Disable a site
+     * Disable a site.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message: string, error?: string}
      */
     public function disableSite(Website $website): array
     {
@@ -278,7 +299,9 @@ NGINX;
     }
 
     /**
-     * Test Nginx configuration
+     * Test Nginx configuration.
+     *
+     * @return array{success: bool, output: string}
      */
     public function testConfig(): array
     {
@@ -291,7 +314,9 @@ NGINX;
     }
 
     /**
-     * Reload Nginx
+     * Reload Nginx.
+     *
+     * @return array{success: bool, message: string, error?: string}
      */
     public function reload(): array
     {
@@ -305,7 +330,10 @@ NGINX;
     }
 
     /**
-     * Deploy website configuration (write, enable, test, reload)
+     * Deploy website configuration (write, enable, test, reload).
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message?: string, error?: string}
      */
     public function deploy(Website $website): array
     {
@@ -352,7 +380,10 @@ NGINX;
     }
 
     /**
-     * Get SSL configuration block
+     * Get SSL configuration block.
+     *
+     * @param string $domain The domain name
+     * @return string The SSL configuration block
      */
     protected function getSslConfig(string $domain): string
     {
@@ -369,7 +400,10 @@ SSL;
     }
 
     /**
-     * Get www redirect configuration
+     * Get www redirect configuration.
+     *
+     * @param Website $website The website model
+     * @return string The www redirect configuration
      */
     protected function getWwwRedirectConfig(Website $website): string
     {
@@ -390,7 +424,9 @@ REDIRECT;
     }
 
     /**
-     * Get security headers
+     * Get security headers.
+     *
+     * @return string The security headers configuration
      */
     protected function getSecurityHeaders(): string
     {

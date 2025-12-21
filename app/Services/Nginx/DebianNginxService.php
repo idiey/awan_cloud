@@ -4,6 +4,9 @@ namespace App\Services\Nginx;
 
 class DebianNginxService extends AbstractNginxService
 {
+    /**
+     * Create a new DebianNginxService instance.
+     */
     public function __construct()
     {
         $this->sitesAvailable = '/etc/nginx/sites-available';
@@ -12,11 +15,17 @@ class DebianNginxService extends AbstractNginxService
         $this->reloadCmd = 'sudo /bin/systemctl reload nginx';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'debian';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPhpFpmSocketPath(string $phpVersion, string $poolName, ?string $customPool = null): string
     {
         if ($customPool) {
@@ -25,6 +34,9 @@ class DebianNginxService extends AbstractNginxService
         return "/var/run/php/php{$phpVersion}-fpm.sock";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getFastcgiConfig(): string
     {
         return '        include snippets/fastcgi-php.conf;';

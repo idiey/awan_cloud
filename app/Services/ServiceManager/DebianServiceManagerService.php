@@ -4,16 +4,27 @@ namespace App\Services\ServiceManager;
 
 class DebianServiceManagerService extends AbstractServiceManagerService
 {
+    /**
+     * Create a new DebianServiceManagerService instance.
+     */
     public function __construct()
     {
         $this->supportedServices = $this->buildServiceList();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'debian';
     }
 
+    /**
+     * Build the list of supported services for Debian/Ubuntu.
+     *
+     * @return array<string, array> List of supported services
+     */
     protected function buildServiceList(): array
     {
         return [

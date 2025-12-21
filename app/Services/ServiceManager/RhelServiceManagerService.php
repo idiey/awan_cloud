@@ -4,16 +4,27 @@ namespace App\Services\ServiceManager;
 
 class RhelServiceManagerService extends AbstractServiceManagerService
 {
+    /**
+     * Create a new RhelServiceManagerService instance.
+     */
     public function __construct()
     {
         $this->supportedServices = $this->buildServiceList();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'rhel';
     }
 
+    /**
+     * Build the list of supported services for RHEL/Rocky/Alma.
+     *
+     * @return array<string, array> List of supported services
+     */
     protected function buildServiceList(): array
     {
         return [

@@ -7,7 +7,9 @@ use App\Contracts\ServiceManagerInterface;
 class ServiceManagerFactory
 {
     /**
-     * Create service manager based on OS
+     * Create service manager based on OS.
+     *
+     * @return ServiceManagerInterface The appropriate service manager
      */
     public static function create(): ServiceManagerInterface
     {
@@ -21,7 +23,9 @@ class ServiceManagerFactory
     }
 
     /**
-     * Detect OS family
+     * Detect OS family.
+     *
+     * @return string The OS family (rhel or debian)
      */
     protected static function detectOsFamily(): string
     {

@@ -23,7 +23,9 @@ abstract class AbstractPhpFpmService implements PhpFpmInterface
     abstract public function getWebServerGroup(): string;
 
     /**
-     * Get default PHP hardening settings
+     * Get default PHP hardening settings.
+     *
+     * @return array<string, string> Default PHP settings
      */
     public function getDefaultSettings(): array
     {
@@ -50,7 +52,10 @@ abstract class AbstractPhpFpmService implements PhpFpmInterface
     }
 
     /**
-     * Generate pool name from website
+     * Generate pool name from website.
+     *
+     * @param Website $website The website model
+     * @return string The generated pool name
      */
     protected function generatePoolName(Website $website): string
     {
@@ -58,7 +63,10 @@ abstract class AbstractPhpFpmService implements PhpFpmInterface
     }
 
     /**
-     * Build PHP admin values for pool config
+     * Build PHP admin values for pool config.
+     *
+     * @param array<string, string> $settings PHP settings
+     * @return string The formatted PHP admin values
      */
     protected function buildPhpAdminValues(array $settings): string
     {
@@ -70,7 +78,11 @@ abstract class AbstractPhpFpmService implements PhpFpmInterface
     }
 
     /**
-     * Generate PHP-FPM pool configuration for a website
+     * Generate PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return string The generated pool configuration
+     * @throws \InvalidArgumentException If website is not a PHP project
      */
     public function generatePoolConfig(Website $website): string
     {
@@ -138,17 +150,27 @@ POOL;
     }
 
     /**
-     * Test PHP-FPM configuration
+     * Test PHP-FPM configuration.
+     *
+     * @param string $phpVersion The PHP version
+     * @param string|null $poolConfigPath Optional pool config path
+     * @return array{success: bool, output?: string, error?: string}
      */
     abstract public function testConfig(string $phpVersion, ?string $poolConfigPath = null): array;
 
     /**
-     * Restart PHP-FPM service
+     * Restart PHP-FPM service.
+     *
+     * @param string $phpVersion The PHP version
+     * @return array{success: bool, message?: string, error?: string}
      */
     abstract public function restart(string $phpVersion): array;
 
     /**
-     * Reload PHP-FPM service
+     * Reload PHP-FPM service.
+     *
+     * @param string $phpVersion The PHP version
+     * @return array{success: bool, message?: string, error?: string}
      */
     abstract public function reload(string $phpVersion): array;
 }

@@ -8,8 +8,16 @@ use Illuminate\Support\Facades\Log;
 
 class LocalPhpFpmService extends AbstractPhpFpmService
 {
+    /**
+     * Base directory for local PHP-FPM storage.
+     *
+     * @var string
+     */
     protected string $baseDir;
 
+    /**
+     * Create a new LocalPhpFpmService instance.
+     */
     public function __construct()
     {
         $this->baseDir = storage_path('server/php');
@@ -19,38 +27,58 @@ class LocalPhpFpmService extends AbstractPhpFpmService
         $this->ensureDirectories();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getOsFamily(): string
     {
         return 'local';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPoolDirectoryPath(string $phpVersion): string
     {
         return "{$this->baseDir}/{$phpVersion}/pool.d";
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getSocketPath(string $phpVersion, string $poolName): string
     {
         return storage_path("server/php/php{$phpVersion}-fpm-{$poolName}.sock");
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLogPath(string $phpVersion): string
     {
         return storage_path("server/logs/php{$phpVersion}-fpm");
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getWebServerUser(): string
     {
         return $this->webServerUser;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getWebServerGroup(): string
     {
         return $this->webServerGroup;
     }
 
     /**
-     * Ensure local storage directories exist
+     * Ensure local storage directories exist.
+     *
+     * @return void
      */
     protected function ensureDirectories(): void
     {
@@ -59,6 +87,12 @@ class LocalPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * Write PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, filepath?: string, pool_name?: string, socket_path?: string, message?: string, error?: string}
+     */
     public function writePoolConfig(Website $website): array
     {
         try {
@@ -118,6 +152,12 @@ class LocalPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * Delete PHP-FPM pool configuration for a website.
+     *
+     * @param Website $website The website model
+     * @return array{success: bool, message?: string, error?: string}
+     */
     public function deletePoolConfig(Website $website): array
     {
         try {
@@ -154,6 +194,9 @@ class LocalPhpFpmService extends AbstractPhpFpmService
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function testConfig(string $phpVersion, ?string $poolConfigPath = null): array
     {
         Log::info("[LOCAL] PHP-FPM {$phpVersion} config test (skipped)");
@@ -164,6 +207,9 @@ class LocalPhpFpmService extends AbstractPhpFpmService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function restart(string $phpVersion): array
     {
         Log::info("[LOCAL] PHP-FPM {$phpVersion} restart (skipped)");
@@ -174,6 +220,9 @@ class LocalPhpFpmService extends AbstractPhpFpmService
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reload(string $phpVersion): array
     {
         Log::info("[LOCAL] PHP-FPM {$phpVersion} reload (skipped)");
