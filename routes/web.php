@@ -23,10 +23,8 @@ use App\Http\Controllers\HealthCheckController;
 use Illuminate\Support\Facades\Route;
 
 // Public Health Check Endpoints (Rate Limited)
-Route::middleware('throttle:60,1')->group(function () {
-    Route::get('ping', [HealthCheckController::class, 'ping'])->name('ping');
-    Route::get('health', [HealthCheckController::class, 'health'])->name('health');
-});
+Route::get('ping', [HealthCheckController::class, 'ping'])->name('ping')->middleware('throttle:30,1');
+Route::get('health', [HealthCheckController::class, 'health'])->name('health')->middleware('throttle:10,1');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
