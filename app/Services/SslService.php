@@ -18,10 +18,28 @@ class SslService
     {
         try {
             $domain = $website->domain;
-            $webroot = $website->root_path;
+            
+            // Use full path (root_path + working_directory) as webroot
+            $webroot = rtrim($website->root_path, '/') . '/' . ltrim($website->working_directory ?? '/', '/');
+            $webroot = rtrim($webroot, '/');
+
+            // Build domain list - only add www if www_redirect is configured
+            $domains = [$domain];
+            if (in_array($website->www_redirect, ['to_www', 'none'])) {
+                $domains[] = "www.{$domain}";
+            }
+            
+            $domainArgs = implode(' -d ', $domains);
 
             // Use certbot with webroot plugin
-            $command = "sudo /usr/bin/certbot certonly --webroot -w {$webroot} -d {$domain} -d www.{$domain} --non-interactive --agree-tos --email admin@{$domain}";
+            $command = "sudo /usr/bin/certbot certonly --webroot -w {$webroot} -d {$domainArgs} --non-interactive --agree-tos --email admin@{$domain} --expand";
+            
+            Log::info('Requesting SSL certificate', [
+                'domain' => $domain,
+                'webroot' => $webroot,
+                'domains' => $domains,
+                'command' => $command
+            ]);
             
             $result = Process::run($command);
 
@@ -36,6 +54,12 @@ class SslService
                     'message' => 'SSL certificate obtained successfully',
                 ];
             }
+
+            Log::error('SSL certificate request failed', [
+                'domain' => $domain,
+                'error' => $result->errorOutput(),
+                'output' => $result->output()
+            ]);
 
             return [
                 'success' => false,
