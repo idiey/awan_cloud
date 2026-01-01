@@ -197,7 +197,7 @@ class FileManagerController extends Controller
         // and memory exhaustion from large file uploads
         $validated = $request->validate([
             'path' => 'required|string',
-            'file' => 'required|file|max:8192', // 8MB max - conservative limit for file manager
+            'file' => 'required|file|max:8000', // 8MB max - conservative limit for file manager
         ]);
 
         $file = $request->file('file');
