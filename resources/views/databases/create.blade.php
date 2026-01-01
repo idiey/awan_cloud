@@ -28,7 +28,7 @@
 
             <form action="{{ route('databases.store') }}" method="POST">
                 @csrf
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-database me-2"></i> Database Configuration
@@ -38,12 +38,12 @@
                             <label for="name" class="form-label">
                                 Database Name <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace @error('name') is-invalid @enderror" 
-                                id="name" 
-                                name="name" 
-                                value="{{ old('name') }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace @error('name') is-invalid @enderror"
+                                id="name"
+                                name="name"
+                                value="{{ old('name') }}"
                                 required
                                 placeholder="my_database"
                                 pattern="[a-zA-Z0-9_]+"
@@ -58,12 +58,12 @@
                             <label for="username" class="form-label">
                                 Database Username <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace @error('username') is-invalid @enderror" 
-                                id="username" 
-                                name="username" 
-                                value="{{ old('username') }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace @error('username') is-invalid @enderror"
+                                id="username"
+                                name="username"
+                                value="{{ old('username') }}"
                                 required
                                 placeholder="db_user"
                                 pattern="[a-zA-Z0-9_]+"
@@ -78,11 +78,11 @@
                             <label for="password" class="form-label">
                                 Password <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="password" 
-                                class="form-control @error('password') is-invalid @enderror" 
-                                id="password" 
-                                name="password" 
+                            <input
+                                type="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                id="password"
+                                name="password"
                                 required
                                 minlength="8"
                             >
@@ -96,11 +96,11 @@
                             <label for="password_confirmation" class="form-label">
                                 Confirm Password <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="password" 
-                                class="form-control" 
-                                id="password_confirmation" 
-                                name="password_confirmation" 
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password_confirmation"
+                                name="password_confirmation"
                                 required
                                 minlength="8"
                             >
@@ -115,12 +115,12 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="host" class="form-label">Host</label>
-                            <input 
-                                type="text" 
-                                class="form-control @error('host') is-invalid @enderror" 
-                                id="host" 
-                                name="host" 
-                                value="{{ old('host', 'localhost') }}" 
+                            <input
+                                type="text"
+                                class="form-control @error('host') is-invalid @enderror"
+                                id="host"
+                                name="host"
+                                value="{{ old('host', 'localhost') }}"
                                 placeholder="localhost"
                             >
                             <div class="form-text">Default is 'localhost'. Use '%' for any host (not recommended for security).</div>
@@ -131,10 +131,10 @@
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea 
-                                class="form-control @error('description') is-invalid @enderror" 
-                                id="description" 
-                                name="description" 
+                            <textarea
+                                class="form-control @error('description') is-invalid @enderror"
+                                id="description"
+                                name="description"
                                 rows="3"
                                 placeholder="Optional description for this database"
                             >{{ old('description') }}</textarea>
@@ -171,7 +171,7 @@
                 <div class="card-body">
                     <h6>Database Naming</h6>
                     <p class="small">Use descriptive names like <code>projectname_db</code> or <code>app_production</code> to easily identify databases.</p>
-                    
+
                     <h6 class="mt-3">Strong Passwords</h6>
                     <p class="small">Use a mix of uppercase, lowercase, numbers, and special characters. Consider using a password generator.</p>
 

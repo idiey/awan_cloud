@@ -15,7 +15,7 @@
                 <i class="bi bi-plus-circle me-1"></i> Create Database
             </button>
         @endif
-        
+
         @if(!$permissions['can_create'])
             <a href="{{ route('databases.recheck-permissions') }}" class="btn btn-outline-secondary" title="Recheck permissions">
                 <i class="bi bi-arrow-clockwise"></i>
@@ -50,7 +50,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
-    
+
     {{-- Debug Info (only in local environment) --}}
     @if(config('app.env') === 'local' && !empty($permissions['grants']))
         <div class="alert alert-info">
@@ -88,7 +88,7 @@
                 <div class="database-card-header" onclick="toggleCard({{ $database->id }})">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-start gap-3" style="flex: 1;">
-                            <i class="bi bi-chevron-right chevron-icon" id="chevron-{{ $database->id }}" 
+                            <i class="bi bi-chevron-right chevron-icon" id="chevron-{{ $database->id }}"
                                style="font-size: 1.25rem; color: #9ca3af; margin-top: 0.25rem;"></i>
                             <div class="database-icon">
                                 <i class="bi bi-database"></i>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             <div class="dropdown" onclick="event.stopPropagation();">
-                                <button class="btn btn-link text-dark p-0" type="button" 
+                                <button class="btn btn-link text-dark p-0" type="button"
                                         data-bs-toggle="dropdown" style="font-size: 1.25rem;">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </button>
@@ -117,7 +117,7 @@
                                         <i class="bi bi-lock-fill me-2"></i>Change Password
                                     </a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" href="#" 
+                                    <li><a class="dropdown-item text-danger" href="#"
                                            onclick="event.preventDefault(); confirmDelete('Delete {{ $database->name }}? This action cannot be undone!').then(confirmed => { if(confirmed) document.getElementById('delete-form-{{ $database->id }}').submit(); });">
                                         <i class="bi bi-trash me-2"></i>Delete
                                     </a></li>
@@ -200,7 +200,7 @@
         function toggleCard(id) {
             var $body = $('#card-body-' + id);
             var $chevron = $('#chevron-' + id);
-            
+
             if ($body.is(':hidden')) {
                 $body.show();
                 $chevron.addClass('expanded');

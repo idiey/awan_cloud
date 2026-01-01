@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <h5 class="card-title mb-3"><i class="bi bi-globe"></i> Basic Information</h5>
                     <hr class="mt-0 mb-3">
-                    
+
                     <div class="row mb-3">
                         <div class="col-md-4">
                             Name
@@ -199,7 +199,7 @@
                 <div class="card-body">
                     <h5 class="card-title mb-3"><i class="bi bi-gear"></i> PHP Hardening Settings</h5>
                     <hr class="mt-0 mb-3">
-                    
+
                     <div class="row mb-3">
                         <div class="col-md-4">
                             Memory Limit
@@ -243,14 +243,14 @@
                         <div class="col-md-8">
                             @php
                                 $allDangerousFunctions = ['exec', 'passthru', 'shell_exec', 'system', 'proc_open', 'popen', 'curl_exec', 'curl_multi_exec', 'parse_ini_file', 'show_source'];
-                                
-                                $disabledFuncs = !empty($website->php_settings['disable_functions']) 
+
+                                $disabledFuncs = !empty($website->php_settings['disable_functions'])
                                     ? array_map('trim', explode(',', $website->php_settings['disable_functions']))
                                     : $allDangerousFunctions;
-                                    
+
                                 $enabledFuncs = array_diff($allDangerousFunctions, $disabledFuncs);
                             @endphp
-                            
+
                             @if(count($enabledFuncs) > 0)
                                 <div class="mb-2">
                                     <small class="text-danger"><strong>⚠️ Enabled (Security Risk):</strong></small>
@@ -261,7 +261,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                             @if(count($disabledFuncs) > 0)
                                 <div>
                                     <small class="text-success"><strong>✓ Disabled (Secure):</strong></small>
@@ -272,7 +272,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                             @if(count($disabledFuncs) === 0)
                                 <div class="alert alert-danger mb-0">
                                     <i class="bi bi-exclamation-triangle me-1"></i>
@@ -414,7 +414,7 @@
                                 <i class="bi bi-shield-check"></i>
                             </button>
                         </form>
-                        
+
                         @if(config('services.cloudflare.enabled'))
                         <!-- DNS Button -->
                         <form action="{{ route('websites.dns-sync', $website) }}" method="POST">
@@ -545,7 +545,7 @@
                         Swal.showLoading();
                     }
                 });
-                
+
                 // Submit form
                 $('#redeploy-form').submit();
             }

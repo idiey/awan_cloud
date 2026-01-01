@@ -146,7 +146,7 @@
 
 <form id="wordpressQuickInstallForm">
     @csrf
-    
+
     <!-- Progress Steps -->
     <ul class="wizard-steps">
         <li class="wizard-step active" data-step="1">
@@ -165,7 +165,7 @@
 
     <!-- Wizard Content -->
     <div class="wizard-content">
-        
+
         <!-- Step 1: Website Information -->
         <div class="wizard-pane active" data-pane="1">
             <div class="wp-wizard-section">
@@ -176,35 +176,35 @@
                     <h3 class="wp-wizard-title">Website Information</h3>
                     <p class="wp-wizard-desc">Basic details about your WordPress site</p>
                 </div>
-        
+
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="website_name" class="form-label fw-semibold">
                     <i class="bi bi-tag me-1"></i> Website Name <span class="text-danger">*</span>
                 </label>
-                <input type="text" 
-                       class="form-control" 
-                       id="website_name" 
-                       name="website_name" 
+                <input type="text"
+                       class="form-control"
+                       id="website_name"
+                       name="website_name"
                        placeholder="My WordPress Site"
                        required>
                 <div class="form-text"><small>Display name for your website</small></div>
             </div>
-            
+
             <div class="col-md-6">
                 <label for="domain" class="form-label fw-semibold">
                     <i class="bi bi-link-45deg me-1"></i> Domain <span class="text-danger">*</span>
                 </label>
-                <input type="text" 
-                       class="form-control" 
-                       id="domain" 
-                       name="domain" 
+                <input type="text"
+                       class="form-control"
+                       id="domain"
+                       name="domain"
                        placeholder="example.com"
                        pattern="[a-zA-Z0-9][a-zA-Z0-9-_.]*[a-zA-Z0-9]"
                        required>
                 <div class="form-text"><small>Without http:// or https://</small></div>
             </div>
-            
+
             <div class="col-md-6">
                 <label for="php_version" class="form-label fw-semibold">
                     <i class="bi bi-code-square me-1"></i> PHP Version
@@ -230,41 +230,41 @@
                     <h3 class="wp-wizard-title">Database Configuration</h3>
                     <p class="wp-wizard-desc">MySQL database credentials (auto-filled from domain)</p>
                 </div>
-        
+
         <div class="row g-3">
             <div class="col-md-4">
                 <label for="db_name" class="form-label fw-semibold">
                     Database Name <span class="text-danger">*</span>
                 </label>
-                <input type="text" 
-                       class="form-control" 
-                       id="db_name" 
-                       name="db_name" 
+                <input type="text"
+                       class="form-control"
+                       id="db_name"
+                       name="db_name"
                        pattern="[a-zA-Z0-9_]+"
                        required>
             </div>
-            
+
             <div class="col-md-4">
                 <label for="db_user" class="form-label fw-semibold">
                     Database User <span class="text-danger">*</span>
                 </label>
-                <input type="text" 
-                       class="form-control" 
-                       id="db_user" 
-                       name="db_user" 
+                <input type="text"
+                       class="form-control"
+                       id="db_user"
+                       name="db_user"
                        pattern="[a-zA-Z0-9_]+"
                        maxlength="32"
                        required>
             </div>
-            
+
             <div class="col-md-4">
                 <label for="db_password" class="form-label fw-semibold">
                     Database Password <span class="text-danger">*</span>
                 </label>
-                <input type="password" 
-                       class="form-control" 
-                       id="db_password" 
-                       name="db_password" 
+                <input type="password"
+                       class="form-control"
+                       id="db_password"
+                       name="db_password"
                        minlength="8"
                        required>
             </div>
@@ -282,40 +282,40 @@
                     <h3 class="wp-wizard-title">WordPress Admin Account</h3>
                     <p class="wp-wizard-desc">Create your administrator credentials</p>
                 </div>
-        
+
         <div class="row g-3">
             <div class="col-md-4">
                 <label for="admin_user" class="form-label fw-semibold">
                     Admin Username <span class="text-danger">*</span>
                 </label>
-                <input type="text" 
-                       class="form-control" 
-                       id="admin_user" 
-                       name="admin_user" 
+                <input type="text"
+                       class="form-control"
+                       id="admin_user"
+                       name="admin_user"
                        pattern="[a-zA-Z0-9_]+"
                        maxlength="60"
                        required>
             </div>
-            
+
             <div class="col-md-4">
                 <label for="admin_email" class="form-label fw-semibold">
                     Admin Email <span class="text-danger">*</span>
                 </label>
-                <input type="email" 
-                       class="form-control" 
-                       id="admin_email" 
-                       name="admin_email" 
+                <input type="email"
+                       class="form-control"
+                       id="admin_email"
+                       name="admin_email"
                        required>
             </div>
-            
+
             <div class="col-md-4">
                 <label for="admin_password" class="form-label fw-semibold">
                     Admin Password <span class="text-danger">*</span>
                 </label>
-                <input type="password" 
-                       class="form-control" 
-                       id="admin_password" 
-                       name="admin_password" 
+                <input type="password"
+                       class="form-control"
+                       id="admin_password"
+                       name="admin_password"
                        minlength="8"
                        required>
             </div>
@@ -333,7 +333,7 @@
                     <h3 class="wp-wizard-title">Performance & Security</h3>
                     <p class="wp-wizard-desc">Optimize your WordPress installation</p>
                 </div>
-                
+
                 <div class="row g-4">
                     <div class="col-md-6">
                         <div class="wp-feature-card active" onclick="toggleFeature('enable_cache', this)">
@@ -346,7 +346,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <div class="wp-feature-card active" onclick="toggleFeature('install_plugins', this)">
                             <div class="form-check">
@@ -405,14 +405,14 @@ function updateWizardUI() {
     $('.wizard-step').each(function(index) {
         var stepNum = index + 1;
         $(this).removeClass('active completed');
-        
+
         if (stepNum < currentWizardStep) {
             $(this).addClass('completed');
         } else if (stepNum === currentWizardStep) {
             $(this).addClass('active');
         }
     });
-    
+
     // Update panes
     $('.wizard-pane').each(function(index) {
         $(this).removeClass('active');
@@ -420,7 +420,7 @@ function updateWizardUI() {
             $(this).addClass('active');
         }
     });
-    
+
     // Update buttons
     $('#currentStep').text(currentWizardStep);
     $('#wizardPrevBtn').toggle(currentWizardStep !== 1);
@@ -460,25 +460,25 @@ $('#domain').on('input', function() {
 
 $('#wordpressQuickInstallForm').on('submit', function(e) {
     e.preventDefault();
-    
+
     var $form = $(this);
     var $submitBtn = $('#quickInstallBtn');
     var $progressDiv = $('#quickInstallProgress');
     var $statusDiv = $('#quickInstallStatus');
-    
+
     // Disable form
     $submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span> Deploying...');
     $form.find('input, select, button').prop('disabled', true);
     $progressDiv.show();
-    
+
     // Prepare data
     var data = {};
     $form.serializeArray().forEach(function(item) {
         data[item.name] = item.value;
     });
-    
+
     $statusDiv.text('Creating website configuration...');
-    
+
     // Step 1: Create website
     $.ajax({
         url: '{{ route("websites.store") }}',
@@ -498,9 +498,9 @@ $('#wordpressQuickInstallForm').on('submit', function(e) {
         })
     }).done(function(websiteData) {
         var websiteId = websiteData.id;
-        
+
         $statusDiv.text('Installing WordPress...');
-        
+
         // Step 2: Install WordPress
         $.ajax({
             url: '/websites/' + websiteId + '/wordpress/install',
@@ -537,7 +537,7 @@ $('#wordpressQuickInstallForm').on('submit', function(e) {
                         '<p class="text-muted mb-0"><small>Redirecting to deployment list...</small></p>' +
                     '</div>'
                 );
-                
+
                 setTimeout(function() {
                     window.location.href = '{{ route("websites.index", ["type" => "deployment"]) }}';
                 }, 2000);
@@ -562,7 +562,7 @@ function showDeployError(message, $form, $submitBtn, $progressDiv) {
             '<p class="mb-0">' + message + '</p>' +
         '</div>'
     );
-    
+
     $form.find('input, select, button').prop('disabled', false);
     $submitBtn.prop('disabled', false).html('<i class="bi bi-rocket-takeoff me-2"></i> Retry Deployment');
 }

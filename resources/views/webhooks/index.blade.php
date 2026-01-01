@@ -83,7 +83,7 @@
                                             <a href="{{ route('webhooks.edit', $webhook) }}" class="btn btn-outline-primary" title="Edit">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <button type="button" class="btn btn-outline-danger" title="Delete" 
+                                            <button type="button" class="btn btn-outline-danger" title="Delete"
                                                     onclick="if(confirmDelete('Are you sure you want to delete this webhook?')) { document.getElementById('delete-form-{{ $webhook->id }}').submit(); }">
                                                 <i class="bi bi-trash"></i>
                                             </button>

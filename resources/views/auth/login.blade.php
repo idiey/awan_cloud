@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - Hostiqo</title>
-    
+
     <!-- Google Fonts - Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+
     <!-- Auth Styles -->
     @vite(['resources/css/auth.css'])
 </head>
@@ -26,11 +26,11 @@
                 <div class="hero-content">
                     <h1 class="hero-title">Server Management Made Simple</h1>
                     <p class="hero-description">
-                        Deploy, monitor, and manage your servers with ease. 
+                        Deploy, monitor, and manage your servers with ease.
                         Self-hosted, open-source, and privacy-focused.
                     </p>
                 </div>
-                
+
                 <div class="features">
                     <div class="feature-item">
                         <div class="feature-icon">
@@ -41,7 +41,7 @@
                             <p>Automatic deployment triggered on every Git push</p>
                         </div>
                     </div>
-                    
+
                     <div class="feature-item">
                         <div class="feature-icon">
                             <i class="bi bi-shield-check"></i>
@@ -51,7 +51,7 @@
                             <p>SSH key authentication and webhook verification</p>
                         </div>
                     </div>
-                    
+
                     <div class="feature-item">
                         <div class="feature-icon">
                             <i class="bi bi-git"></i>
@@ -61,7 +61,7 @@
                             <p>Works seamlessly with GitHub and GitLab</p>
                         </div>
                     </div>
-                    
+
                     <div class="feature-item">
                         <div class="feature-icon">
                             <i class="bi bi-clock-history"></i>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Right Side - Login Form -->
         <div class="right-side">
             <div class="form-container">
@@ -83,7 +83,7 @@
                     <h5>Welcome Back</h5>
                     <p style="margin-top: -5px;">Sign in to manage your server</p>
                 </div>
-                
+
                 @if($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <i class="bi bi-exclamation-circle me-2"></i>
@@ -99,17 +99,17 @@
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-                    
+
                     <div class="mb-3">
                         <label for="email" class="form-label">Email Address</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            <input type="email" 
-                                   class="form-control @error('email') is-invalid @enderror" 
-                                   id="email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
-                                   required 
+                            <input type="email"
+                                   class="form-control @error('email') is-invalid @enderror"
+                                   id="email"
+                                   name="email"
+                                   value="{{ old('email') }}"
+                                   required
                                    autofocus
                                    placeholder="your@email.com">
                         </div>
@@ -122,10 +122,10 @@
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            <input type="password" 
-                                   class="form-control @error('password') is-invalid @enderror" 
-                                   id="password" 
-                                   name="password" 
+                            <input type="password"
+                                   class="form-control @error('password') is-invalid @enderror"
+                                   id="password"
+                                   name="password"
                                    required
                                    placeholder="Enter your password">
                         </div>

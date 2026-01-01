@@ -22,18 +22,18 @@
                             </div>
                         </div>
                         <div class="progress mt-2" style="height: 8px;">
-                            <div class="progress-bar bg-{{ $latestMetric->cpu_usage > 80 ? 'danger' : ($latestMetric->cpu_usage > 60 ? 'warning' : 'success') }}" 
-                                 role="progressbar" 
-                                 style="width: {{ min($latestMetric->cpu_usage, 100) }}%;" 
-                                 aria-valuenow="{{ $latestMetric->cpu_usage }}" 
-                                 aria-valuemin="0" 
+                            <div class="progress-bar bg-{{ $latestMetric->cpu_usage > 80 ? 'danger' : ($latestMetric->cpu_usage > 60 ? 'warning' : 'success') }}"
+                                 role="progressbar"
+                                 style="width: {{ min($latestMetric->cpu_usage, 100) }}%;"
+                                 aria-valuenow="{{ $latestMetric->cpu_usage }}"
+                                 aria-valuemin="0"
                                  aria-valuemax="100">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card stat-card h-100">
                     <div class="card-body" style="padding: 1rem !important; padding-bottom: 0.75rem !important;">
@@ -50,18 +50,18 @@
                             </div>
                         </div>
                         <div class="progress mt-2" style="height: 8px;">
-                            <div class="progress-bar bg-{{ $latestMetric->memory_usage > 80 ? 'danger' : ($latestMetric->memory_usage > 60 ? 'warning' : 'success') }}" 
-                                 role="progressbar" 
-                                 style="width: {{ min($latestMetric->memory_usage, 100) }}%;" 
-                                 aria-valuenow="{{ $latestMetric->memory_usage }}" 
-                                 aria-valuemin="0" 
+                            <div class="progress-bar bg-{{ $latestMetric->memory_usage > 80 ? 'danger' : ($latestMetric->memory_usage > 60 ? 'warning' : 'success') }}"
+                                 role="progressbar"
+                                 style="width: {{ min($latestMetric->memory_usage, 100) }}%;"
+                                 aria-valuenow="{{ $latestMetric->memory_usage }}"
+                                 aria-valuemin="0"
                                  aria-valuemax="100">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-4">
                 <div class="card stat-card h-100">
                     <div class="card-body" style="padding: 1rem !important; padding-bottom: 0.75rem !important;">
@@ -78,11 +78,11 @@
                             </div>
                         </div>
                         <div class="progress mt-2" style="height: 8px;">
-                            <div class="progress-bar bg-{{ $latestMetric->disk_usage > 80 ? 'danger' : ($latestMetric->disk_usage > 60 ? 'warning' : 'success') }}" 
-                                 role="progressbar" 
-                                 style="width: {{ min($latestMetric->disk_usage, 100) }}%;" 
-                                 aria-valuenow="{{ $latestMetric->disk_usage }}" 
-                                 aria-valuemin="0" 
+                            <div class="progress-bar bg-{{ $latestMetric->disk_usage > 80 ? 'danger' : ($latestMetric->disk_usage > 60 ? 'warning' : 'success') }}"
+                                 role="progressbar"
+                                 style="width: {{ min($latestMetric->disk_usage, 100) }}%;"
+                                 aria-valuenow="{{ $latestMetric->disk_usage }}"
+                                 aria-valuemin="0"
                                  aria-valuemax="100">
                             </div>
                         </div>
@@ -212,19 +212,19 @@
 $(function() {
     // Configure Chart.js to use Montserrat font
     Chart.defaults.font.family = "'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif";
-    
+
     const metrics = @json($systemMetrics);
-    
+
     // Prepare data for charts
     const labels = metrics.map(m => {
         const date = new Date(m.recorded_at);
         return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
     });
-    
+
     const cpuData = metrics.map(m => m.cpu_usage);
     const memoryData = metrics.map(m => m.memory_usage);
     const diskData = metrics.map(m => m.disk_usage);
-    
+
     // Create chart
     const ctx = document.getElementById('systemMetricsChart').getContext('2d');
     new Chart(ctx, {
@@ -313,18 +313,18 @@ $(function() {
 
     // I/O Metrics Chart with Rate Calculation
     const ioCtx = document.getElementById('ioMetricsChart').getContext('2d');
-    
+
     // Calculate I/O rates for each data point
     const diskReadRates = [];
     const diskWriteRates = [];
     const networkRxRates = [];
     const networkTxRates = [];
-    
+
     for (let i = 1; i < metrics.length; i++) {
         const curr = metrics[i];
         const prev = metrics[i - 1];
         const timeDiff = (new Date(curr.recorded_at) - new Date(prev.recorded_at)) / 1000; // seconds
-        
+
         if (timeDiff > 0) {
             // Calculate bytes per second, then convert to MB/s
             diskReadRates.push(Math.max(0, (curr.disk_read_bytes - prev.disk_read_bytes) / timeDiff / 1024 / 1024));
@@ -338,10 +338,10 @@ $(function() {
             networkTxRates.push(0);
         }
     }
-    
+
     // Use labels starting from index 1 (since we calculate rates from diff)
     const ioLabels = labels.slice(1);
-    
+
     new Chart(ioCtx, {
         type: 'line',
         data: {
@@ -439,10 +439,10 @@ $(function() {
 
     // Database Connections & Processes Chart
     const dbCtx = document.getElementById('dbConnectionsChart').getContext('2d');
-    
+
     const dbConnectionsData = metrics.map(m => m.db_connections || 0);
     const dbProcessesData = metrics.map(m => m.db_processes || 0);
-    
+
     new Chart(dbCtx, {
         type: 'line',
         data: {

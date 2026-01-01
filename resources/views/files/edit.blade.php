@@ -19,7 +19,7 @@
         <form action="{{ route('files.update') }}" method="POST" id="editorForm">
             @csrf
             <input type="hidden" name="path" value="{{ $path }}">
-            
+
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">File Editor</h5>
@@ -28,9 +28,9 @@
                     </button>
                 </div>
                 <div class="card-body p-0">
-                    <textarea name="content" 
-                              id="fileContent" 
-                              class="form-control border-0 font-monospace" 
+                    <textarea name="content"
+                              id="fileContent"
+                              class="form-control border-0 font-monospace"
                               style="min-height: 600px; font-size: 14px; line-height: 1.5; tab-size: 4;"
                               spellcheck="false">{{ $content }}</textarea>
                 </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-6 text-end">
                             <small class="text-muted">
-                                Lines: <span id="lineCount">0</span> | 
+                                Lines: <span id="lineCount">0</span> |
                                 Characters: <span id="charCount">0</span>
                             </small>
                         </div>
@@ -106,7 +106,7 @@
                 <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('editorForm').submit()">
                     <i class="bi bi-save"></i> Save File
                 </button>
-                <a href="{{ route('files.download', ['path' => $path]) }}" 
+                <a href="{{ route('files.download', ['path' => $path]) }}"
                    class="btn btn-outline-success btn-sm">
                     <i class="bi bi-download"></i> Download
                 </a>
@@ -180,7 +180,7 @@
 <script>
 $(function() {
     var $textarea = $('#fileContent');
-    
+
     // Keyboard shortcut for save
     $(document).on('keydown', function(e) {
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -188,7 +188,7 @@ $(function() {
             $('#editorForm').submit();
         }
     });
-    
+
     // Update character and line count
     function updateCounts() {
         $('#charCount').text($textarea.val().length);
@@ -196,7 +196,7 @@ $(function() {
     }
     $textarea.on('input', updateCounts);
     updateCounts();
-    
+
     // Tab key support
     $textarea.on('keydown', function(e) {
         if (e.key === 'Tab') {
@@ -216,10 +216,10 @@ function deleteFile() {
                 method: 'POST',
                 action: '{{ route('files.delete') }}'
             });
-            
+
             $form.append($('<input>', { type: 'hidden', name: '_token', value: '{{ csrf_token() }}' }));
             $form.append($('<input>', { type: 'hidden', name: 'path', value: '{{ $path }}' }));
-            
+
             $('body').append($form);
             $form.submit();
         }

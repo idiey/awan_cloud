@@ -15,15 +15,15 @@
         <div class="col-lg-8">
             <div class="alert alert-info">
                 <i class="bi bi-info-circle me-2"></i>
-                <strong>Note:</strong> You can only update the description here. 
-                Database name and username cannot be changed. To change the password, 
+                <strong>Note:</strong> You can only update the description here.
+                Database name and username cannot be changed. To change the password,
                 <a href="{{ route('databases.change-password', $database) }}" class="alert-link">click here</a>.
             </div>
 
             <form action="{{ route('databases.update', $database) }}" method="POST">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-database me-2"></i> Database Information (Read-only)
@@ -31,10 +31,10 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Database Name</label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace bg-light" 
-                                value="{{ $database->name }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace bg-light"
+                                value="{{ $database->name }}"
                                 readonly
                             >
                             <div class="form-text">Database name cannot be changed</div>
@@ -42,10 +42,10 @@
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace bg-light" 
-                                value="{{ $database->username }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace bg-light"
+                                value="{{ $database->username }}"
                                 readonly
                             >
                             <div class="form-text">Username cannot be changed</div>
@@ -53,10 +53,10 @@
 
                         <div class="mb-3">
                             <label for="host" class="form-label">Host</label>
-                            <input 
-                                type="text" 
-                                class="form-control bg-light" 
-                                value="{{ $database->host }}" 
+                            <input
+                                type="text"
+                                class="form-control bg-light"
+                                value="{{ $database->host }}"
                                 readonly
                             >
                             <div class="form-text">Host cannot be changed</div>
@@ -71,10 +71,10 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea 
-                                class="form-control @error('description') is-invalid @enderror" 
-                                id="description" 
-                                name="description" 
+                            <textarea
+                                class="form-control @error('description') is-invalid @enderror"
+                                id="description"
+                                name="description"
                                 rows="3"
                                 placeholder="Optional description for this database"
                             >{{ old('description', $database->description) }}</textarea>
@@ -105,7 +105,7 @@
                 <div class="card-body">
                     <h6>Edit Limitations</h6>
                     <p class="small">Only the description field can be updated. Database name, username, and host are permanent.</p>
-                    
+
                     <h6 class="mt-3">Change Password</h6>
                     <p class="small">To update the database password, use the <a href="{{ route('databases.change-password', $database) }}">Change Password</a> page.</p>
 

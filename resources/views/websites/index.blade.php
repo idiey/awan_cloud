@@ -15,15 +15,15 @@
 @section('content')
     <!-- Tabs -->
     <div class="tabs-container">
-        <a href="{{ route('websites.index', ['type' => 'php']) }}" 
+        <a href="{{ route('websites.index', ['type' => 'php']) }}"
            class="tab-btn text-decoration-none {{ $type === 'php' ? 'active' : '' }}">
             <i class="bi bi-code-slash me-1"></i> PHP Projects
         </a>
-        <a href="{{ route('websites.index', ['type' => 'node']) }}" 
+        <a href="{{ route('websites.index', ['type' => 'node']) }}"
            class="tab-btn text-decoration-none {{ $type === 'node' ? 'active' : '' }}">
             <i class="bi bi-hexagon me-1"></i> Node Projects
         </a>
-        <a href="{{ route('websites.index', ['type' => 'deployment']) }}" 
+        <a href="{{ route('websites.index', ['type' => 'deployment']) }}"
            class="tab-btn text-decoration-none {{ $type === 'deployment' ? 'active' : '' }}">
             <i class="bi bi-rocket-takeoff me-1"></i> 1-Click Deployment
         </a>
@@ -98,7 +98,7 @@
             </div>
         </div>
     @endif
-    
+
     @if(!$websites->isEmpty())
         @foreach($websites as $website)
             <div class="website-card">
@@ -106,16 +106,16 @@
                 <div class="website-card-header" onclick="toggleCard({{ $website->id }})">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-start gap-3" style="flex: 1;">
-                            <i class="bi bi-chevron-right chevron-icon" id="chevron-{{ $website->id }}" 
+                            <i class="bi bi-chevron-right chevron-icon" id="chevron-{{ $website->id }}"
                                style="font-size: 1.25rem; color: #9ca3af; margin-top: 0.25rem;"></i>
                             <div class="website-icon">
                                 <i class="bi bi-globe"></i>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="website-name">                                    
+                                <div class="website-name">
                                     {{ $website->name }} <span class="status-dot {{ $website->is_active ? 'active' : 'inactive' }}"></span>
                                     @if($website->ssl_status === 'active')
-                                        <span class="badge" style="background: #10b981; font-size: 0.75rem;"><i class="bi bi-lock-fill"></i> SSL</span>                                    
+                                        <span class="badge" style="background: #10b981; font-size: 0.75rem;"><i class="bi bi-lock-fill"></i> SSL</span>
                                     @endif
                                 </div>
                                 <a href="http://{{ $website->domain }}" target="_blank" class="website-domain">
@@ -126,12 +126,12 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-2">
-                            <button type="button" class="deploy-btn" 
+                            <button type="button" class="deploy-btn"
                                     onclick="event.stopPropagation(); redeployWebsite({{ $website->id }})">
                                 <i class="bi bi-rocket-takeoff-fill me-2"></i> Redeploy
                             </button>
                             <div class="dropdown" onclick="event.stopPropagation();">
-                                <button class="btn btn-link text-dark p-0" type="button" 
+                                <button class="btn btn-link text-dark p-0" type="button"
                                         data-bs-toggle="dropdown" style="font-size: 1.25rem;">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </button>
@@ -143,7 +143,7 @@
                                         <i class="bi bi-pencil me-2"></i>Edit
                                     </a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item text-danger" href="#" 
+                                    <li><a class="dropdown-item text-danger" href="#"
                                            onclick="event.preventDefault(); confirmDelete('Delete {{ $website->name }}? This action cannot be undone!').then(confirmed => { if(confirmed) document.getElementById('delete-form-{{ $website->id }}').submit(); });">
                                         <i class="bi bi-trash me-2"></i>Delete
                                     </a></li>
@@ -210,7 +210,7 @@
                             <div class="info-row">
                                 <span class="info-label"><i class="bi bi-cloud"></i> CloudFlare DNS</span>
                                 <span class="info-value">
-                                    {{ $website->server_ip }} ← 
+                                    {{ $website->server_ip }} ←
                                     <span class="badge badge-md badge-pastel-{{ $website->dns_status === 'active' ? 'green' : ($website->dns_status === 'pending' ? 'yellow' : 'red') }}">
                                         {{ ucfirst($website->dns_status) }}
                                     </span>
@@ -256,7 +256,7 @@
         function toggleCard(id) {
             var $body = $('#card-body-' + id);
             var $chevron = $('#chevron-' + id);
-            
+
             if ($body.is(':hidden')) {
                 $body.show();
                 $chevron.addClass('expanded');
@@ -289,7 +289,7 @@
                             Swal.showLoading();
                         }
                     });
-                    
+
                     // Submit form
                     $('#redeploy-form-' + id).submit();
                 }

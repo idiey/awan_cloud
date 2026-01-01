@@ -201,7 +201,7 @@
                         <a href="{{ route('webhooks.show', $deployment->webhook) }}" class="btn btn-primary">
                             <i class="bi bi-webhook me-1"></i> View Webhook
                         </a>
-                        
+
                         <a href="{{ route('deployments.index') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-arrow-left me-1"></i> All Deployments
                         </a>

@@ -16,7 +16,7 @@
             <form action="{{ route('webhooks.update', $webhook) }}" method="POST">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-info-circle me-2"></i> Basic Information
@@ -144,7 +144,7 @@
                 <div class="card-body">
                     <h6>Configuration Changes</h6>
                     <p class="small">Updating webhook settings does not affect existing deployments. Changes apply to the next deployment trigger.</p>
-                    
+
                     <h6 class="mt-3">Repository URL</h6>
                     <p class="small">Changing the repository URL will require updating the SSH key in your new Git provider if using SSH authentication.</p>
 

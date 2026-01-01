@@ -16,7 +16,7 @@
     <div class="col-lg-8">
         <form action="{{ route('supervisor.store') }}" method="POST">
             @csrf
-            
+
             <div class="card">
                 <div class="card-header">
                     <i class="bi bi-info-circle me-2"></i> Basic Information
@@ -24,11 +24,11 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Program Name <span class="text-danger">*</span></label>
-                        <input type="text" 
-                               class="form-control @error('name') is-invalid @enderror" 
-                               id="name" 
-                               name="name" 
-                               value="{{ old('name') }}" 
+                        <input type="text"
+                               class="form-control @error('name') is-invalid @enderror"
+                               id="name"
+                               name="name"
+                               value="{{ old('name') }}"
                                required
                                placeholder="laravel-queue"
                                pattern="[a-zA-Z0-9_-]+">
@@ -40,10 +40,10 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <input type="text" 
-                               class="form-control @error('description') is-invalid @enderror" 
-                               id="description" 
-                               name="description" 
+                        <input type="text"
+                               class="form-control @error('description') is-invalid @enderror"
+                               id="description"
+                               name="description"
                                value="{{ old('description') }}"
                                placeholder="Laravel Queue Worker">
                         @error('description')
@@ -53,11 +53,11 @@
 
                     <div class="mb-3">
                         <label for="command" class="form-label">Command <span class="text-danger">*</span></label>
-                        <input type="text" 
-                               class="form-control font-monospace @error('command') is-invalid @enderror" 
-                               id="command" 
-                               name="command" 
-                               value="{{ old('command') }}" 
+                        <input type="text"
+                               class="form-control font-monospace @error('command') is-invalid @enderror"
+                               id="command"
+                               name="command"
+                               value="{{ old('command') }}"
                                required
                                placeholder="/usr/bin/php8.3 artisan queue:work --tries=3">
                         <small class="form-text text-muted">Full command to execute. Use absolute paths.</small>
@@ -68,11 +68,11 @@
 
                     <div class="mb-3">
                         <label for="directory" class="form-label">Working Directory <span class="text-danger">*</span></label>
-                        <input type="text" 
-                               class="form-control font-monospace @error('directory') is-invalid @enderror" 
-                               id="directory" 
-                               name="directory" 
-                               value="{{ old('directory') }}" 
+                        <input type="text"
+                               class="form-control font-monospace @error('directory') is-invalid @enderror"
+                               id="directory"
+                               name="directory"
+                               value="{{ old('directory') }}"
                                required
                                placeholder="/var/www/myapp">
                         <small class="form-text text-muted">Directory where command will be executed</small>
@@ -91,13 +91,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="numprocs" class="form-label">Number of Processes <span class="text-danger">*</span></label>
-                            <input type="number" 
-                                   class="form-control @error('numprocs') is-invalid @enderror" 
-                                   id="numprocs" 
-                                   name="numprocs" 
-                                   value="{{ old('numprocs', 1) }}" 
-                                   min="1" 
-                                   max="20" 
+                            <input type="number"
+                                   class="form-control @error('numprocs') is-invalid @enderror"
+                                   id="numprocs"
+                                   name="numprocs"
+                                   value="{{ old('numprocs', 1) }}"
+                                   min="1"
+                                   max="20"
                                    required>
                             <small class="form-text text-muted">How many instances to run</small>
                             @error('numprocs')
@@ -107,11 +107,11 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="user" class="form-label">Run as User <span class="text-danger">*</span></label>
-                            <input type="text" 
-                                   class="form-control @error('user') is-invalid @enderror" 
-                                   id="user" 
-                                   name="user" 
-                                   value="{{ old('user', 'www-data') }}" 
+                            <input type="text"
+                                   class="form-control @error('user') is-invalid @enderror"
+                                   id="user"
+                                   name="user"
+                                   value="{{ old('user', 'www-data') }}"
                                    required>
                             @error('user')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -122,12 +122,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="startsecs" class="form-label">Start Seconds <span class="text-danger">*</span></label>
-                            <input type="number" 
-                                   class="form-control @error('startsecs') is-invalid @enderror" 
-                                   id="startsecs" 
-                                   name="startsecs" 
-                                   value="{{ old('startsecs', 1) }}" 
-                                   min="0" 
+                            <input type="number"
+                                   class="form-control @error('startsecs') is-invalid @enderror"
+                                   id="startsecs"
+                                   name="startsecs"
+                                   value="{{ old('startsecs', 1) }}"
+                                   min="0"
                                    required>
                             <small class="form-text text-muted">Seconds to stay running before considered started</small>
                             @error('startsecs')
@@ -137,12 +137,12 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="stopwaitsecs" class="form-label">Stop Wait Seconds <span class="text-danger">*</span></label>
-                            <input type="number" 
-                                   class="form-control @error('stopwaitsecs') is-invalid @enderror" 
-                                   id="stopwaitsecs" 
-                                   name="stopwaitsecs" 
-                                   value="{{ old('stopwaitsecs', 10) }}" 
-                                   min="1" 
+                            <input type="number"
+                                   class="form-control @error('stopwaitsecs') is-invalid @enderror"
+                                   id="stopwaitsecs"
+                                   name="stopwaitsecs"
+                                   value="{{ old('stopwaitsecs', 10) }}"
+                                   min="1"
                                    required>
                             <small class="form-text text-muted">Seconds to wait before killing process</small>
                             @error('stopwaitsecs')
@@ -153,11 +153,11 @@
 
                     <div class="form-check form-switch mb-3">
                         <input type="hidden" name="autostart" value="0">
-                        <input class="form-check-input" 
-                               type="checkbox" 
-                               id="autostart" 
-                               name="autostart" 
-                               value="1" 
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="autostart"
+                               name="autostart"
+                               value="1"
                                {{ old('autostart', true) ? 'checked' : '' }}>
                         <label class="form-check-label" for="autostart">
                             Auto Start
@@ -167,11 +167,11 @@
 
                     <div class="form-check form-switch mb-3">
                         <input type="hidden" name="autorestart" value="0">
-                        <input class="form-check-input" 
-                               type="checkbox" 
-                               id="autorestart" 
-                               name="autorestart" 
-                               value="1" 
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="autorestart"
+                               name="autorestart"
+                               value="1"
                                {{ old('autorestart', true) ? 'checked' : '' }}>
                         <label class="form-check-label" for="autorestart">
                             Auto Restart
@@ -181,11 +181,11 @@
 
                     <div class="form-check form-switch">
                         <input type="hidden" name="is_active" value="0">
-                        <input class="form-check-input" 
-                               type="checkbox" 
-                               id="is_active" 
-                               name="is_active" 
-                               value="1" 
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="is_active"
+                               name="is_active"
+                               value="1"
                                {{ old('is_active', true) ? 'checked' : '' }}>
                         <label class="form-check-label" for="is_active">
                             Active
@@ -202,10 +202,10 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="stdout_logfile" class="form-label">Log File Path</label>
-                        <input type="text" 
-                               class="form-control font-monospace @error('stdout_logfile') is-invalid @enderror" 
-                               id="stdout_logfile" 
-                               name="stdout_logfile" 
+                        <input type="text"
+                               class="form-control font-monospace @error('stdout_logfile') is-invalid @enderror"
+                               id="stdout_logfile"
+                               name="stdout_logfile"
                                value="{{ old('stdout_logfile') }}"
                                placeholder="/var/log/supervisor/program-name.log">
                         <small class="form-text text-muted">Leave empty to use default: /var/log/supervisor/{program-name}.log</small>

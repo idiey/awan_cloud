@@ -163,7 +163,7 @@
                             <li><code>optimize</code> - Cache framework bootstrap files</li>
                             <li>Production optimization runs multiple cache commands for maximum performance</li>
                         </ul>
-                        
+
                         <h6 class="fw-bold mt-3">When to Use</h6>
                         <ul class="small">
                             <li><strong>Development:</strong> Clear caches when config/routes change</li>

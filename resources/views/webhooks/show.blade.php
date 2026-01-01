@@ -145,7 +145,7 @@
                             <i class="bi bi-clipboard"></i> Copy
                         </button>
                     </div>
-                    
+
                     <div class="alert alert-info mt-3 mb-0">
                         <i class="bi bi-info-circle me-2"></i>
                         <strong>{{ ucfirst($webhook->git_provider) }} Setup:</strong>
@@ -279,7 +279,7 @@
                                 {{ $webhook->is_active ? 'Disable' : 'Enable' }} Webhook
                             </button>
                         </form>
-                        
+
                         <a href="{{ route('webhooks.edit', $webhook) }}" class="btn btn-primary">
                             <i class="bi bi-pencil me-2"></i> Edit Configuration
                         </a>

@@ -27,18 +27,18 @@
                 </div>
                 <div class="card-body">
                     <div class="progress mb-3" style="height: 25px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                             id="installProgress" 
-                             role="progressbar" 
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                             id="installProgress"
+                             role="progressbar"
                              style="width: 0%">
                             0%
                         </div>
                     </div>
-                    
+
                     <div id="installationSteps">
                         <!-- Steps will be populated dynamically -->
                     </div>
-                    
+
                     <div id="installationResult" class="mt-3" style="display: none;">
                         <!-- Result will be shown here -->
                     </div>
@@ -48,7 +48,7 @@
             <!-- Installation Form -->
             <form id="wordpressInstallForm">
                 @csrf
-                
+
                 <!-- Database Configuration -->
                 <div class="card mb-4">
                     <div class="card-header">
@@ -59,10 +59,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="db_name" class="form-label">Database Name <span class="text-danger">*</span></label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           id="db_name" 
-                                           name="db_name" 
+                                    <input type="text"
+                                           class="form-control"
+                                           id="db_name"
+                                           name="db_name"
                                            value="{{ str_replace(['.', '-'], '_', $website->domain) }}_wp"
                                            pattern="[a-zA-Z0-9_]+"
                                            required>
@@ -72,10 +72,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="db_user" class="form-label">Database User <span class="text-danger">*</span></label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           id="db_user" 
-                                           name="db_user" 
+                                    <input type="text"
+                                           class="form-control"
+                                           id="db_user"
+                                           name="db_user"
                                            value="{{ str_replace(['.', '-'], '_', $website->domain) }}_user"
                                            pattern="[a-zA-Z0-9_]+"
                                            maxlength="32"
@@ -89,10 +89,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="db_password" class="form-label">Database Password <span class="text-danger">*</span></label>
-                                    <input type="password" 
-                                           class="form-control" 
-                                           id="db_password" 
-                                           name="db_password" 
+                                    <input type="password"
+                                           class="form-control"
+                                           id="db_password"
+                                           name="db_password"
                                            minlength="8"
                                            required>
                                     <div class="form-text">Minimum 8 characters</div>
@@ -101,10 +101,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="db_host" class="form-label">Database Host</label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           id="db_host" 
-                                           name="db_host" 
+                                    <input type="text"
+                                           class="form-control"
+                                           id="db_host"
+                                           name="db_host"
                                            value="localhost"
                                            placeholder="localhost">
                                 </div>
@@ -115,10 +115,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="db_prefix" class="form-label">Table Prefix</label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           id="db_prefix" 
-                                           name="db_prefix" 
+                                    <input type="text"
+                                           class="form-control"
+                                           id="db_prefix"
+                                           name="db_prefix"
                                            value="wp_"
                                            pattern="[a-zA-Z0-9_]+"
                                            maxlength="20">
@@ -139,10 +139,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="admin_user" class="form-label">Admin Username <span class="text-danger">*</span></label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           id="admin_user" 
-                                           name="admin_user" 
+                                    <input type="text"
+                                           class="form-control"
+                                           id="admin_user"
+                                           name="admin_user"
                                            pattern="[a-zA-Z0-9_]+"
                                            maxlength="60"
                                            required>
@@ -152,10 +152,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="admin_email" class="form-label">Admin Email <span class="text-danger">*</span></label>
-                                    <input type="email" 
-                                           class="form-control" 
-                                           id="admin_email" 
-                                           name="admin_email" 
+                                    <input type="email"
+                                           class="form-control"
+                                           id="admin_email"
+                                           name="admin_email"
                                            required>
                                 </div>
                             </div>
@@ -165,10 +165,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="admin_password" class="form-label">Admin Password <span class="text-danger">*</span></label>
-                                    <input type="password" 
-                                           class="form-control" 
-                                           id="admin_password" 
-                                           name="admin_password" 
+                                    <input type="password"
+                                           class="form-control"
+                                           id="admin_password"
+                                           name="admin_password"
                                            minlength="8"
                                            required>
                                     <div class="form-text">Strong password recommended</div>
@@ -177,10 +177,10 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="site_title" class="form-label">Site Title <span class="text-danger">*</span></label>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           id="site_title" 
-                                           name="site_title" 
+                                    <input type="text"
+                                           class="form-control"
+                                           id="site_title"
+                                           name="site_title"
                                            value="{{ ucwords(str_replace(['.', '-', '_'], ' ', explode('.', $website->domain)[0])) }}"
                                            required>
                                 </div>
@@ -196,11 +196,11 @@
                     </div>
                     <div class="card-body">
                         <div class="form-check mb-3">
-                            <input class="form-check-input" 
-                                   type="checkbox" 
-                                   id="enable_cache" 
-                                   name="enable_cache" 
-                                   value="1" 
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="enable_cache"
+                                   name="enable_cache"
+                                   value="1"
                                    checked>
                             <label class="form-check-label" for="enable_cache">
                                 <strong>Enable FastCGI Cache</strong>
@@ -209,11 +209,11 @@
                         </div>
 
                         <div class="form-check mb-3">
-                            <input class="form-check-input" 
-                                   type="checkbox" 
-                                   id="install_plugins" 
-                                   name="install_plugins" 
-                                   value="1" 
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="install_plugins"
+                                   name="install_plugins"
+                                   value="1"
                                    checked>
                             <label class="form-check-label" for="install_plugins">
                                 <strong>Install Recommended Plugins</strong>
@@ -260,31 +260,31 @@
 <script>
 $('#wordpressInstallForm').on('submit', function(e) {
     e.preventDefault();
-    
+
     var $form = $(this);
     var $installButton = $('#installButton');
     var $statusCard = $('#installationStatusCard');
     var $stepsContainer = $('#installationSteps');
     var $resultContainer = $('#installationResult');
     var $progressBar = $('#installProgress');
-    
+
     // Disable form and show status card
     $installButton.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span> Installing...');
     $form.find('input, button').prop('disabled', true);
     $statusCard.show();
     $resultContainer.hide();
-    
+
     // Scroll to status card
     $('html, body').animate({
         scrollTop: $statusCard.offset().top
     }, 500);
-    
+
     // Prepare form data
     var data = {};
     $form.serializeArray().forEach(function(item) {
         data[item.name] = item.value;
     });
-    
+
     $.ajax({
         url: '{{ route("websites.wordpress.install", $website) }}',
         method: 'POST',
@@ -299,7 +299,7 @@ $('#wordpressInstallForm').on('submit', function(e) {
             $progressBar.css('width', '100%').text('100%')
                 .removeClass('progress-bar-animated')
                 .addClass('bg-success');
-            
+
             // Display installation steps
             if (result.data.steps) {
                 var stepsHtml = result.data.steps.map(function(step) {
@@ -310,7 +310,7 @@ $('#wordpressInstallForm').on('submit', function(e) {
                 }).join('');
                 $stepsContainer.html(stepsHtml);
             }
-            
+
             // Show success message
             $resultContainer.html(
                 '<div class="alert alert-success">' +
@@ -332,7 +332,7 @@ $('#wordpressInstallForm').on('submit', function(e) {
                     '</div>' +
                 '</div>'
             ).show();
-            
+
         } else {
             showInstallError(result.message, result.errors, $form, $installButton, $progressBar, $resultContainer);
         }
@@ -344,7 +344,7 @@ $('#wordpressInstallForm').on('submit', function(e) {
 
 function showInstallError(message, errors, $form, $installButton, $progressBar, $resultContainer) {
     $progressBar.removeClass('progress-bar-animated').addClass('bg-danger');
-    
+
     var errorsHtml = '';
     if (errors) {
         errorsHtml = '<hr><ul class="mb-0">';
@@ -353,7 +353,7 @@ function showInstallError(message, errors, $form, $installButton, $progressBar, 
         });
         errorsHtml += '</ul>';
     }
-    
+
     $resultContainer.html(
         '<div class="alert alert-danger">' +
             '<h5 class="alert-heading">' +
@@ -363,7 +363,7 @@ function showInstallError(message, errors, $form, $installButton, $progressBar, 
             errorsHtml +
         '</div>'
     ).show();
-    
+
     // Re-enable form
     $form.find('input, button').prop('disabled', false);
     $installButton.prop('disabled', false).html('<i class="bi bi-wordpress me-2"></i> Retry Installation');
@@ -374,7 +374,7 @@ function updateProgress(steps) {
     var totalSteps = 10;
     var completedSteps = steps.filter(function(s) { return s.status === 'completed'; }).length;
     var progress = Math.round((completedSteps / totalSteps) * 100);
-    
+
     $('#installProgress').css('width', progress + '%').text(progress + '%');
 }
 </script>

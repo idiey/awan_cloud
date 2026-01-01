@@ -130,7 +130,7 @@
                 </div>
                 <div class="card-body">
                     <small class="text-muted">
-                        Retrying will push this job back to the queue for processing. 
+                        Retrying will push this job back to the queue for processing.
                         Make sure the underlying issue has been fixed before retrying.
                     </small>
                 </div>

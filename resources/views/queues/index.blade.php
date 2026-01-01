@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <i class="bi bi-info-circle me-2"></i>
-                <strong>Queue Driver:</strong> 
+                <strong>Queue Driver:</strong>
                 <code>{{ config('queue.default') }}</code>
                 @if(config('queue.default') === 'redis')
                     <span class="badge bg-success ms-2">Redis</span>
@@ -59,7 +59,7 @@
                             <h2 class="mb-0">{{ $statistics['recent_failed'] }}</h2>
                         </div>
                         <div class="text-primary" style="font-size: 2.5rem;">
-                            <i class="bi bi-file-x"></i>                            
+                            <i class="bi bi-file-x"></i>
                         </div>
                     </div>
                 </div>

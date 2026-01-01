@@ -25,7 +25,7 @@
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="project_type" value="{{ $website->project_type }}">
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-info-circle me-2"></i> Basic Information
@@ -35,12 +35,12 @@
                             <label for="name" class="form-label">
                                 Website Name <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control @error('name') is-invalid @enderror" 
-                                id="name" 
-                                name="name" 
-                                value="{{ old('name', $website->name) }}" 
+                            <input
+                                type="text"
+                                class="form-control @error('name') is-invalid @enderror"
+                                id="name"
+                                name="name"
+                                value="{{ old('name', $website->name) }}"
                                 required
                                 placeholder="My Awesome Project"
                             >
@@ -53,11 +53,11 @@
                             <label for="domain" class="form-label">
                                 Domain Name
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace" 
-                                id="domain" 
-                                value="{{ $website->domain }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace"
+                                id="domain"
+                                value="{{ $website->domain }}"
                                 readonly
                                 disabled
                                 style="background-color: #f8f9fa; cursor: not-allowed;"
@@ -78,11 +78,11 @@
                             <label for="root_path" class="form-label">
                                 Website Root Path
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace" 
-                                id="root_path" 
-                                value="{{ $website->root_path }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace"
+                                id="root_path"
+                                value="{{ $website->root_path }}"
                                 readonly
                                 disabled
                                 style="background-color: #f8f9fa; cursor: not-allowed;"
@@ -97,12 +97,12 @@
                                 <label for="working_directory" class="form-label">
                                     Working Directory (Document Root)
                                 </label>
-                                <input 
-                                    type="text" 
-                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror" 
-                                    id="working_directory" 
-                                    name="working_directory" 
-                                    value="{{ old('working_directory', $website->working_directory ?? '/') }}" 
+                                <input
+                                    type="text"
+                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror"
+                                    id="working_directory"
+                                    name="working_directory"
+                                    value="{{ old('working_directory', $website->working_directory ?? '/') }}"
                                     placeholder="/ or /public or /public_html"
                                 >
                                 <div class="form-text">
@@ -118,12 +118,12 @@
                                 <label for="working_directory" class="form-label">
                                     Run opt
                                 </label>
-                                <input 
-                                    type="text" 
-                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror" 
-                                    id="working_directory" 
-                                    name="working_directory" 
-                                    value="{{ old('working_directory', $website->working_directory) }}" 
+                                <input
+                                    type="text"
+                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror"
+                                    id="working_directory"
+                                    name="working_directory"
+                                    value="{{ old('working_directory', $website->working_directory) }}"
                                     placeholder="start"
                                 >
                                 <div class="form-text">Startup mode in package.json</div>
@@ -145,9 +145,9 @@
                                 <label for="php_version" class="form-label">
                                     PHP Version <span class="text-danger">*</span>
                                 </label>
-                                <select 
-                                    class="form-select @error('php_version') is-invalid @enderror" 
-                                    id="php_version" 
+                                <select
+                                    class="form-select @error('php_version') is-invalid @enderror"
+                                    id="php_version"
                                     name="php_version"
                                     required
                                 >
@@ -167,9 +167,9 @@
                                 <label for="node_version" class="form-label">
                                     Node.js Version
                                 </label>
-                                <select 
-                                    class="form-select @error('node_version') is-invalid @enderror" 
-                                    id="node_version" 
+                                <select
+                                    class="form-select @error('node_version') is-invalid @enderror"
+                                    id="node_version"
                                     name="node_version"
                                 >
                                     <option value="">System Default</option>
@@ -189,12 +189,12 @@
                                 <label for="port" class="form-label">
                                     Port
                                 </label>
-                                <input 
-                                    type="number" 
-                                    class="form-control @error('port') is-invalid @enderror" 
-                                    id="port" 
-                                    name="port" 
-                                    value="{{ old('port', $website->port) }}" 
+                                <input
+                                    type="number"
+                                    class="form-control @error('port') is-invalid @enderror"
+                                    id="port"
+                                    name="port"
+                                    value="{{ old('port', $website->port) }}"
                                     placeholder="3000"
                                     min="1"
                                     max="65535"
@@ -222,11 +222,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="memory_limit" class="form-label">Memory Limit</label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="memory_limit" 
-                                        name="php_settings[memory_limit]" 
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="memory_limit"
+                                        name="php_settings[memory_limit]"
                                         value="{{ old('php_settings.memory_limit', $website->php_settings['memory_limit'] ?? '256M') }}"
                                         placeholder="256M"
                                     >
@@ -235,11 +235,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="max_execution_time" class="form-label">Max Execution Time (seconds)</label>
-                                    <input 
-                                        type="number" 
-                                        class="form-control" 
-                                        id="max_execution_time" 
-                                        name="php_settings[max_execution_time]" 
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="max_execution_time"
+                                        name="php_settings[max_execution_time]"
                                         value="{{ old('php_settings.max_execution_time', $website->php_settings['max_execution_time'] ?? '300') }}"
                                         placeholder="300"
                                     >
@@ -251,11 +251,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="upload_max_filesize" class="form-label">Upload Max Filesize</label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="upload_max_filesize" 
-                                        name="php_settings[upload_max_filesize]" 
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="upload_max_filesize"
+                                        name="php_settings[upload_max_filesize]"
                                         value="{{ old('php_settings.upload_max_filesize', $website->php_settings['upload_max_filesize'] ?? '100M') }}"
                                         placeholder="100M"
                                     >
@@ -264,11 +264,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="post_max_size" class="form-label">Post Max Size</label>
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
-                                        id="post_max_size" 
-                                        name="php_settings[post_max_size]" 
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="post_max_size"
+                                        name="php_settings[post_max_size]"
                                         value="{{ old('php_settings.post_max_size', $website->php_settings['post_max_size'] ?? '100M') }}"
                                         placeholder="100M"
                                     >
@@ -278,13 +278,13 @@
 
                         <div class="mb-3">
                             <label class="form-label">
-                                <i class="bi bi-shield-lock me-1"></i> Enable Dangerous Functions 
+                                <i class="bi bi-shield-lock me-1"></i> Enable Dangerous Functions
                                 <small class="text-danger">(Security Risk)</small>
                             </label>
                             <div class="form-text mb-2">
                                 <strong>All dangerous functions are disabled by default.</strong> Only enable functions if your application specifically requires them.
                             </div>
-                            
+
                             @php
                                 $dangerousFunctions = [
                                     'exec' => 'Execute external programs',
@@ -298,7 +298,7 @@
                                     'parse_ini_file' => 'Parse configuration file',
                                     'show_source' => 'Display source code',
                                 ];
-                                
+
                                 // Get currently disabled functions
                                 $currentDisabled = [];
                                 if (!empty($website->php_settings['disable_functions'])) {
@@ -307,19 +307,19 @@
                                     // Default: all dangerous functions disabled
                                     $currentDisabled = array_keys($dangerousFunctions);
                                 }
-                                
+
                                 // Calculate currently enabled (inverse of disabled)
                                 $currentEnabled = array_diff(array_keys($dangerousFunctions), $currentDisabled);
                             @endphp
-                            
+
                             <div class="row">
                                 @foreach($dangerousFunctions as $func => $desc)
                                     <div class="col-md-6">
                                         <div class="form-check mb-2">
-                                            <input 
-                                                class="form-check-input" 
-                                                type="checkbox" 
-                                                name="enabled_functions[]" 
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                name="enabled_functions[]"
                                                 value="{{ $func }}"
                                                 id="func_{{ $func }}"
                                                 {{ in_array($func, $currentEnabled) ? 'checked' : '' }}
@@ -339,10 +339,10 @@
                                 <i class="bi bi-folder-lock me-1"></i> Path Isolation (open_basedir)
                                 <small class="text-success">(Security Feature)</small>
                             </label>
-                            <textarea 
-                                class="form-control font-monospace" 
-                                id="open_basedir" 
-                                name="php_settings[open_basedir]" 
+                            <textarea
+                                class="form-control font-monospace"
+                                id="open_basedir"
+                                name="php_settings[open_basedir]"
                                 rows="3"
                                 placeholder="{{ $website->root_path }}:/tmp:/usr/share/php:/usr/share/pear"
                             >{{ old('php_settings.open_basedir', $website->php_settings['open_basedir'] ?? '') }}</textarea>
@@ -367,10 +367,10 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input 
-                                    class="form-check-input" 
-                                    type="checkbox" 
-                                    id="ssl_enabled" 
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="ssl_enabled"
                                     name="ssl_enabled"
                                     value="1"
                                     {{ old('ssl_enabled', $website->ssl_enabled) ? 'checked' : '' }}
@@ -388,13 +388,13 @@
                                 Redirect Preference
                             </label>
                             <div class="form-text mb-2">Choose how to handle www subdomain traffic</div>
-                            
+
                             <div class="form-check">
-                                <input 
-                                    class="form-check-input @error('www_redirect') is-invalid @enderror" 
-                                    type="radio" 
-                                    name="www_redirect" 
-                                    id="www_redirect_none" 
+                                <input
+                                    class="form-check-input @error('www_redirect') is-invalid @enderror"
+                                    type="radio"
+                                    name="www_redirect"
+                                    id="www_redirect_none"
                                     value="none"
                                     {{ old('www_redirect', $website->www_redirect ?? 'none') === 'none' ? 'checked' : '' }}
                                 >
@@ -402,13 +402,13 @@
                                     No redirect (both www &amp; non-www work)
                                 </label>
                             </div>
-                            
+
                             <div class="form-check">
-                                <input 
-                                    class="form-check-input @error('www_redirect') is-invalid @enderror" 
-                                    type="radio" 
-                                    name="www_redirect" 
-                                    id="www_redirect_to_non_www" 
+                                <input
+                                    class="form-check-input @error('www_redirect') is-invalid @enderror"
+                                    type="radio"
+                                    name="www_redirect"
+                                    id="www_redirect_to_non_www"
                                     value="to_non_www"
                                     {{ old('www_redirect', $website->www_redirect) === 'to_non_www' ? 'checked' : '' }}
                                 >
@@ -416,13 +416,13 @@
                                     Redirect www to non-www (www.example.com → example.com)
                                 </label>
                             </div>
-                            
+
                             <div class="form-check">
-                                <input 
-                                    class="form-check-input @error('www_redirect') is-invalid @enderror" 
-                                    type="radio" 
-                                    name="www_redirect" 
-                                    id="www_redirect_to_www" 
+                                <input
+                                    class="form-check-input @error('www_redirect') is-invalid @enderror"
+                                    type="radio"
+                                    name="www_redirect"
+                                    id="www_redirect_to_www"
                                     value="to_www"
                                     {{ old('www_redirect', $website->www_redirect) === 'to_www' ? 'checked' : '' }}
                                 >
@@ -430,7 +430,7 @@
                                     Redirect non-www to www (example.com → www.example.com)
                                 </label>
                             </div>
-                            
+
                             @error('www_redirect')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
@@ -438,10 +438,10 @@
 
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input 
-                                    class="form-check-input" 
-                                    type="checkbox" 
-                                    id="is_active" 
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="is_active"
                                     name="is_active"
                                     value="1"
                                     {{ old('is_active', $website->is_active) ? 'checked' : '' }}
@@ -474,7 +474,7 @@
                 <div class="card-body">
                     <h6>Configuration Changes</h6>
                     <p class="small">Updating website settings will trigger automatic Nginx configuration redeployment.</p>
-                    
+
                     <h6 class="mt-3">Path Changes</h6>
                     <p class="small">Changing root path or working directory requires redeploying configurations. Make sure the paths exist on the server.</p>
 

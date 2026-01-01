@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Hostiqo')</title>
-    
+
     <!-- Google Fonts - Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    
+
     <!-- App Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     @stack('styles')
 </head>
 <body>
@@ -99,7 +99,7 @@
                 <a class="nav-link {{ request()->routeIs('files.*') ? 'active' : '' }}" href="{{ route('files.index') }}">
                     <i class="bi bi-folder me-2"></i> File Manager
                 </a>
-                
+
                 <!-- Version Info -->
                 <hr style="border-top: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
                 <div class="text-center" style="padding: 0.5rem 1rem; color: rgba(255,255,255,0.5); font-size: 0.75rem;">
@@ -107,7 +107,7 @@
                 </div>
             </nav>
         </div>
-        
+
         <!-- User Info -->
         <div class="user-info">
             <div class="d-flex align-items-center justify-content-between mb-2">
@@ -178,18 +178,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js" crossorigin="anonymous"></script>
-    
+
     <script>
         // Copy to clipboard function
         function copyToClipboard(text, button) {
             var $btn = $(button);
             var originalHTML = $btn.html();
-            
+
             navigator.clipboard.writeText(text).then(function() {
                 $btn.html('<i class="bi bi-check"></i> Copied!')
                     .removeClass('btn-outline-secondary')
                     .addClass('btn-success');
-                
+
                 setTimeout(function() {
                     $btn.html(originalHTML)
                         .removeClass('btn-success')
@@ -197,7 +197,7 @@
                 }, 2000);
             });
         }
-        
+
         // Confirm delete with SweetAlert2
         function confirmDelete(message) {
             return Swal.fire({
@@ -213,12 +213,12 @@
                 return result.isConfirmed;
             });
         }
-        
+
         // Confirm action with SweetAlert2
         function confirmAction(title, message, confirmText, icon) {
             confirmText = confirmText || 'Yes, proceed!';
             icon = icon || 'question';
-            
+
             return Swal.fire({
                 title: title,
                 text: message,
@@ -232,42 +232,42 @@
                 return result.isConfirmed;
             });
         }
-        
+
         // Mobile menu toggle
         $(function() {
             var $sidebar = $('#sidebar');
             var $overlay = $('#sidebarOverlay');
-            
+
             function toggleMenu() {
                 $sidebar.toggleClass('active');
                 $overlay.toggleClass('active');
             }
-            
+
             function closeMenu() {
                 $sidebar.removeClass('active');
                 $overlay.removeClass('active');
             }
-            
+
             // Toggle menu on button click
             $('#mobileMenuToggle').on('click', toggleMenu);
-            
+
             // Close menu when clicking overlay
             $overlay.on('click', closeMenu);
-            
+
             // Close menu when clicking a nav link (on mobile)
             $sidebar.find('.nav-link').on('click', function() {
                 if ($(window).width() <= 992) {
                     closeMenu();
                 }
             });
-            
+
             // Close menu on window resize to desktop
             $(window).on('resize', function() {
                 if ($(window).width() > 992) {
                     closeMenu();
                 }
             });
-            
+
             // Auto-hide success alerts after 5 seconds
             $('.auto-hide-alert').each(function() {
                 var $alert = $(this);
@@ -280,7 +280,7 @@
             });
         });
     </script>
-    
+
     @stack('scripts')
 </body>
 </html>

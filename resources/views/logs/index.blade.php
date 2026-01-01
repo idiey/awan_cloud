@@ -89,7 +89,7 @@
 <div class="card">
     <div class="card-header">
         <h5>
-            {{ ucfirst(str_replace('-', ' ', $logType)) }} Logs 
+            {{ ucfirst(str_replace('-', ' ', $logType)) }} Logs
             @if($website)
                 <span class="badge bg-primary">{{ $website->name }} ({{ $website->domain }})</span>
             @endif
@@ -115,11 +115,11 @@
 $(function() {
     var $logTypeSelect = $('#logTypeSelect');
     var $websiteSelect = $('#websiteSelect');
-    
+
     function checkWebsiteSpecificLog() {
         var selectedType = $logTypeSelect.val();
         var isWebsiteSpecific = selectedType.indexOf('website-') === 0;
-        
+
         // Highlight website selector if website-specific log is selected
         if (isWebsiteSpecific) {
             $websiteSelect.addClass('border-warning');
@@ -131,14 +131,14 @@ $(function() {
             $websiteSelect.parent().removeClass('was-validated');
         }
     }
-    
+
     // Check on page load
     checkWebsiteSpecificLog();
-    
+
     // Auto-submit when log type changes
     $logTypeSelect.on('change', function() {
         checkWebsiteSpecificLog();
-        
+
         var isWebsiteSpecific = $(this).val().indexOf('website-') === 0;
         if (!isWebsiteSpecific || $websiteSelect.val()) {
             $('#logForm').submit();

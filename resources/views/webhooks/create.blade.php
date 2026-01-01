@@ -15,7 +15,7 @@
         <div class="col-lg-8">
             <form action="{{ route('webhooks.store') }}" method="POST">
                 @csrf
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-info-circle me-2"></i> Basic Information
@@ -170,7 +170,7 @@
                 <div class="card-body">
                     <h6>SSH vs HTTPS URLs</h6>
                     <p class="small">For private repositories, use SSH URLs and generate an SSH key. For public repos, HTTPS URLs work fine.</p>
-                    
+
                     <h6 class="mt-3">Deploy Scripts</h6>
                     <p class="small">Use post-deploy scripts to automate tasks like:</p>
                     <ul class="small">
@@ -225,10 +225,10 @@ $(function() {
             if (domain) {
                 // Remove www. prefix if exists
                 domain = domain.replace(/^www\./, '');
-                
+
                 // Replace dots with underscores
                 var path = domain.replace(/\./g, '_');
-                
+
                 // Generate full path
                 $localPathInput.val('/var/www/' + path);
             } else {

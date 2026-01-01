@@ -24,7 +24,7 @@
             <form action="{{ route('websites.store') }}" method="POST" id="websiteForm">
                 @csrf
                 <input type="hidden" name="project_type" value="{{ $type }}">
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-info-circle me-2"></i> Basic Information
@@ -34,12 +34,12 @@
                             <label for="name" class="form-label">
                                 Website Name <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control @error('name') is-invalid @enderror" 
-                                id="name" 
-                                name="name" 
-                                value="{{ old('name') }}" 
+                            <input
+                                type="text"
+                                class="form-control @error('name') is-invalid @enderror"
+                                id="name"
+                                name="name"
+                                value="{{ old('name') }}"
                                 required
                                 placeholder="My Awesome Project"
                             >
@@ -54,12 +54,12 @@
                             <label for="domain" class="form-label">
                                 Domain Name <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace @error('domain') is-invalid @enderror" 
-                                id="domain" 
-                                name="domain" 
-                                value="{{ old('domain') }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace @error('domain') is-invalid @enderror"
+                                id="domain"
+                                name="domain"
+                                value="{{ old('domain') }}"
                                 required
                                 placeholder="example.com"
                             >
@@ -80,12 +80,12 @@
                             <label for="root_path" class="form-label">
                                 Website Root Path
                             </label>
-                            <input 
-                                type="text" 
-                                class="form-control font-monospace @error('root_path') is-invalid @enderror" 
-                                id="root_path" 
-                                name="root_path" 
-                                value="{{ old('root_path') }}" 
+                            <input
+                                type="text"
+                                class="form-control font-monospace @error('root_path') is-invalid @enderror"
+                                id="root_path"
+                                name="root_path"
+                                value="{{ old('root_path') }}"
                                 placeholder="/var/www/example_com"
                             >
                             <div class="form-text">Leave empty to auto-generate from domain name (e.g., /var/www/example_com)</div>
@@ -100,12 +100,12 @@
                                 <label for="working_directory" class="form-label">
                                     Working Directory (Document Root)
                                 </label>
-                                <input 
-                                    type="text" 
-                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror" 
-                                    id="working_directory" 
-                                    name="working_directory" 
-                                    value="{{ old('working_directory', '/') }}" 
+                                <input
+                                    type="text"
+                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror"
+                                    id="working_directory"
+                                    name="working_directory"
+                                    value="{{ old('working_directory', '/') }}"
                                     placeholder="/ or /public or /public_html"
                                 >
                                 <div class="form-text">
@@ -121,12 +121,12 @@
                                 <label for="working_directory" class="form-label">
                                     Run opt
                                 </label>
-                                <input 
-                                    type="text" 
-                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror" 
-                                    id="working_directory" 
-                                    name="working_directory" 
-                                    value="{{ old('working_directory') }}" 
+                                <input
+                                    type="text"
+                                    class="form-control font-monospace @error('working_directory') is-invalid @enderror"
+                                    id="working_directory"
+                                    name="working_directory"
+                                    value="{{ old('working_directory') }}"
                                     placeholder="start"
                                 >
                                 <div class="form-text">Startup mode in package.json</div>
@@ -148,9 +148,9 @@
                                 <label for="php_version" class="form-label">
                                     PHP Version <span class="text-danger">*</span>
                                 </label>
-                                <select 
-                                    class="form-select @error('php_version') is-invalid @enderror" 
-                                    id="php_version" 
+                                <select
+                                    class="form-select @error('php_version') is-invalid @enderror"
+                                    id="php_version"
                                     name="php_version"
                                     required
                                 >
@@ -171,9 +171,9 @@
                                 <label for="node_version" class="form-label">
                                     Node.js Version
                                 </label>
-                                <select 
-                                    class="form-select @error('node_version') is-invalid @enderror" 
-                                    id="node_version" 
+                                <select
+                                    class="form-select @error('node_version') is-invalid @enderror"
+                                    id="node_version"
                                     name="node_version"
                                 >
                                     <option value="">System Default</option>
@@ -194,12 +194,12 @@
                                 <label for="port" class="form-label">
                                     Port
                                 </label>
-                                <input 
-                                    type="number" 
-                                    class="form-control @error('port') is-invalid @enderror" 
-                                    id="port" 
-                                    name="port" 
-                                    value="{{ old('port') }}" 
+                                <input
+                                    type="number"
+                                    class="form-control @error('port') is-invalid @enderror"
+                                    id="port"
+                                    name="port"
+                                    value="{{ old('port') }}"
                                     placeholder="3000"
                                     min="1"
                                     max="65535"
@@ -220,10 +220,10 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input 
-                                    class="form-check-input" 
-                                    type="checkbox" 
-                                    id="ssl_enabled" 
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="ssl_enabled"
                                     name="ssl_enabled"
                                     value="1"
                                     {{ old('ssl_enabled') ? 'checked' : '' }}
@@ -241,13 +241,13 @@
                                 Redirect Preference
                             </label>
                             <div class="form-text mb-2">Choose how to handle www subdomain traffic</div>
-                            
+
                             <div class="form-check">
-                                <input 
-                                    class="form-check-input @error('www_redirect') is-invalid @enderror" 
-                                    type="radio" 
-                                    name="www_redirect" 
-                                    id="www_redirect_none" 
+                                <input
+                                    class="form-check-input @error('www_redirect') is-invalid @enderror"
+                                    type="radio"
+                                    name="www_redirect"
+                                    id="www_redirect_none"
                                     value="none"
                                     {{ old('www_redirect', 'none') === 'none' ? 'checked' : '' }}
                                 >
@@ -255,13 +255,13 @@
                                     No redirect (both www &amp; non-www work)
                                 </label>
                             </div>
-                            
+
                             <div class="form-check">
-                                <input 
-                                    class="form-check-input @error('www_redirect') is-invalid @enderror" 
-                                    type="radio" 
-                                    name="www_redirect" 
-                                    id="www_redirect_to_non_www" 
+                                <input
+                                    class="form-check-input @error('www_redirect') is-invalid @enderror"
+                                    type="radio"
+                                    name="www_redirect"
+                                    id="www_redirect_to_non_www"
                                     value="to_non_www"
                                     {{ old('www_redirect') === 'to_non_www' ? 'checked' : '' }}
                                 >
@@ -269,13 +269,13 @@
                                     Redirect www to non-www (www.example.com → example.com)
                                 </label>
                             </div>
-                            
+
                             <div class="form-check">
-                                <input 
-                                    class="form-check-input @error('www_redirect') is-invalid @enderror" 
-                                    type="radio" 
-                                    name="www_redirect" 
-                                    id="www_redirect_to_www" 
+                                <input
+                                    class="form-check-input @error('www_redirect') is-invalid @enderror"
+                                    type="radio"
+                                    name="www_redirect"
+                                    id="www_redirect_to_www"
                                     value="to_www"
                                     {{ old('www_redirect') === 'to_www' ? 'checked' : '' }}
                                 >
@@ -283,7 +283,7 @@
                                     Redirect non-www to www (example.com → www.example.com)
                                 </label>
                             </div>
-                            
+
                             @error('www_redirect')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
@@ -292,10 +292,10 @@
                         <!-- Active Status -->
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input 
-                                    class="form-check-input" 
-                                    type="checkbox" 
-                                    id="is_active" 
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="is_active"
                                     name="is_active"
                                     value="1"
                                     {{ old('is_active', true) ? 'checked' : '' }}
@@ -329,13 +329,13 @@
                     @if($type === 'php')
                         <h6>PHP Websites</h6>
                         <p class="small">For Laravel, set working directory to <code>/public</code>. For WordPress, use <code>/</code> (root).</p>
-                        
+
                         <h6 class="mt-3">PHP-FPM Pool</h6>
                         <p class="small">Each website gets its own PHP-FPM pool for better resource isolation and performance.</p>
                     @else
                         <h6>Node.js Applications</h6>
                         <p class="small">Nginx will act as a reverse proxy to your Node.js application running on the specified port.</p>
-                        
+
                         <h6 class="mt-3">PM2 Process Manager</h6>
                         <p class="small">Your Node.js app will be managed by PM2 for auto-restart, logging, and monitoring.</p>
                     @endif
@@ -373,14 +373,14 @@ $(function() {
         // Only auto-generate if user hasn't manually edited the root path
         if (!manuallyEdited || $rootPathInput.val() === '') {
             var domain = $(this).val().trim();
-            
+
             if (domain) {
                 // Remove www. prefix if exists
                 domain = domain.replace(/^www\./, '');
-                
+
                 // Replace dots with underscores
                 var path = domain.replace(/\./g, '_');
-                
+
                 // Generate full path
                 $rootPathInput.val('/var/www/' + path);
             } else {

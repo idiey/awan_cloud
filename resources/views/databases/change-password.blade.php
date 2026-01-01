@@ -23,7 +23,7 @@
             <form action="{{ route('databases.update-password', $database) }}" method="POST">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="card">
                     <div class="card-header">
                         <i class="bi bi-key me-2"></i> New Password
@@ -33,11 +33,11 @@
                             <label for="password" class="form-label">
                                 New Password <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="password" 
-                                class="form-control @error('password') is-invalid @enderror" 
-                                id="password" 
-                                name="password" 
+                            <input
+                                type="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                id="password"
+                                name="password"
                                 required
                                 minlength="8"
                                 placeholder="Enter new password"
@@ -52,11 +52,11 @@
                             <label for="password_confirmation" class="form-label">
                                 Confirm New Password <span class="text-danger">*</span>
                             </label>
-                            <input 
-                                type="password" 
-                                class="form-control" 
-                                id="password_confirmation" 
-                                name="password_confirmation" 
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password_confirmation"
+                                name="password_confirmation"
                                 required
                                 minlength="8"
                                 placeholder="Confirm new password"
@@ -67,7 +67,7 @@
 
                 <div class="alert alert-warning">
                     <i class="bi bi-exclamation-triangle me-2"></i>
-                    <strong>Warning:</strong> Changing the password will affect all applications using this database. 
+                    <strong>Warning:</strong> Changing the password will affect all applications using this database.
                     Make sure to update the password in all application configurations.
                 </div>
 
@@ -90,7 +90,7 @@
                 <div class="card-body">
                     <h6>Password Security</h6>
                     <p class="small">Use a strong, unique password. Combine uppercase, lowercase, numbers, and special characters.</p>
-                    
+
                     <h6 class="mt-3">Update Applications</h6>
                     <p class="small">After changing the password, update all applications that use this database:</p>
                     <ul class="small">

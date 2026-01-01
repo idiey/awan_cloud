@@ -115,11 +115,11 @@
                                         <i class="bi bi-play-circle"></i> Start
                                     </button>
                                 @endif
-                                
+
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="restartService('{{ $key }}', '{{ $service['name'] }}')">
                                     <i class="bi bi-arrow-clockwise"></i> Restart
                                 </button>
-                                
+
                                 @if($service['supports_reload'])
                                     <button type="button" class="btn btn-sm btn-outline-secondary" onclick="reloadService('{{ $key }}', '{{ $service['name'] }}')">
                                         <i class="bi bi-arrow-repeat"></i> Reload
@@ -145,48 +145,48 @@ const createForm = (action, service) => {
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = action;
-    
+
     const csrfInput = document.createElement('input');
     csrfInput.type = 'hidden';
     csrfInput.name = '_token';
     csrfInput.value = '{{ csrf_token() }}';
-    
+
     const serviceInput = document.createElement('input');
     serviceInput.type = 'hidden';
     serviceInput.name = 'service';
     serviceInput.value = service;
-    
+
     form.appendChild(csrfInput);
     form.appendChild(serviceInput);
     document.body.appendChild(form);
-    
+
     return form;
 };
 
 async function startService(service, name) {
     if (!confirm(`Start ${name}?`)) return;
-    
+
     const form = createForm('{{ route("services.start") }}', service);
     form.submit();
 }
 
 async function stopService(service, name) {
     if (!confirm(`Stop ${name}? This may affect running applications.`)) return;
-    
+
     const form = createForm('{{ route("services.stop") }}', service);
     form.submit();
 }
 
 async function restartService(service, name) {
     if (!confirm(`Restart ${name}?`)) return;
-    
+
     const form = createForm('{{ route("services.restart") }}', service);
     form.submit();
 }
 
 async function reloadService(service, name) {
     if (!confirm(`Reload ${name} configuration?`)) return;
-    
+
     const form = createForm('{{ route("services.reload") }}', service);
     form.submit();
 }

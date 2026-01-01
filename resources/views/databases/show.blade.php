@@ -18,32 +18,32 @@
                 <div class="card-body">
                     <h5 class="card-title mb-3"><i class="bi bi-database"></i> Database Information</h5>
                     <hr class="mt-0 mb-3">
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-4">Host</div>
                         <div class="col-md-8">{{ $database->host }}</div>
                     </div>
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-4">Database Name</div>
                         <div class="col-md-8">{{ $database->name }}</div>
                     </div>
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-4">Username</div>
                         <div class="col-md-8">{{ $database->username }}</div>
                     </div>
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-4">Description</div>
                         <div class="col-md-8">{{ $database->description ?? 'No description provided' }}</div>
                     </div>
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-4">Created</div>
                         <div class="col-md-8">{{ $database->created_at->format('d M Y, h:i A') }}</div>
                     </div>
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-4">Last Updated</div>
                         <div class="col-md-8">{{ $database->updated_at->format('d M Y, h:i A') }}</div>
@@ -59,10 +59,10 @@
                     <div class="mb-3">
                         <label class="form-label text-muted small">Connection String (Laravel .env format)</label>
                         <div class="input-group">
-                            <input 
-                                type="text" 
-                                class="form-control form-control-sm font-monospace bg-light" 
-                                readonly 
+                            <input
+                                type="text"
+                                class="form-control form-control-sm font-monospace bg-light"
+                                readonly
                                 value="DB_CONNECTION=mysql&#10;DB_HOST={{ $database->host }}&#10;DB_PORT=3306&#10;DB_DATABASE={{ $database->name }}&#10;DB_USERNAME={{ $database->username }}&#10;DB_PASSWORD=your_password_here"
                                 id="connectionString"
                             >
@@ -75,10 +75,10 @@
                     <div class="mb-3">
                         <label class="form-label text-muted small">MySQL Command Line</label>
                         <div class="input-group">
-                            <input 
-                                type="text" 
-                                class="form-control form-control-sm font-monospace bg-light" 
-                                readonly 
+                            <input
+                                type="text"
+                                class="form-control form-control-sm font-monospace bg-light"
+                                readonly
                                 value="mysql -h {{ $database->host }} -u {{ $database->username }} -p {{ $database->name }}"
                                 id="mysqlCommand"
                             >
@@ -135,7 +135,7 @@
                         <span class="status-dot {{ $database->exists_in_mysql ? 'active' : 'inactive' }} ms-2"></span>
                     </h5>
                     <hr class="mt-0 mb-3">
-                    
+
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <span class="text-muted">Status</span>
@@ -148,7 +148,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     @if($database->exists_in_mysql)
                         <div class="row mb-2">
                             <div class="col-md-6">
@@ -166,9 +166,9 @@
                                 <strong>{{ $database->table_count }}</strong>
                             </div>
                         </div>
-                        
+
                         <hr class="my-3">
-                        
+
                         <!-- Status Legend -->
                         <div class="small text-muted">
                             <i class="bi bi-info-circle me-2"></i><strong>Status Tips</strong>

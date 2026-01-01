@@ -98,27 +98,27 @@
                             <td>
                                 <div class="btn-group btn-group-sm">
                                     @if($item['type'] === 'file')
-                                        <a href="{{ route('files.edit', ['path' => $item['path']]) }}" 
+                                        <a href="{{ route('files.edit', ['path' => $item['path']]) }}"
                                            class="btn btn-outline-secondary" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a href="{{ route('files.download', ['path' => $item['path']]) }}" 
+                                        <a href="{{ route('files.download', ['path' => $item['path']]) }}"
                                            class="btn btn-outline-secondary" title="Download">
                                             <i class="bi bi-download"></i>
                                         </a>
                                     @endif
-                                    <button type="button" class="btn btn-outline-secondary" 
-                                            onclick="renameItem('{{ $item['path'] }}', '{{ $item['name'] }}')" 
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            onclick="renameItem('{{ $item['path'] }}', '{{ $item['name'] }}')"
                                             title="Rename">
                                         <i class="bi bi-input-cursor-text"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-secondary" 
-                                            onclick="chmodItem('{{ $item['path'] }}', '{{ substr($item['permissions'], 1) }}')" 
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            onclick="chmodItem('{{ $item['path'] }}', '{{ substr($item['permissions'], 1) }}')"
                                             title="Permissions">
                                         <i class="bi bi-shield-lock"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-secondary" 
-                                            onclick="deleteItem('{{ $item['path'] }}', '{{ $item['type'] }}')" 
+                                    <button type="button" class="btn btn-outline-secondary"
+                                            onclick="deleteItem('{{ $item['path'] }}', '{{ $item['type'] }}')"
                                             title="Delete">
                                         <i class="bi bi-trash text-danger"></i>
                                     </button>
@@ -291,11 +291,11 @@ function deleteItem(path, type) {
                 method: 'POST',
                 action: '{{ route('files.delete') }}'
             });
-            
+
             $form.append($('<input>', { type: 'hidden', name: '_token', value: '{{ csrf_token() }}' }));
             $form.append($('<input>', { type: 'hidden', name: 'path', value: path }));
             $form.append($('<input>', { type: 'hidden', name: 'recursive', value: type === 'directory' ? '1' : '0' }));
-            
+
             $('body').append($form);
             $form.submit();
         }
