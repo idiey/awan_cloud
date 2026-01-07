@@ -163,10 +163,13 @@ install_prerequisites() {
 # DEBIAN/UBUNTU Prerequisites
 #########################################################
 install_prerequisites_debian() {
+    # Set non-interactive mode to avoid prompts
+    export DEBIAN_FRONTEND=noninteractive
+    
     # Update system
     print_info "Updating system packages..."
     apt-get update -y > /dev/null 2>&1
-    apt-get upgrade -y > /dev/null 2>&1
+    apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" > /dev/null 2>&1
     print_success "System updated"
     
     # Install basic dependencies
