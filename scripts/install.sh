@@ -1620,6 +1620,44 @@ SSLEOF
 setup_repository() {
     print_header "Repository Setup"
     
+    # Check if local install mode
+    if [[ "${LOCAL_INSTALL:-false}" == "true" ]]; then
+        print_info "Running in LOCAL install mode"
+        
+        # Ask for installation path
+        read_input -p "Installation path (default: $DEFAULT_APP_DIR): " CUSTOM_PATH
+        APP_DIR=${CUSTOM_PATH:-$DEFAULT_APP_DIR}
+        
+        # Create parent directory
+        mkdir -p "$(dirname "$APP_DIR")"
+        
+        # Check if source and destination are the same
+        SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+        # Parent of scripts dir is app root
+        SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
+        
+        if [ "$SOURCE_DIR" == "$APP_DIR" ]; then
+            print_warning "Source and destination are the same. Skipping copy."
+            return 0
+        fi
+        
+        print_info "Copying files from CURRENT directory..."
+        print_info "Source: $SOURCE_DIR"
+        print_info "Destination: $APP_DIR"
+        
+        # Use rsync if available, else cp
+        if command -v rsync &> /dev/null; then
+            rsync -av --exclude='.git' --exclude='node_modules' --exclude='vendor' "$SOURCE_DIR/" "$APP_DIR/" > /dev/null 2>&1
+        else
+            cp -R "$SOURCE_DIR/"* "$APP_DIR/" 2>/dev/null || true
+            cp "$SOURCE_DIR/".env.example "$APP_DIR/" 2>/dev/null || true
+            cp "$SOURCE_DIR/".gitignore "$APP_DIR/" 2>/dev/null || true
+        fi
+        
+        print_success "Files copied successfully"
+        return 0
+    fi
+    
     # Check if already exists
     if [ -d "$DEFAULT_APP_DIR" ] && [ -f "$DEFAULT_APP_DIR/artisan" ]; then
         print_info "Hostiqo already exists at $DEFAULT_APP_DIR"
@@ -1733,6 +1771,10 @@ case "${1:-}" in
         check_root
         detect_os
         install_prerequisites
+        ;;
+    --local)
+        LOCAL_INSTALL="true"
+        main
         ;;
     --phase2|--sudoers)
         check_root
