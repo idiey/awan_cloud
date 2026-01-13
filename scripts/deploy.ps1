@@ -79,6 +79,36 @@ Write-Host ""
 $Confirm = Read-Host "Continue? (y/n)"
 if ($Confirm -ne "y") { exit 0 }
 
+# 3b. Hosts File Mapping (Optional)
+$MapDomain = Read-Host "Do you want to map a domain in your local hosts file? (y/n)"
+if ($MapDomain -eq "y") {
+    $Domain = Read-Host "Enter Domain Name (e.g. hostiqo.test)"
+    $HostsFile = "$env:SystemRoot\System32\drivers\etc\hosts"
+    
+    # Check Admin rights
+    $IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    
+    if (-not $IsAdmin) {
+        Write-Error "Administrator privileges required to modify hosts file."
+        Write-Host "Please restart this script as Administrator." -ForegroundColor Yellow
+        Start-Sleep -Seconds 2
+    } else {
+        try {
+            # Check if entry already exists to avoid duplicates
+            $Content = Get-Content $HostsFile -ErrorAction SilentlyContinue
+            if ($Content -match "$ServerIP\s+$Domain") {
+                Write-Info "Hosts entry already exists."
+            } else {
+                Write-Info "Adding '$Domain' to hosts file..."
+                Add-Content -Path $HostsFile -Value "`r`n$ServerIP`t$Domain" -Force
+                Write-Success "Added to hosts file."
+            }
+        } catch {
+            Write-Error "Failed to modify hosts file: $_"
+        }
+    }
+}
+
 # 4. Upload Files
 Write-Header "Step 1: Uploading Files"
 Write-Info "Uploading files via SCP. Please enter password if prompted..."

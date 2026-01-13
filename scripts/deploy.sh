@@ -53,6 +53,24 @@ echo ""
 read -p "Continue? (y/n): " CONFIRM
 if [[ "$CONFIRM" != "y" ]]; then exit 0; fi
 
+# Optional: Map Domain
+read -p "Do you want to map a domain in /etc/hosts? (y/n): " MAP_DOMAIN
+if [[ "$MAP_DOMAIN" == "y" ]]; then
+    read -p "Enter Domain Name: " DOMAIN
+    
+    if grep -q "$SERVER_IP.*$DOMAIN" /etc/hosts; then
+        print_info "Entry already exists in /etc/hosts."
+    else
+        print_info "Adding $DOMAIN to /etc/hosts (requires sudo)..."
+        echo "$SERVER_IP $DOMAIN" | sudo tee -a /etc/hosts > /dev/null
+        if [ $? -eq 0 ]; then
+            print_success "Added to /etc/hosts"
+        else
+            print_error "Failed to write to /etc/hosts"
+        fi
+    fi
+fi
+
 # 1. Prepare Remote Directory
 print_header "Step 1: Uploading Files"
 print_info "Creating remote directory..."
@@ -72,7 +90,7 @@ print_info "Uploading files..."
 
 if command -v rsync &> /dev/null; then
     # Use rsync for efficiency if available
-    rsync -av --exclude='.git' --exclude='node_modules' --exclude='vendor' "$PROJECT_ROOT/" "$USER@$SERVER_IP:$DEFAULT_REMOTE_PATH/"
+    rsync -av --exclude='.git' --exclude='node_modules' --exclude='vendor' --exclude='.env' "$PROJECT_ROOT/" "$USER@$SERVER_IP:$DEFAULT_REMOTE_PATH/"
 else
     # Fallback to SCP
     scp -r "$PROJECT_ROOT/"* "$USER@$SERVER_IP:$DEFAULT_REMOTE_PATH/"

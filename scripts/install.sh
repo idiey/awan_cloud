@@ -1647,11 +1647,15 @@ setup_repository() {
         
         # Use rsync if available, else cp
         if command -v rsync &> /dev/null; then
-            rsync -av --exclude='.git' --exclude='node_modules' --exclude='vendor' "$SOURCE_DIR/" "$APP_DIR/" > /dev/null 2>&1
+            rsync -av --exclude='.git' --exclude='node_modules' --exclude='vendor' --exclude='.env' "$SOURCE_DIR/" "$APP_DIR/" > /dev/null 2>&1
         else
-            cp -R "$SOURCE_DIR/"* "$APP_DIR/" 2>/dev/null || true
-            cp "$SOURCE_DIR/".env.example "$APP_DIR/" 2>/dev/null || true
-            cp "$SOURCE_DIR/".gitignore "$APP_DIR/" 2>/dev/null || true
+            # Copy everything except excluded items
+            # Find all files/dirs in source, exclude .git, .env, etc, and copy to dest
+            # Simple cp -R overwrites. We need to be careful.
+            # Best fallback: Copy all, then restore .env if it existed? No, risk of leak.
+            # Better: Copy individually or use tar exclusions?
+            # Easiest bash compliant way:
+            tar cf - -C "$SOURCE_DIR" --exclude='.git' --exclude='node_modules' --exclude='vendor' --exclude='.env' . | tar xf - -C "$APP_DIR"
         fi
         
         print_success "Files copied successfully"

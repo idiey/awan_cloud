@@ -39,11 +39,33 @@ Once the script connects to the server, it will verify prerequisites and launch 
 2.  **Database Setup**: `y` (Auto-creates user/password)
 3.  **Admin Account**: `y` (Create your login credentials)
 4.  **Web Server & SSL**:
-    -   Enter Domain: `example.com`
+    -   Enter Domain: `example.com` (or a fake domain like `my-panel.test`)
     -   Enable SSL: `y` (Auto-configures HTTPS)
+    *   **Note**: If using a **fake domain**, answer `n` for SSL. You will need to edit your local `hosts` file to access it.
 
 **Completion**:
 Once finished, access your dashboard at: `https://example.com`
+
+## Using a Fake Domain (Development)
+The deployment script (`deploy.ps1` or `deploy.sh`) will now **automatically ask** if you want to map a fake domain to your server's IP.
+
+If you choose `y`, it will add the entry to your `hosts` file for you.
+*   **Windows**: You must run the script as **Administrator**.
+*   **Linux/Mac**: You will be asked for your `sudo` password.
+
+**Manual Verification:**
+You can verify the entry was added by checking:
+*   **Windows**: `C:\Windows\System32\drivers\etc\hosts`
+*   **Linux**: `/etc/hosts`
+
+## Safe Updates
+You can **re-run the deployment script** at any time to update your application code.
+*   **Updates Code**: It checks for changes in your local files and uploads them.
+*   **Preserves Data**: It will **NOT** delete your database, uploads, or configuration (`.env`).
+*   **Zero Downtime**: The installer detects existing setups and only performs necessary updates.
+
+To update, simply run:
+`.\scripts\deploy.ps1` (Windows) or `./scripts\deploy.sh` (Linux)
 
 ## Troubleshooting
 
